@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace TurnBasedStrategyGame
 {
-    class ConfigurationProvider// : IConfigurationProvider
+    public class ConfigurationProvider : IConfigurationProvider
     {
-
+        public T GetValue<T>(string key)
+        {
+            return (T)Properties.Settings.Default[key];
+        }
     }
 }

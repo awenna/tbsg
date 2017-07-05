@@ -24,7 +24,7 @@ namespace TurnBasedStrategyGame
 
         public void Initialize()
         {
-            mMap.GenerateMap(1, 1);
+            mMap.GenerateMap(new Coords(1, 1));
         }
     }
 }

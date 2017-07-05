@@ -11,16 +11,52 @@ namespace TurnBasedStrategyGame
     [TestClass]
     public class MapTests
     {
-        [TestMethod]
-        public void GenerateMap_GeneratesMapOfGivenSize()
+        private readonly IMapGenerator mMapGenerator;
+        private readonly IConfigurationProvider mConfigurationProvider;
+        public MapTests()
         {
-            var map = new Map();
-            throw new NotImplementedException();/*
-            var xy = new XY(3, 5);
+            mMapGenerator = MockRepository.GenerateStub<IMapGenerator>();
+            mConfigurationProvider = new TestConfigurationProvider();
+        }
 
-            map.GenerateMap();
+        [TestMethod]
+        public void Constructor_SetsMapSizeToParameter()
+        {
+            var map = new Map(mMapGenerator, new Coords(3, 5));
 
-            Assert.Equals(map.Size, xy);*/
+            Assert.AreEqual(map.Dimensions, new Coords(3, 5));
+        }
+
+        [TestMethod]
+        public void TileAt_ReturnsValue()
+        {
+            var dimensions = new Coords(1, 1);
+            var tileArray = new[] { new[] { new Tile() } };
+
+            mMapGenerator.Stub(_ => _.GenerateMap(Arg<Coords>.Is.Anything))
+                .Return(tileArray);
+
+            var map = new Map(mMapGenerator, dimensions);
+
+            var tile = map.TileAt(new Coords(0, 0));
+
+            Assert.IsNotNull(tile);
+        }
+
+        [TestMethod]
+        public void TileAt_SizeOneXOne_ReturnsCorrectTile()
+        {
+            var tile = new Tile();
+            var tileArray = new[] { new[] { tile } };
+            var dimensions = new Coords(1, 1);
+
+            mMapGenerator.Stub(_ => _.GenerateMap(Arg<Coords>.Is.Anything))
+                .Return(tileArray);
+
+            var map = new Map(mMapGenerator, dimensions);
+
+            var result = map.TileAt(new Coords(0, 0));
+            Assert.AreEqual(tile, result);
         }
     }
 }

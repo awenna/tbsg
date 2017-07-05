@@ -34,8 +34,7 @@ namespace TurnBasedStrategyGame
             game.Initialize();
 
             mMap.AssertWasCalled(_ => _.GenerateMap(
-                Arg<int>.Is.Anything,
-                Arg<int>.Is.Anything));
+                Arg<Coords>.Is.Anything));
         }
     }
 }

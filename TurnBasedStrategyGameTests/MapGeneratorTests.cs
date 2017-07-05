@@ -9,16 +9,12 @@ using Rhino.Mocks;
 namespace TurnBasedStrategyGame
 {
     [TestClass]
-    public class ConfigurationProviderTests
+    public class MapGeneratorTests
     {
         [TestMethod]
-        public void GetValue_ReturnsCorrectValue()
+        public void MapGenerator_GeneratesMapOfGivenSize()
         {
-            var provider = new ConfigurationProvider();
-
-            var result = provider.GetValue<string>("TestKey");
-
-            Assert.AreEqual("True", result);
+            throw new NotImplementedException();
         }
     }
 }
