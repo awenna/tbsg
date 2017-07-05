@@ -29,7 +29,23 @@ namespace TurnBasedStrategyGame
 
         public ITile TileAt(Coords location)
         {
-            return mMapArray[location.x][location.y];
+            if (LocationIsWithinBounds(location))
+            {
+                return mMapArray[location.x][location.y];
+            }
+            return null;
+        }
+
+        public bool LocationIsWithinBounds(Coords location)
+        {
+            if(location.x < 0 ||
+                location.y < 0 ||
+                location.x > Dimensions.x ||
+                location.y > Dimensions.y)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

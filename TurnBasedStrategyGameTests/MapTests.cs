@@ -58,5 +58,26 @@ namespace TurnBasedStrategyGame
             var result = map.TileAt(new Coords(0, 0));
             Assert.AreEqual(tile, result);
         }
+
+        [TestMethod]
+        public void TileAt_OutsideBounds_ReturnsNull()
+        {
+            var tileArray = new[] { new[] { new Tile() } };
+
+            mMapGenerator.Stub(_ => _.GenerateMap(Arg<Coords>.Is.Anything))
+                .Return(tileArray);
+
+            var map = new Map(mMapGenerator, new Coords(1, 1));
+
+            var resultLeft = map.TileAt(new Coords(-1, 0));
+            var resultRight = map.TileAt(new Coords(0, 2));
+            var resultUp = map.TileAt(new Coords(0, -1));
+            var resultDown = map.TileAt(new Coords(0, 2));
+
+            Assert.IsNull(resultLeft);
+            Assert.IsNull(resultRight);
+            Assert.IsNull(resultUp);
+            Assert.IsNull(resultDown);
+        }
     }
 }
