@@ -31,5 +31,14 @@ namespace TurnBasedStrategyGame.Properties {
                 return ((string)(this["TestKey"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("64")]
+        public int CameraScaleDefault {
+            get {
+                return ((int)(this["CameraScaleDefault"]));
+            }
+        }
     }
 }

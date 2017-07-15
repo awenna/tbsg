@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace TurnBasedStrategyGame
 {
-    public interface IMapGenerator
+    public interface ICamera
     {
-        ITile[][] GenerateMap(Coordinate dimensions);
+        WorldCoordinate GetLocation();
+        Coordinate GetHexesInView();
     }
 }

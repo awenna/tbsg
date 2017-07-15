@@ -3,89 +3,92 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using Rhino.Mocks;
 
 namespace TurnBasedStrategyGame
 {
-    [TestClass]
-    public class CoordTests
+    public class CoordinateTests
     {
-        [TestMethod]
+        [Fact]
         public void Constructor_Coords_HoldsConstructorValues()
         {
-            var coord = new Coords(3, 5);
+            var coord = new Coordinate(3, 5);
 
-            Assert.AreEqual(coord.x, 3);
-            Assert.AreEqual(coord.y, 5);
+            Assert.Equal(coord.x, 3);
+            Assert.Equal(coord.y, 5);
         }
 
         #region Operators
 
-        [TestMethod]
+        [Fact]
         public void Coords_SupportsAddition()
         {
-            var first = new Coords(1, 2);
-            var second = new Coords(2, 5);
+            var first = new Coordinate(1, 2);
+            var second = new Coordinate(2, 5);
 
             var result = first + second;
 
-            var expected = new Coords(3, 7);
+            var expected = new Coordinate(3, 7);
 
-            Assert.AreEqual(result, expected);
+            Assert.Equal(result, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Coords_SupportsSubstraction()
         {
-            var first = new Coords(1, 2);
-            var second = new Coords(2, 5);
+            var first = new Coordinate(1, 2);
+            var second = new Coordinate(2, 5);
 
             var result = first - second;
 
-            var expected = new Coords(-1, -3);
+            var expected = new Coordinate(-1, -3);
 
-            Assert.AreEqual(result, expected);
+            Assert.Equal(result, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Coords_SupportsMultiplication()
         {
-            var first = new Coords(1, 2);
-            var second = new Coords(2, 5);
+            var first = new Coordinate(1, 2);
+            var second = new Coordinate(2, 5);
 
             var result = first * second;
 
-            var expected = new Coords(2, 10);
+            var expected = new Coordinate(2, 10);
 
-            Assert.AreEqual(result, expected);
+            Assert.Equal(result, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Coords_SimpleDivision_SupportsDivision()
         {
-            var first = new Coords(10, 20);
-            var second = new Coords(2, 5);
+            var first = new Coordinate(10, 20);
+            var second = new Coordinate(2, 5);
 
             var result = first / second;
 
-            var expected = new Coords(5, 4);
+            var expected = new Coordinate(5, 4);
 
-            Assert.AreEqual(result, expected);
+            Assert.Equal(result, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Coords_HasRemainer_SupportsDivision()
         {
-            var first = new Coords(1, 22);
-            var second = new Coords(3, 5);
+            var first = new Coordinate(1, 22);
+            var second = new Coordinate(3, 5);
 
             var result = first / second;
 
-            var expected = new Coords(0, 4);
+            var expected = new Coordinate(0, 4);
 
-            Assert.AreEqual(result, expected);
+            Assert.Equal(result, expected);
         }
+
+        #endregion
+
+        #region Derivatives
 
         #endregion
     }

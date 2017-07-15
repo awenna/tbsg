@@ -2,6 +2,6 @@
 {
     public interface IMap
     {
-        void GenerateMap(Coords dimensions);
+        void GenerateMap(Coordinate dimensions);
     }
 }

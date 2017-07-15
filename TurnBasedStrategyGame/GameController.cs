@@ -8,23 +8,20 @@ namespace TurnBasedStrategyGame
 {
     public class GameController
     {
-        private readonly IGui mGui;
         private readonly IMap mMap;
         private readonly IPlayer mPlayer;
 
         public GameController(
-            IGui gui,
             IMap map,
             IPlayer player)
         {
-            mGui = gui;
             mMap = map;
             mPlayer = player;
         }
 
         public void Initialize()
         {
-            mMap.GenerateMap(new Coords(1, 1));
+            mMap.GenerateMap(new Coordinate(1, 1));
         }
     }
 }

@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TurnBasedStrategyGame
 {
-    public class Coords
+    public class Coordinate : IEquatable<Coordinate>
     {
         public int x { get; }
         public int y { get; }
 
-        public Coords(int pX, int pY)
+        public Coordinate(int pX, int pY)
         {
             x = pX;
             y = pY;
+        }
+
+        public Point Point()
+        {
+            return new Point(x, y);
         }
 
         #region Overrides
@@ -26,7 +32,7 @@ namespace TurnBasedStrategyGame
                 return false;
             }
 
-            Coords p = obj as Coords;
+            Coordinate p = obj as Coordinate;
             if (p == null)
             {
                 return false;
@@ -49,7 +55,7 @@ namespace TurnBasedStrategyGame
 
         #region Overloads
 
-        public bool Equals(Coords p)
+        public bool Equals(Coordinate p)
         {
             if (p == null)
             {
@@ -59,24 +65,24 @@ namespace TurnBasedStrategyGame
             return (x == p.x) && (y == p.y);
         }
 
-        public static Coords operator +(Coords c1, Coords c2)
+        public static Coordinate operator +(Coordinate c1, Coordinate c2)
         {
-            return new Coords(c1.x + c2.x, c1.y + c2.y);
+            return new Coordinate(c1.x + c2.x, c1.y + c2.y);
         }
 
-        public static Coords operator -(Coords c1, Coords c2)
+        public static Coordinate operator -(Coordinate c1, Coordinate c2)
         {
-            return new Coords(c1.x - c2.x, c1.y - c2.y);
+            return new Coordinate(c1.x - c2.x, c1.y - c2.y);
         }
 
-        public static Coords operator *(Coords c1, Coords c2)
+        public static Coordinate operator *(Coordinate c1, Coordinate c2)
         {
-            return new Coords(c1.x * c2.x, c1.y * c2.y);
+            return new Coordinate(c1.x * c2.x, c1.y * c2.y);
         }
 
-        public static Coords operator /(Coords c1, Coords c2)
+        public static Coordinate operator /(Coordinate c1, Coordinate c2)
         {
-            return new Coords(c1.x / c2.x, c1.y / c2.y);
+            return new Coordinate(c1.x / c2.x, c1.y / c2.y);
         }
 
         #endregion

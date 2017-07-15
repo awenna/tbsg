@@ -3,18 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using Rhino.Mocks;
 
 namespace TurnBasedStrategyGame
 {
-    [TestClass]
     public class MapGeneratorTests
     {
-        [TestMethod]
+        [Fact]
         public void MapGenerator_GeneratesMapOfGivenSize()
         {
-            throw new NotImplementedException();
+            var generator = new MapGenerator();
+
+            var result = generator.GenerateMap(new Coordinate(3, 7));
+
+            Assert.Equal(3, result.Count());
+            Assert.Equal(7, result.First().Count());
+        }
+
+        [Fact]
+        public void MapGenerator_NoNullsAfterGeneration()
+        {
+            var generator = new MapGenerator();
+
+            var result = generator.GenerateMap(new Coordinate(2, 3));
+
+            Assert.True(result.All(_ => _.All(u => u != null)));
         }
     }
 }

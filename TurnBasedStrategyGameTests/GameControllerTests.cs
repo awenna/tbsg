@@ -1,40 +1,37 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using Rhino.Mocks;
 
 namespace TurnBasedStrategyGame
 {
-    [TestClass]
     public class GameControllerTests
     {
-        private readonly IGui mGui;
         private readonly IMap mMap;
         private readonly IPlayer mPlayer;
         private readonly IConfigurationProvider mConfigurationProvider;
 
         public GameControllerTests()
         {
-            mGui = MockRepository.GenerateStub<IGui>();
             mMap = MockRepository.GenerateStub<IMap>();
             mPlayer = MockRepository.GenerateStub<IPlayer>();
             mConfigurationProvider = MockRepository.GenerateStub<IConfigurationProvider>();
         }
 
-        [TestMethod]
+        [Fact]
         public void Constructor_RequiresMap()
         {
-            var game = new GameController(mGui, mMap, mPlayer);
+            var game = new GameController(mMap, mPlayer);
         }
 
-        [TestMethod]
+        [Fact]
         public void Initialize_CallsMapGeneration()
         {
-            var game = new GameController(mGui, mMap, mPlayer);
+            var game = new GameController(mMap, mPlayer);
 
             game.Initialize();
 
             mMap.AssertWasCalled(_ => _.GenerateMap(
-                Arg<Coords>.Is.Anything));
+                Arg<Coordinate>.Is.Anything));
         }
     }
 }

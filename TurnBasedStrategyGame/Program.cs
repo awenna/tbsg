@@ -13,7 +13,16 @@ namespace TurnBasedStrategyGame
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            var configProvider = new ConfigurationProvider();
+
+            var algorithms = new Algorithms();
+            var renderer = new Renderer(algorithms);
+            var camera = new Camera(algorithms, configProvider);
+
+            var gameWindowForm = new GameWindowForm(renderer, camera);
+
+            Application.Run(gameWindowForm);
         }
     }
 }

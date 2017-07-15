@@ -12,9 +12,9 @@ namespace TurnBasedStrategyGame
 
         private ITile[][] mMapArray;
 
-        public Coords Dimensions { get; set; }
+        public Coordinate Dimensions { get; set; }
 
-        public Map(IMapGenerator mapGenerator, Coords dimensions)
+        public Map(IMapGenerator mapGenerator, Coordinate dimensions)
         {
             mMapGenerator = mapGenerator;
             Dimensions = dimensions;
@@ -22,12 +22,12 @@ namespace TurnBasedStrategyGame
             mMapArray = mMapGenerator.GenerateMap(dimensions);
         }
 
-        public void GenerateMap(Coords dimensions)
+        public void GenerateMap(Coordinate dimensions)
         {
             Dimensions = dimensions;
         }
 
-        public ITile TileAt(Coords location)
+        public ITile TileAt(HexCoordinate location)
         {
             if (LocationIsWithinBounds(location))
             {
@@ -36,7 +36,7 @@ namespace TurnBasedStrategyGame
             return null;
         }
 
-        public bool LocationIsWithinBounds(Coords location)
+        public bool LocationIsWithinBounds(HexCoordinate location)
         {
             if(location.x < 0 ||
                 location.y < 0 ||

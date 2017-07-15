@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TurnBasedStrategyGame
+namespace TurnBasedStrategyGameTests
 {
-    public interface IMapGenerator
+    class GameFormTests
     {
-        ITile[][] GenerateMap(Coordinate dimensions);
     }
 }

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TurnBasedStrategyGame
 {
-    public interface IMapGenerator
+    public interface IGraphics
     {
-        ITile[][] GenerateMap(Coordinate dimensions);
+        void DrawPolygon(Pen pen, Point[] points);
+        void FillPolygon(Brush brush, Point[] points);
     }
 }
