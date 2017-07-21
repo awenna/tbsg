@@ -22,13 +22,13 @@ namespace TBSG
 
             if (coords.y % 2 == 0)
             {
-                x = (int)(cpl * (2 * coords.x + 1));
+                x = (int)Math.Round((cpl * (2 * coords.x + 1)));
                 y = (int)(3 * coords.y * scale / 2);
             }
             else
             {
-                x = (int)(2 * cpl * (coords.x + 1));
-                y = (int)(spl + scale + 3 * (coords.y - 1) * scale / 2);
+                x = (int)Math.Round((2 * cpl * (coords.x + 1)));
+                y = (int)Math.Round((spl + scale + 3 * (coords.y - 1) * scale / 2));
             }
 
             return new WorldCoordinate(x, y);
@@ -111,6 +111,14 @@ namespace TBSG
             points[4] = new Point((int)Math.Round(xy.x + cpl), (int)Math.Round(xy.y + spl + scale));
             points[5] = new Point((int)Math.Round(xy.x + cpl), (int)Math.Round(xy.y + spl));
 
+            /*
+                        points[0] = xy.Point();
+                        points[1] = new Point((int)Math.Round(xy.x - cpl), (int)Math.Round(xy.y + spl));
+                        points[2] = new Point((int)Math.Round(xy.x - cpl), (int)Math.Round(xy.y + spl + scale));
+                        points[3] = new Point(xy.x, xy.y + 2 * scale);
+                        points[4] = new Point((int)Math.Round(xy.x + cpl), (int)Math.Round(xy.y + spl + scale));
+                        points[5] = new Point((int)Math.Round(xy.x + cpl), (int)Math.Round(xy.y + spl));
+                        */
             return new Hexagon(points);
         }
     }

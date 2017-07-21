@@ -45,6 +45,8 @@ namespace TBSG
         {
             Graphics g = e.Graphics;
 
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
             var gw = new GraphicsWrapper(g);
 
             mRenderer.DrawGrid(gw, mCamera);
