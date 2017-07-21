@@ -1,4 +1,6 @@
-﻿namespace TBSG
+﻿using TBSG.Data;
+
+namespace TBSG
 {
     public interface IMap
     {

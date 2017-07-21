@@ -67,7 +67,7 @@
     <Compile Include="Algorithms.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="ConfigurationProvider.cs" />
-    <Compile Include="Coordinate.cs" />
+    <Compile Include="Data\Coordinate.cs" />
     <Compile Include="FieldPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -80,7 +80,7 @@
     <Compile Include="GameController.cs" />
     <Compile Include="GraphicsAdapter.cs" />
     <Compile Include="Data\Hexagon.cs" />
-    <Compile Include="SubCoordinate.cs" />
+    <Compile Include="Data\SubCoordinate.cs" />
     <Compile Include="IAlgorithms.cs" />
     <Compile Include="ICamera.cs" />
     <Compile Include="IConfigurationProvider.cs" />
@@ -95,7 +95,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />
-    <Compile Include="Tile.cs" />
+    <Compile Include="Data\Tile.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
