@@ -28,7 +28,7 @@ namespace TBSG
             var renderer = new Renderer(algorithms, map);
             var camera = new Camera(algorithms, configProvider);
 
-            var gameWindowForm = new GameWindowForm(renderer, camera);
+            var gameWindowForm = new GameWindowForm(renderer, camera, configProvider);
 
             Application.Run(gameWindowForm);
         }

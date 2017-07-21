@@ -14,5 +14,17 @@
     <Setting Name="MapSizeYDefault" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">16</Value>
     </Setting>
+    <Setting Name="WindowSizeX" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">800</Value>
+    </Setting>
+    <Setting Name="WindowSizeY" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">600</Value>
+    </Setting>
+    <Setting Name="FieldPanelSizeX" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">680</Value>
+    </Setting>
+    <Setting Name="FieldPanelSizeY" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">480</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -15,15 +15,20 @@ namespace TBSG
     {
         private readonly IRenderer mRenderer;
         private readonly ICamera mCamera;
+        private readonly IConfigurationProvider mConfigurationProvider;
 
-        public GameWindowForm(IRenderer renderer, ICamera camera)
+        public GameWindowForm(
+            IRenderer renderer,
+            ICamera camera,
+            IConfigurationProvider configProvider)
         {
             mRenderer = renderer;
             mCamera = camera;
+            mConfigurationProvider = configProvider;
 
             InitializeComponent();
 
-            mCamera.SetSize(panel2.Size);
+            mCamera.SetSize(fieldPanel.Size);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -33,44 +38,18 @@ namespace TBSG
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            panel2.Invalidate();
-        }
-
-        private void DrawIt()
-        {
-            System.Drawing.Graphics graphics = this.CreateGraphics();
-            System.Drawing.Rectangle rectangle = new System.Drawing.Rectangle(
-                50, 100, 150, 150);
-            graphics.DrawEllipse(System.Drawing.Pens.Black, rectangle);
-            graphics.DrawRectangle(System.Drawing.Pens.Red, rectangle);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            DrawIt();
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            var rekt = e.ClipRectangle;
-            rekt.Inflate(-1, -1);
-            g.DrawRectangle(Pens.Black, rekt);
-            g.DrawRectangle(Pens.Green, new Rectangle(50, 50, 50, 50));
+            fieldPanel.Invalidate();
         }
 
         private void field_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            var rekt = e.ClipRectangle;
-            rekt.Inflate(-1, -1);
-            g.DrawRectangle(Pens.Black, rekt);
 
             var gw = new GraphicsWrapper(g);
 
             mRenderer.DrawGrid(gw, mCamera);
 
-            var mouseLoc = panel2.PointToClient(Cursor.Position);
+            var mouseLoc = fieldPanel.PointToClient(Cursor.Position);
 
             var algs = new Algorithms();
             var tile = algs.WorldToHex(new WorldCoordinate(mouseLoc.X, mouseLoc.Y), 32);
