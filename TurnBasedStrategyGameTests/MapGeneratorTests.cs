@@ -12,7 +12,7 @@ namespace TBSG
     public class MapGeneratorTests
     {
         [Fact]
-        public void MapGenerator_GeneratesMapOfGivenSize()
+        public void GenerateMap_GeneratesMapOfGivenSize()
         {
             var generator = new MapGenerator();
 
@@ -23,7 +23,7 @@ namespace TBSG
         }
 
         [Fact]
-        public void MapGenerator_NoNullsAfterGeneration()
+        public void GenerateMap_NoNullsAfterGeneration()
         {
             var generator = new MapGenerator();
 
@@ -31,5 +31,8 @@ namespace TBSG
 
             Assert.True(result.All(_ => _.All(u => u != null)));
         }
+
+        [Fact]
+        public void GenerateMap_
     }
 }
