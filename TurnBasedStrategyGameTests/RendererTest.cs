@@ -25,6 +25,8 @@ namespace TBSG
             mMap = MockRepository.GenerateStub<IMap>();
         }
 
+        #region DrawGrid
+
         [Fact]
         public void DrawGrid_RequestsCalculationForEachTile()
         {
@@ -110,6 +112,8 @@ namespace TBSG
 
             Assert.Equal(1, drawPolyCalls.Count);
         }
+
+        #endregion
 
         #region Helpers
 
