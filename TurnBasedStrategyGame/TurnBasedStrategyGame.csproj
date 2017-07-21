@@ -89,7 +89,7 @@
     <Compile Include="IMapGenerator.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IRenderer.cs" />
-    <Compile Include="ITile.cs" />
+    <Compile Include="Data\ITile.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapGenerator.cs" />
     <Compile Include="Program.cs" />
