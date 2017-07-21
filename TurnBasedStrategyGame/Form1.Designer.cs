@@ -1,4 +1,4 @@
-﻿namespace TurnBasedStrategyGame
+﻿namespace TBSG
 {
     partial class GameWindowForm
     {

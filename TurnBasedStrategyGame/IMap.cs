@@ -1,4 +1,4 @@
-﻿namespace TurnBasedStrategyGame
+﻿namespace TBSG
 {
     public interface IMap
     {

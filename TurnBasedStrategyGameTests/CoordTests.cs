@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Rhino.Mocks;
 
-namespace TurnBasedStrategyGame
+namespace TBSG
 {
     public class CoordinateTests
     {

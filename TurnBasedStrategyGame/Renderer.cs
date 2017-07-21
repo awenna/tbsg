@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace TurnBasedStrategyGame
+namespace TBSG
 {
     public class Renderer : IRenderer
     {

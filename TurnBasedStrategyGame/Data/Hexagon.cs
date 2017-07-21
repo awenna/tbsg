@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace TurnBasedStrategyGame.Data
+namespace TBSG.Data
 {
     public class Hexagon : IEquatable<Hexagon>
     {

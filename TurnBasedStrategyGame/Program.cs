@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace TurnBasedStrategyGame
+namespace TBSG
 {
     static class Program
     {

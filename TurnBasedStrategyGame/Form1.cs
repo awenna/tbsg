@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TurnBasedStrategyGame
+namespace TBSG
 {
     public partial class GameWindowForm : Form
     {

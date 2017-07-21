@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using TurnBasedStrategyGame.Data;
+using TBSG.Data;
 
-namespace TurnBasedStrategyGame
+namespace TBSG
 {
     public class Algorithms : IAlgorithms
     {

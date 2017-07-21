@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace TurnBasedStrategyGame
+namespace TBSG
 {
     public class Camera : ICamera
     {

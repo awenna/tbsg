@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Drawing;
 using Xunit;
 using Rhino.Mocks;
-using TurnBasedStrategyGame.Data;
+using TBSG.Data;
 
-namespace TurnBasedStrategyGame
+namespace TBSG
 {
     public class RendererTest
     {
