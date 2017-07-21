@@ -25,6 +25,8 @@ namespace TBSG
         [Fact]
         public void InitializeComponent_GetsWindowSizeFromSettings()
         {
+            mConfigProvider.SetValue(0, "FieldPanelSizeX");
+            mConfigProvider.SetValue(0, "FieldPanelSizeY");
             mConfigProvider.SetValue(654, "WindowSizeX");
             mConfigProvider.SetValue(456, "WindowSizeY");
 
