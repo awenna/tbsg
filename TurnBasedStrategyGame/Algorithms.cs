@@ -111,14 +111,6 @@ namespace TBSG
             points[4] = new Point((int)Math.Round(xy.x + cpl), (int)Math.Round(xy.y + spl + scale));
             points[5] = new Point((int)Math.Round(xy.x + cpl), (int)Math.Round(xy.y + spl));
 
-            /*
-                        points[0] = xy.Point();
-                        points[1] = new Point((int)Math.Round(xy.x - cpl), (int)Math.Round(xy.y + spl));
-                        points[2] = new Point((int)Math.Round(xy.x - cpl), (int)Math.Round(xy.y + spl + scale));
-                        points[3] = new Point(xy.x, xy.y + 2 * scale);
-                        points[4] = new Point((int)Math.Round(xy.x + cpl), (int)Math.Round(xy.y + spl + scale));
-                        points[5] = new Point((int)Math.Round(xy.x + cpl), (int)Math.Round(xy.y + spl));
-                        */
             return new Hexagon(points);
         }
     }
