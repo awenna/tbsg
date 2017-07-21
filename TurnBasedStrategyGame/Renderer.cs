@@ -40,7 +40,6 @@ namespace TBSG
                         var screenCoordinate = mAlgorithms.WorldToScreen(hexLocation, cameraLocation);
                         var hexagon = mAlgorithms.GetHexagon(screenCoordinate, scale);
 
-                        g.FillPolygon(Brushes.Black, hexagon.Points);
                         g.DrawPolygon(Pens.Green, hexagon.Points);
                     }
                 }

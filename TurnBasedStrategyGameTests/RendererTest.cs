@@ -41,12 +41,9 @@ namespace TBSG
 
             renderer.DrawGrid(mGraphics, mCamera);
 
-            var fillPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
-                _ => _.FillPolygon(Arg<Brush>.Is.Anything, Arg<Point[]>.Is.Anything));
             var drawPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
                 _ => _.DrawPolygon(Arg<Pen>.Is.Anything, Arg<Point[]>.Is.Anything));
 
-            Assert.Equal(48, fillPolyCalls.Count);
             Assert.Equal(48, drawPolyCalls.Count);
         }
 
@@ -108,12 +105,9 @@ namespace TBSG
 
             renderer.DrawGrid(mGraphics, mCamera);
 
-            var fillPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
-                _ => _.FillPolygon(Arg<Brush>.Is.Anything, Arg<Point[]>.Is.Anything));
             var drawPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
                 _ => _.DrawPolygon(Arg<Pen>.Is.Anything, Arg<Point[]>.Is.Anything));
 
-            Assert.Equal(1, fillPolyCalls.Count);
             Assert.Equal(1, drawPolyCalls.Count);
         }
 
