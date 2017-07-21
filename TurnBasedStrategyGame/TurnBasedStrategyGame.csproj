@@ -79,7 +79,7 @@
     </Compile>
     <Compile Include="GameController.cs" />
     <Compile Include="GraphicsAdapter.cs" />
-    <Compile Include="Hexagon.cs" />
+    <Compile Include="Data\Hexagon.cs" />
     <Compile Include="SubCoordinate.cs" />
     <Compile Include="IAlgorithms.cs" />
     <Compile Include="ICamera.cs" />

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using Xunit;
 using Rhino.Mocks;
+using TurnBasedStrategyGame.Data;
 
 namespace TurnBasedStrategyGame
 {
