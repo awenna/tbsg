@@ -68,6 +68,9 @@
     <Compile Include="Camera.cs" />
     <Compile Include="ConfigurationProvider.cs" />
     <Compile Include="Coordinate.cs" />
+    <Compile Include="FieldPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

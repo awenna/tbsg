@@ -12,6 +12,7 @@ namespace TurnBasedStrategyGame
     {
         private readonly IMapGenerator mMapGenerator;
         private readonly IConfigurationProvider mConfigurationProvider;
+
         public MapTests()
         {
             mMapGenerator = MockRepository.GenerateStub<IMapGenerator>();
@@ -77,6 +78,23 @@ namespace TurnBasedStrategyGame
             Assert.Null(resultRight);
             Assert.Null(resultUp);
             Assert.Null(resultDown);
+        }
+
+        [Fact]
+        public void LocationIsWithinBounds_ReturnsCorrectInEdgeCases()
+        {
+            var tileArray = new[] { new[] { new Tile() } };
+
+            mMapGenerator.Stub(_ => _.GenerateMap(Arg<Coordinate>.Is.Anything))
+                .Return(tileArray);
+
+            var map = new Map(mMapGenerator, new Coordinate(1, 1));
+
+            var resultRight = map.LocationIsWithinBounds(new HexCoordinate(1, 0));
+            var resultDown = map.LocationIsWithinBounds(new HexCoordinate(0, 1));
+
+            Assert.False(resultRight);
+            Assert.False(resultDown);
         }
     }
 }

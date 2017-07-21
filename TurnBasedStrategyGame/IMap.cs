@@ -2,6 +2,7 @@
 {
     public interface IMap
     {
-        void GenerateMap(Coordinate dimensions);
+        ITile TileAt(HexCoordinate location);
+        bool LocationIsWithinBounds(HexCoordinate location);
     }
 }

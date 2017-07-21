@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TurnBasedStrategyGame
 {
     public class Camera : ICamera
     {
         private WorldCoordinate mLocation;
+        private ScreenCoordinate mViewSize;
         private int mScale;
 
         private readonly IAlgorithms mAlgorithms;
         private readonly IConfigurationProvider mConfigProvider;
-        
+
+
         public Camera(IAlgorithms algorithms, IConfigurationProvider configProvider)
         {
             mAlgorithms = algorithms;
@@ -28,12 +31,14 @@ namespace TurnBasedStrategyGame
             mLocation = mLocation + amount;
         }
 
-        public Coordinate GetHexesInView()
+        public Tuple<HexCoordinate, HexCoordinate> GetHexesInView()
         {
             var start = mAlgorithms.GetWorldToGridCoordinate(mLocation, mScale);
-            var end = mAlgorithms.GetWorldToGridCoordinate(mLocation, mScale);
 
-            throw new NotImplementedException();
+            var size = mAlgorithms.GetScreenToWorldCoordinate(mViewSize, mLocation);
+            var end = mAlgorithms.GetWorldToGridCoordinate(size, mScale);
+
+            return Tuple.Create(start, end);
         }
 
         #region Getters
@@ -43,6 +48,26 @@ namespace TurnBasedStrategyGame
             return mLocation;
         }
 
+        public int GetScale()
+        {
+            return mScale;
+        }
+
         #endregion
+
+        #region Setters
+
+        public void SetSize(ScreenCoordinate size)
+        {
+            mViewSize = size;
+        }
+
+        public void SetSize(Size size)
+        {
+            mViewSize = new ScreenCoordinate(size.Width, size.Height);
+        }
+
+        #endregion
+
     }
 }

@@ -11,10 +11,12 @@ namespace TurnBasedStrategyGame
     public class Renderer : IRenderer
     {
         private readonly IAlgorithms mAlgorithms;
+        private readonly IMap mMap;
 
-        public Renderer(IAlgorithms algorithms)
+        public Renderer(IAlgorithms algorithms, IMap map)
         {
             mAlgorithms = algorithms;
+            mMap = map;
         }
 
         public void DrawGrid(IGraphics g, ICamera camera)
@@ -22,16 +24,25 @@ namespace TurnBasedStrategyGame
             var cameraLocation = camera.GetLocation();
             var viewSize = camera.GetHexesInView();
 
+            var viewStart = viewSize.Item1;
+            var viewEnd = viewSize.Item2;
 
-            for (int x = 0; x < viewSize.x; x++)
+            var scale = camera.GetScale();
+
+            for (int x = viewStart.x -1 ; x <= viewEnd.x + 1; x++)
             {
-                for (int y = 0; y < viewSize.y; y++)
+                for (int y = viewStart.y -1 ; y <= viewEnd.y + 1; y++)
                 {
-                    var hexLocation = mAlgorithms.GetGridToWorldCoordinate(new HexCoordinate(x, y), 32);
-                    var hexagon = mAlgorithms.GetHexagon(hexLocation, 32);
-                    
-                    g.FillPolygon(Brushes.Black, hexagon.Points);
-                    g.DrawPolygon(Pens.Green, hexagon.Points);
+                    var tile = mMap.TileAt(new HexCoordinate(x, y));
+                    if (tile != null)
+                    {
+                        var hexLocation = mAlgorithms.GetGridToWorldCoordinate(new HexCoordinate(x, y), scale);
+                        var screenCoordinate = mAlgorithms.GetWorldToScreenCoordinate(hexLocation, cameraLocation);
+                        var hexagon = mAlgorithms.GetHexagon(screenCoordinate, scale);
+
+                        g.FillPolygon(Brushes.Black, hexagon.Points);
+                        g.DrawPolygon(Pens.Green, hexagon.Points);
+                    }
                 }
             }
         }

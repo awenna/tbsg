@@ -17,7 +17,14 @@ namespace TurnBasedStrategyGame
             var configProvider = new ConfigurationProvider();
 
             var algorithms = new Algorithms();
-            var renderer = new Renderer(algorithms);
+            var mapGenerator = new MapGenerator();
+
+            var mapSize = new Coordinate(
+                configProvider.GetValue<int>("MapSizeXDefault"),
+                configProvider.GetValue<int>("MapSizeYDefault"));
+
+            var map = new Map(mapGenerator, mapSize);
+            var renderer = new Renderer(algorithms, map);
             var camera = new Camera(algorithms, configProvider);
 
             var gameWindowForm = new GameWindowForm(renderer, camera);

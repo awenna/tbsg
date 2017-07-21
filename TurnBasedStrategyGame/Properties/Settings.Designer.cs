@@ -34,10 +34,28 @@ namespace TurnBasedStrategyGame.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("64")]
+        [global::System.Configuration.DefaultSettingValueAttribute("32")]
         public int CameraScaleDefault {
             get {
                 return ((int)(this["CameraScaleDefault"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int MapSizeXDefault {
+            get {
+                return ((int)(this["MapSizeXDefault"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("16")]
+        public int MapSizeYDefault {
+            get {
+                return ((int)(this["MapSizeYDefault"]));
             }
         }
     }

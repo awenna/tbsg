@@ -30,9 +30,18 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel2 = new FieldPanel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
+
+            KeyPreview = true;
+            PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(GameWindowForm_PreviewKeyDown);
+            KeyDown += new System.Windows.Forms.KeyEventHandler(GameWindowForm_KeyPress);
+
+            var timer = new System.Windows.Forms.Timer();
+            timer.Interval = 10;
+            timer.Tick += new System.EventHandler(timer_Tick);
+            timer.Start();
             // 
             // panel1
             // 
@@ -55,8 +64,8 @@
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "FieldPanel";
+            this.panel2.Location = new System.Drawing.Point(12, 12);
+            this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(400, 300);
             this.panel2.TabIndex = 1;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.field_Paint);
@@ -80,7 +89,7 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panel2;
+        private FieldPanel panel2;
     }
 }
 

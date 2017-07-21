@@ -14,6 +14,6 @@ namespace TurnBasedStrategyGame
         ScreenCoordinate GetWorldToScreenCoordinate(WorldCoordinate coords, Coordinate location);
         WorldCoordinate GetScreenToWorldCoordinate(ScreenCoordinate coords, Coordinate location);
 
-        Hexagon GetHexagon(WorldCoordinate xy, int scale);
+        Hexagon GetHexagon(Coordinate xy, int scale);
     }
 }

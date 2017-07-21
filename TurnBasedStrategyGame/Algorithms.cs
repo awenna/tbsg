@@ -35,8 +35,8 @@ namespace TurnBasedStrategyGame
             var cpl = Math.Cos(Math.PI / 6) * scale;
             var spl = 0.5d * scale;
 
-            double gridHeight = 2 * scale * spl;
-            double gridWidth = 2 * scale * cpl;
+            double gridHeight = 2 * scale - spl;
+            double gridWidth = 2 * scale * Math.Cos(Math.PI / 6);
 
             int row = (int)(coords.y / gridHeight);
             int column;
@@ -45,28 +45,28 @@ namespace TurnBasedStrategyGame
             else
                 column = (int)((coords.x - gridWidth / 2) / gridWidth);
 
+            double relY = coords.y - row * gridHeight;
             double relX;
             if (row % 2 == 0)
                 relX = coords.x - column * gridWidth;
             else
                 relX = coords.x - (column * gridWidth) - gridWidth / 2;
-            double relY = coords.y - (row * gridHeight);
 
             var c = scale / 2;
             var m = c / (gridWidth / 2);
 
-            if (relY < (-m * relX) + c && relX >= 0)
+            if (relY < (-m * relX) + c)
             {
                 row--;
                 if (row % 2 == 1) column--;
             }
-            else if (relY < (m * relX) - c && relX >= 0)
+            else if (relY < (m * relX) - c)
             {
                 row--;
                 if (row % 2 == 0) column--;
             }
             
-            return new HexCoordinate(row, column);
+            return new HexCoordinate(column, row);
         }
 
         public ScreenCoordinate GetWorldToScreenCoordinate(WorldCoordinate coords, Coordinate location)
@@ -79,7 +79,7 @@ namespace TurnBasedStrategyGame
             return new WorldCoordinate(coords.x + location.x, coords.y + location.y);
         }
 
-        public Hexagon GetHexagon(WorldCoordinate xy, int scale)
+        public Hexagon GetHexagon(Coordinate xy, int scale)
         {
             var cpl = Math.Cos(Math.PI / 6) * scale;
             var spl = 0.5d * scale;

@@ -22,16 +22,5 @@ namespace TurnBasedStrategyGame
         {
             var game = new GameController(mMap, mPlayer);
         }
-
-        [Fact]
-        public void Initialize_CallsMapGeneration()
-        {
-            var game = new GameController(mMap, mPlayer);
-
-            game.Initialize();
-
-            mMap.AssertWasCalled(_ => _.GenerateMap(
-                Arg<Coordinate>.Is.Anything));
-        }
     }
 }
