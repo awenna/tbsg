@@ -85,7 +85,7 @@
   <ItemGroup>
     <Compile Include="CameraTests.cs" />
     <Compile Include="ConfigurationProviderTests.cs" />
-    <Compile Include="CoordTests.cs" />
+    <Compile Include="Data\CoordTests.cs" />
     <Compile Include="GameControllerTests.cs" />
     <Compile Include="GameFormTests.cs" />
     <Compile Include="MapGeneratorTests.cs" />
