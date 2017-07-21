@@ -123,7 +123,7 @@ namespace TBSG
             var renderer = new Renderer(mAlgorithms, mMap);
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
-                .Return(new Tile());
+                .Return(GenerateTile());
 
             StubCameraHexesInView(mCamera, 0, 0, 1, 2);
 
@@ -144,7 +144,7 @@ namespace TBSG
             var renderer = new Renderer(mAlgorithms, mMap);
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Equal(new HexCoordinate(0, 0))))
-                .Return(new Tile());
+                .Return(GenerateTile());
 
             StubCameraHexesInView(mCamera, 0, 0, 0, 0);
 
@@ -175,6 +175,13 @@ namespace TBSG
                 .Return(new Tile());
         }
 
+        private Tile GenerateTile()
+        {
+            var terrain = new TerrainType(Color.White);
+            var tile = new Tile();
+            tile.TerrainType = terrain;
+            return tile;
+        }
         #endregion
     }
 }
