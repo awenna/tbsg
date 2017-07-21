@@ -66,10 +66,10 @@ namespace TurnBasedStrategyGame
 
             renderer.DrawGrid(mGraphics, mCamera);
 
-            algorithms.AssertWasCalled(_ => _.GetGridToWorldCoordinate(
+            algorithms.AssertWasCalled(_ => _.HexToWorld(
                 Arg<HexCoordinate>.Is.Equal(new HexCoordinate(13, 8)),
                 Arg<int>.Is.Anything));
-            algorithms.AssertWasCalled(_ => _.GetGridToWorldCoordinate(
+            algorithms.AssertWasCalled(_ => _.HexToWorld(
                 Arg<HexCoordinate>.Is.Equal(new HexCoordinate(13, 9)),
                 Arg<int>.Is.Anything));
         }

@@ -72,7 +72,7 @@ namespace TurnBasedStrategyGame
             var mouseLoc = panel2.PointToClient(Cursor.Position);
 
             var algs = new Algorithms();
-            var tile = algs.GetWorldToGridCoordinate(new WorldCoordinate(mouseLoc.X, mouseLoc.Y), 32);
+            var tile = algs.WorldToHex(new WorldCoordinate(mouseLoc.X, mouseLoc.Y), 32);
 
             g.DrawString(mouseLoc.ToString(), DefaultFont, Brushes.Red, new PointF(0, 0));
             g.DrawString(tile.ToString(), DefaultFont, Brushes.Red, new PointF(100, 0));

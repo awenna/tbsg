@@ -33,10 +33,10 @@ namespace TurnBasedStrategyGame
 
         public Tuple<HexCoordinate, HexCoordinate> GetHexesInView()
         {
-            var start = mAlgorithms.GetWorldToGridCoordinate(mLocation, mScale);
+            var start = mAlgorithms.WorldToHex(mLocation, mScale);
 
-            var size = mAlgorithms.GetScreenToWorldCoordinate(mViewSize, mLocation);
-            var end = mAlgorithms.GetWorldToGridCoordinate(size, mScale);
+            var size = mAlgorithms.ScreenToWorld(mViewSize, mLocation);
+            var end = mAlgorithms.WorldToHex(size, mScale);
 
             return Tuple.Create(start, end);
         }

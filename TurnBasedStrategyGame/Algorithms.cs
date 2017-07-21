@@ -9,7 +9,10 @@ namespace TurnBasedStrategyGame
 {
     public class Algorithms : IAlgorithms
     {
-        public WorldCoordinate GetGridToWorldCoordinate(HexCoordinate coords, int scale)
+
+        #region HexToWorld
+
+        public WorldCoordinate HexToWorld(HexCoordinate coords, int scale)
         {
             var cpl = Math.Cos(Math.PI / 6) * scale;
             var spl = 0.5d * scale;
@@ -30,7 +33,11 @@ namespace TurnBasedStrategyGame
             return new WorldCoordinate(x, y);
         }
 
-        public HexCoordinate GetWorldToGridCoordinate(WorldCoordinate coords, int scale)
+        #endregion
+
+        #region WorldToHex
+
+        public HexCoordinate WorldToHex(WorldCoordinate coords, int scale)
         {
             var cpl = Math.Cos(Math.PI / 6) * scale;
             var spl = 0.5d * scale;
@@ -69,15 +76,25 @@ namespace TurnBasedStrategyGame
             return new HexCoordinate(column, row);
         }
 
-        public ScreenCoordinate GetWorldToScreenCoordinate(WorldCoordinate coords, Coordinate location)
+        #endregion
+
+        #region WorldToScreen
+
+        public ScreenCoordinate WorldToScreen(WorldCoordinate coords, Coordinate location)
         {
             return new ScreenCoordinate(coords.x - location.x, coords.y - location.y);
         }
 
-        public WorldCoordinate GetScreenToWorldCoordinate(ScreenCoordinate coords, Coordinate location)
+        #endregion
+
+        #region ScreenToWorld
+
+        public WorldCoordinate ScreenToWorld(ScreenCoordinate coords, Coordinate location)
         {
             return new WorldCoordinate(coords.x + location.x, coords.y + location.y);
         }
+
+        #endregion
 
         public Hexagon GetHexagon(Coordinate xy, int scale)
         {

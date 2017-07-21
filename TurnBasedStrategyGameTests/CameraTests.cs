@@ -47,11 +47,11 @@ namespace TurnBasedStrategyGame
         {
             var algs = MockRepository.GenerateStub<IAlgorithms>();
 
-            algs.Stub(_ => _.GetWorldToGridCoordinate(
+            algs.Stub(_ => _.WorldToHex(
                 Arg<WorldCoordinate>.Is.Anything, Arg<int>.Is.Anything))
                 .Return(new HexCoordinate(2, 3))
                 .Repeat.Once();
-            algs.Stub(_ => _.GetWorldToGridCoordinate(
+            algs.Stub(_ => _.WorldToHex(
                 Arg<WorldCoordinate>.Is.Anything, Arg<int>.Is.Anything))
                 .Return(new HexCoordinate(5, 4))
                 .Repeat.Once();

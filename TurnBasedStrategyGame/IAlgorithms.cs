@@ -8,11 +8,11 @@ namespace TurnBasedStrategyGame
 {
     public interface IAlgorithms
     {
-        WorldCoordinate GetGridToWorldCoordinate(HexCoordinate coords, int scale);
-        HexCoordinate GetWorldToGridCoordinate(WorldCoordinate coords, int scale);
+        WorldCoordinate HexToWorld(HexCoordinate coords, int scale);
+        HexCoordinate WorldToHex(WorldCoordinate coords, int scale);
 
-        ScreenCoordinate GetWorldToScreenCoordinate(WorldCoordinate coords, Coordinate location);
-        WorldCoordinate GetScreenToWorldCoordinate(ScreenCoordinate coords, Coordinate location);
+        ScreenCoordinate WorldToScreen(WorldCoordinate coords, Coordinate location);
+        WorldCoordinate ScreenToWorld(ScreenCoordinate coords, Coordinate location);
 
         Hexagon GetHexagon(Coordinate xy, int scale);
     }

@@ -36,8 +36,8 @@ namespace TurnBasedStrategyGame
                     var tile = mMap.TileAt(new HexCoordinate(x, y));
                     if (tile != null)
                     {
-                        var hexLocation = mAlgorithms.GetGridToWorldCoordinate(new HexCoordinate(x, y), scale);
-                        var screenCoordinate = mAlgorithms.GetWorldToScreenCoordinate(hexLocation, cameraLocation);
+                        var hexLocation = mAlgorithms.HexToWorld(new HexCoordinate(x, y), scale);
+                        var screenCoordinate = mAlgorithms.WorldToScreen(hexLocation, cameraLocation);
                         var hexagon = mAlgorithms.GetHexagon(screenCoordinate, scale);
 
                         g.FillPolygon(Brushes.Black, hexagon.Points);
