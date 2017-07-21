@@ -49,6 +49,8 @@ namespace TBSG
 
             var gw = new GraphicsWrapper(g);
 
+            mRenderer.DrawTiles(gw, mCamera);
+
             mRenderer.DrawGrid(gw, mCamera);
 
             var mouseLoc = fieldPanel.PointToClient(Cursor.Position);

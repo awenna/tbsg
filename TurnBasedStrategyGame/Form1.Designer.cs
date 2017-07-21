@@ -47,9 +47,9 @@
             // 
             this.fieldPanel.Location = new System.Drawing.Point(0, 0);
             this.fieldPanel.Name = "fieldPanel";
-            var FieldPanelSizeX = mConfigurationProvider.GetValue<int>("FieldPanelSizeX");
-            var FieldPanelSizeY = mConfigurationProvider.GetValue<int>("FieldPanelSizeY");
-            this.fieldPanel.Size = new System.Drawing.Size(FieldPanelSizeX, FieldPanelSizeY);
+            this.fieldPanel.Size = new System.Drawing.Size(
+                mConfigurationProvider.GetValue<int>("FieldPanelSizeX"),
+                mConfigurationProvider.GetValue<int>("FieldPanelSizeY"));
             this.fieldPanel.TabIndex = 1;
             this.fieldPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.field_Paint);
             // 
@@ -57,9 +57,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            var WindowSizeX = mConfigurationProvider.GetValue<int>("WindowSizeX");
-            var WindowSizeY = mConfigurationProvider.GetValue<int>("WindowSizeY");
-            this.ClientSize = new System.Drawing.Size(WindowSizeX, WindowSizeY);
+            this.ClientSize = new System.Drawing.Size(
+                mConfigurationProvider.GetValue<int>("WindowSizeX"),
+                mConfigurationProvider.GetValue<int>("WindowSizeY"));
             this.Controls.Add(this.fieldPanel);
             this.Controls.Add(this.panel1);
             this.Name = "GameWindowForm";

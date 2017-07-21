@@ -115,6 +115,50 @@ namespace TBSG
 
         #endregion
 
+        #region DrawTiles
+
+        [Fact]
+        public void DrawTiles_CallsDrawingOnEachTile()
+        {
+            var renderer = new Renderer(mAlgorithms, mMap);
+
+            mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
+                .Return(new Tile());
+
+            StubCameraHexesInView(mCamera, 0, 0, 1, 2);
+
+            mCamera.Stub(_ => _.GetLocation())
+                .Return(new WorldCoordinate(0, 0));
+
+            renderer.DrawTiles(mGraphics, mCamera);
+
+            var fillPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
+                _ => _.FillPolygon(Arg<Brush>.Is.Anything, Arg<Point[]>.Is.Anything));
+
+            Assert.Equal(20, fillPolyCalls.Count);
+        }
+
+        [Fact]
+        public void DrawTiles_DrawsTilesUsingTerrainColor()
+        {
+            var renderer = new Renderer(mAlgorithms, mMap);
+
+            mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Equal(new HexCoordinate(0, 0))))
+                .Return(new Tile());
+
+            StubCameraHexesInView(mCamera, 0, 0, 0, 0);
+
+            mCamera.Stub(_ => _.GetLocation())
+                .Return(new WorldCoordinate(0, 0));
+
+            renderer.DrawTiles(mGraphics, mCamera);
+
+            mGraphics.AssertWasCalled(
+                _ => _.FillPolygon(Arg<Brush>.Matches(brush => brush != null), Arg<Point[]>.Is.Anything));
+        }
+
+        #endregion
+
         #region Helpers
 
         private void StubCameraHexesInView(

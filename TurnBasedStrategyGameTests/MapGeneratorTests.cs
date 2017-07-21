@@ -33,6 +33,13 @@ namespace TBSG
         }
 
         [Fact]
-        public void GenerateMap_
+        public void GenerateMap_GeneratesTerrainTypeForTiles()
+        {
+            var generator = new MapGenerator();
+
+            var result = generator.GenerateMap(new Coordinate(1, 1));
+
+            Assert.True(result.All(_ => _.All(tile => tile.TerrainType != null)));
+        }
     }
 }

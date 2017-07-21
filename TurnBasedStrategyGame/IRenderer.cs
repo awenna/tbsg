@@ -10,5 +10,6 @@ namespace TBSG
     public interface IRenderer
     {
         void DrawGrid(IGraphics g, ICamera camera);
+        void DrawTiles(IGraphics g, ICamera camera);
     }
 }
