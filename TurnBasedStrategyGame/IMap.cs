@@ -4,7 +4,7 @@ namespace TBSG
 {
     public interface IMap
     {
-        ITile TileAt(HexCoordinate location);
+        Tile TileAt(HexCoordinate location);
         bool LocationIsWithinBounds(HexCoordinate location);
     }
 }

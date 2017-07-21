@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TBSG.Data
 {
-    public class Tile : ITile
+    public class Tile
     {
-
+        public TerrainType TerrainType { get; set; }
     }
 }

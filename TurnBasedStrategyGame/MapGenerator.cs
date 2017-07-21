@@ -9,9 +9,9 @@ namespace TBSG
 {
     public class MapGenerator : IMapGenerator
     {
-        public ITile[][] GenerateMap(Coordinate dimensions)
+        public Tile[][] GenerateMap(Coordinate dimensions)
         {
-            ITile[][] tileArray = new Tile[dimensions.x][];
+            Tile[][] tileArray = new Tile[dimensions.x][];
             for (int x = 0; x < dimensions.x; x++)
             {
                 tileArray[x] = new Tile[dimensions.y];

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TBSG.Data
 {
-    public interface ITile
+    public class TerrainType
     {
 
     }

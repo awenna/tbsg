@@ -11,7 +11,7 @@ namespace TBSG
     {
         private readonly IMapGenerator mMapGenerator;
 
-        private ITile[][] mMapArray;
+        private Tile[][] mMapArray;
         private HexCoordinate mapSize;
 
         public Coordinate Dimensions { get; set; }
@@ -25,7 +25,7 @@ namespace TBSG
             mMapArray = mMapGenerator.GenerateMap(dimensions);
         }
 
-        public ITile TileAt(HexCoordinate location)
+        public Tile TileAt(HexCoordinate location)
         {
             if (LocationIsWithinBounds(location))
             {

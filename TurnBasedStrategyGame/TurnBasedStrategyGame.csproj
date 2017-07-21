@@ -68,6 +68,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="ConfigurationProvider.cs" />
     <Compile Include="Data\Coordinate.cs" />
+    <Compile Include="Data\TerrainType.cs" />
     <Compile Include="FieldPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -89,7 +90,6 @@
     <Compile Include="IMapGenerator.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IRenderer.cs" />
-    <Compile Include="Data\ITile.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapGenerator.cs" />
     <Compile Include="Program.cs" />

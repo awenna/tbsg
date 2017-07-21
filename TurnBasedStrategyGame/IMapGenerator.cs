@@ -9,6 +9,6 @@ namespace TBSG
 {
     public interface IMapGenerator
     {
-        ITile[][] GenerateMap(Coordinate dimensions);
+        Tile[][] GenerateMap(Coordinate dimensions);
     }
 }
