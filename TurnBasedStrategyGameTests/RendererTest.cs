@@ -33,7 +33,7 @@ namespace TBSG
             var renderer = new Renderer(mAlgorithms, mMap);
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
-                .Return(new Tile());
+                .Return(GenerateTile());
 
             mCamera.Stub(_ => _.GetHexesInView())
                 .Return(Tuple.Create(new HexCoordinate(0, 0), new HexCoordinate(3, 5)));
@@ -58,7 +58,7 @@ namespace TBSG
             StubCameraHexesInView(mCamera, 13, 8, 13, 9);
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
-                .Return(new Tile());
+                .Return(GenerateTile());
 
             algorithms.Stub(_ => _.GetHexagon(
                 Arg<ScreenCoordinate>.Is.Anything, Arg<int>.Is.Anything))
@@ -80,7 +80,7 @@ namespace TBSG
             var renderer = new Renderer(mAlgorithms, mMap);
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
-                .Return(new Tile());
+                .Return(GenerateTile());
 
             StubCameraHexesInView(mCamera, 1, 1, 1, 2);
 
@@ -98,7 +98,7 @@ namespace TBSG
             var renderer = new Renderer(mAlgorithms, mMap);
 
             mMap.Stub(_ => _.TileAt(new HexCoordinate(0, 0)))
-                .Return(new Tile());
+                .Return(GenerateTile());
 
             StubCameraHexesInView(mCamera, -1, -2, 1, 1);
 
@@ -118,7 +118,7 @@ namespace TBSG
         #region DrawTiles
 
         [Fact]
-        public void DrawTiles_CallsDrawingOnEachTile()
+        public void DrawGrid_CallsDrawingOnEachTile()
         {
             var renderer = new Renderer(mAlgorithms, mMap);
 
@@ -130,7 +130,7 @@ namespace TBSG
             mCamera.Stub(_ => _.GetLocation())
                 .Return(new WorldCoordinate(0, 0));
 
-            renderer.DrawTiles(mGraphics, mCamera);
+            renderer.DrawGrid(mGraphics, mCamera);
 
             var fillPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
                 _ => _.FillPolygon(Arg<Brush>.Is.Anything, Arg<Point[]>.Is.Anything));
@@ -139,7 +139,7 @@ namespace TBSG
         }
 
         [Fact]
-        public void DrawTiles_DrawsTilesUsingTerrainColor()
+        public void DrawGrid_DrawsTilesUsingTerrainColor()
         {
             var renderer = new Renderer(mAlgorithms, mMap);
 
@@ -151,7 +151,7 @@ namespace TBSG
             mCamera.Stub(_ => _.GetLocation())
                 .Return(new WorldCoordinate(0, 0));
 
-            renderer.DrawTiles(mGraphics, mCamera);
+            renderer.DrawGrid(mGraphics, mCamera);
 
             mGraphics.AssertWasCalled(
                 _ => _.FillPolygon(Arg<Brush>.Matches(brush => brush != null), Arg<Point[]>.Is.Anything));
