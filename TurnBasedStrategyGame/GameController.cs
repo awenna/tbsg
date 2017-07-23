@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TBSG.Data;
 
 namespace TBSG
 {
@@ -19,9 +15,10 @@ namespace TBSG
             mPlayer = player;
         }
 
-        public void Initialize()
+        public void SetManualTestingMap()
         {
-
+            var unit = new Entity();
+            mMap.TileAt(new HexCoordinate(0, 0)).Entity = unit;
         }
     }
 }

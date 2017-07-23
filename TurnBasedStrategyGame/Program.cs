@@ -18,13 +18,16 @@ namespace TBSG
             var configProvider = new ConfigurationProvider();
 
             var algorithms = new Algorithms();
-            var mapGenerator = new MapGenerator();
 
+            var mapGenerator = new MapGenerator();
             var mapSize = new Coordinate(
                 configProvider.GetValue<int>("MapSizeXDefault"),
                 configProvider.GetValue<int>("MapSizeYDefault"));
-
             var map = new Map(mapGenerator, mapSize);
+
+            var gameController = new GameController(map, null);
+            gameController.SetManualTestingMap();
+
             var renderer = new Renderer(algorithms, map);
             var camera = new Camera(algorithms, configProvider);
 

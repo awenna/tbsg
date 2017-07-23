@@ -33,6 +33,10 @@ namespace TBSG
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
+            // Manual testing
+            var unit = new Entity();
             
         }
 
@@ -50,6 +54,7 @@ namespace TBSG
             var gw = new GraphicsWrapper(g);
 
             mRenderer.DrawGrid(gw, mCamera);
+            mRenderer.DrawUnits(gw, mCamera);
 
             var mouseLoc = fieldPanel.PointToClient(Cursor.Position);
 

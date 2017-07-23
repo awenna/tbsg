@@ -11,5 +11,7 @@ namespace TBSG
     {
         void DrawPolygon(Pen pen, Point[] points);
         void FillPolygon(Brush brush, Point[] points);
+        void DrawEllipse(Pen pen, Rectangle rect);
+        void FillEllipse(Brush brush, Rectangle rect);
     }
 }

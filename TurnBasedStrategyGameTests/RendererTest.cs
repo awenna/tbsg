@@ -159,6 +159,29 @@ namespace TBSG
 
         #endregion
 
+        #region DrawUnits
+
+        [Fact]
+        public void DrawUnits_RequestsUnitsFromTile()
+        {
+            var renderer = new Renderer(mAlgorithms, mMap);
+
+            mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Equal(new HexCoordinate(0, 0))))
+                .Return(GenerateTileWithUnit());
+
+            StubCameraHexesInView(mCamera, 0, 0, 0, 0);
+
+            mCamera.Stub(_ => _.GetLocation())
+                .Return(new WorldCoordinate(0, 0));
+
+            renderer.DrawUnits(mGraphics, mCamera);
+
+            mGraphics.AssertWasCalled(_ => _.FillEllipse(
+                Arg<Brush>.Is.Anything, Arg<Rectangle>.Is.Anything));
+        }
+
+        #endregion
+
         #region Helpers
 
         private void StubCameraHexesInView(
@@ -177,11 +200,17 @@ namespace TBSG
 
         private Tile GenerateTile()
         {
-            var terrain = new TerrainType(Color.White);
-            var tile = new Tile();
-            tile.TerrainType = terrain;
+            return new Tile(new TerrainType(Color.White));
+        }
+
+        private Tile GenerateTileWithUnit()
+        {
+            var tile = new Tile(new TerrainType(Color.White));
+            var unit = new Entity();
+            tile.Entity = unit;
             return tile;
         }
+
         #endregion
     }
 }

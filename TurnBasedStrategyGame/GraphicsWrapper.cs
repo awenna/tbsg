@@ -25,5 +25,15 @@ namespace TBSG
         {
             mGraphics.FillPolygon(brush, points);
         }
+
+        public void DrawEllipse(Pen pen, Rectangle rect)
+        {
+            mGraphics.DrawEllipse(pen, rect);
+        }
+
+        public void FillEllipse(Brush brush, Rectangle rect)
+        {
+            mGraphics.FillEllipse(brush, rect);
+        }
     }
 }
