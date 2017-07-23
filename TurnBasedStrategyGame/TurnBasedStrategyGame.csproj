@@ -7,7 +7,7 @@
     <ProjectGuid>{DEA7DA2E-0F99-44AE-A325-120CCBC269C9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TurnBasedStrategyGame</RootNamespace>
+    <RootNamespace>TBSG</RootNamespace>
     <AssemblyName>TurnBasedStrategyGame</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -68,6 +68,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="ConfigurationProvider.cs" />
     <Compile Include="Data\Coordinate.cs" />
+    <Compile Include="Data\Entity.cs" />
     <Compile Include="Data\TerrainType.cs" />
     <Compile Include="FieldPanel.cs">
       <SubType>Component</SubType>
@@ -109,6 +110,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
