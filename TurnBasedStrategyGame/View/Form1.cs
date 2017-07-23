@@ -33,10 +33,6 @@ namespace TBSG.View
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-
-            // Manual testing
-            var unit = new Entity();
             
         }
 
