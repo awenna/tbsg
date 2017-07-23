@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace TBSG
+namespace TBSG.View
 {
     public class GraphicsWrapper : IGraphics
     {

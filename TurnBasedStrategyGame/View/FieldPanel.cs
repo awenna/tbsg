@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TBSG
+namespace TBSG.View
 {
     public class FieldPanel : PictureBox
     {

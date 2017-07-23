@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+﻿using System.Drawing;
 using Rhino.Mocks;
 using Xunit;
 
-namespace TBSG
+namespace TBSG.View
 {
     public class GameFormTests
     {

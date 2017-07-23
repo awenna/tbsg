@@ -1,4 +1,4 @@
-﻿namespace TBSG
+﻿namespace TBSG.View
 {
     partial class GameWindowForm
     {

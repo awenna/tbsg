@@ -1,4 +1,5 @@
 ﻿using TBSG.Data;
+using TBSG.Model;
 
 namespace TBSG
 {

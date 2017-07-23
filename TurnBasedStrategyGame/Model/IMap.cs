@@ -1,6 +1,6 @@
 ﻿using TBSG.Data;
 
-namespace TBSG
+namespace TBSG.Model
 {
     public interface IMap
     {

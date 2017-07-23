@@ -64,40 +64,40 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithms.cs" />
+    <Compile Include="Calculation\Algorithms.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="ConfigurationProvider.cs" />
     <Compile Include="Data\Coordinate.cs" />
     <Compile Include="Data\Entity.cs" />
     <Compile Include="Data\TerrainType.cs" />
-    <Compile Include="FieldPanel.cs">
+    <Compile Include="View\FieldPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="View\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="View\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameController.cs" />
-    <Compile Include="GraphicsWrapper.cs" />
+    <Compile Include="Control\GameController.cs" />
+    <Compile Include="View\GraphicsWrapper.cs" />
     <Compile Include="Data\Hexagon.cs" />
     <Compile Include="Data\SubCoordinate.cs" />
-    <Compile Include="IAlgorithms.cs" />
+    <Compile Include="Calculation\IAlgorithms.cs" />
     <Compile Include="ICamera.cs" />
     <Compile Include="IConfigurationProvider.cs" />
-    <Compile Include="IGraphics.cs" />
-    <Compile Include="IMap.cs" />
-    <Compile Include="IMapGenerator.cs" />
-    <Compile Include="IPlayer.cs" />
-    <Compile Include="IRenderer.cs" />
-    <Compile Include="Map.cs" />
-    <Compile Include="MapGenerator.cs" />
+    <Compile Include="View\IGraphics.cs" />
+    <Compile Include="Model\IMap.cs" />
+    <Compile Include="Model\IMapGenerator.cs" />
+    <Compile Include="Model\IPlayer.cs" />
+    <Compile Include="View\IRenderer.cs" />
+    <Compile Include="Model\Map.cs" />
+    <Compile Include="Model\MapGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderer.cs" />
+    <Compile Include="View\Renderer.cs" />
     <Compile Include="Data\Tile.cs" />
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="View\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -124,11 +124,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Control\" />
-    <Folder Include="Graphics\" />
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

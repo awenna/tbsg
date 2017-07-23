@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Drawing;
+﻿using System.Drawing;
 using TBSG.Data;
+using TBSG.Model;
 
-namespace TBSG
+namespace TBSG.View
 {
     public class Renderer : IRenderer
     {

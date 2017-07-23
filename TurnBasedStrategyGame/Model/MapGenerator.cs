@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using TBSG.Data;
 
-namespace TBSG
+namespace TBSG.Model
 {
     public class MapGenerator : IMapGenerator
     {

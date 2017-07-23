@@ -2,7 +2,7 @@
 using Xunit;
 using Rhino.Mocks;
 
-namespace TBSG
+namespace TBSG.Model
 {
     public class GameControllerTests
     {

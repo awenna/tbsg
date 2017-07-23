@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TBSG.Data;
 
-namespace TBSG
+namespace TBSG.View
 {
     public partial class GameWindowForm : Form
     {

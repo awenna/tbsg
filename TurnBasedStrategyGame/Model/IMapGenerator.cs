@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TBSG.Data;
 
-namespace TBSG
+namespace TBSG.Model
 {
     public interface IMapGenerator
     {

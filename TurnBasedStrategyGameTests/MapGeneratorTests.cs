@@ -7,7 +7,7 @@ using Xunit;
 using Rhino.Mocks;
 using TBSG.Data;
 
-namespace TBSG
+namespace TBSG.Model
 {
     public class MapGeneratorTests
     {
