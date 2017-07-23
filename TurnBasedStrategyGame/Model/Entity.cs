@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TBSG.Data
+namespace TBSG.Model
 {
     public class Entity
     {
