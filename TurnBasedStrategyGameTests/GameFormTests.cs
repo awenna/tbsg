@@ -6,15 +6,17 @@ namespace TBSG.View
 {
     public class GameFormTests
     {
-        private readonly TestConfigurationProvider mConfigProvider;
+        private readonly IAlgorithms mAlgorithms;
         private readonly IRenderer mRenderer;
         private readonly ICamera mCamera;
+        private readonly TestConfigurationProvider mConfigProvider;
 
         public GameFormTests()
         {
-            mConfigProvider = new TestConfigurationProvider();
+            mAlgorithms = new Algorithms();
             mRenderer = MockRepository.GenerateMock<IRenderer>();
             mCamera = MockRepository.GenerateMock<ICamera>();
+            mConfigProvider = new TestConfigurationProvider();
         }
 
         [Fact]
@@ -25,7 +27,7 @@ namespace TBSG.View
             mConfigProvider.SetValue(654, "WindowSizeX");
             mConfigProvider.SetValue(456, "WindowSizeY");
 
-            var form = new GameWindowForm(mRenderer, mCamera, mConfigProvider);
+            var form = new GameWindowForm(mAlgorithms, mRenderer, mCamera, mConfigProvider);
 
             var result = form.Size;
 

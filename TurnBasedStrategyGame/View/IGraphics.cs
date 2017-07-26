@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+﻿using System.Drawing;
+using TBSG.Data;
 
 namespace TBSG.View
 {
     public interface IGraphics
     {
         void DrawPolygon(Pen pen, Point[] points);
+        void DrawPolygon(Pen pen, Hexagon hexagon);
         void FillPolygon(Brush brush, Point[] points);
+        void FillPolygon(Brush brush, Hexagon hexagon);
         void DrawEllipse(Pen pen, Rectangle rect);
         void FillEllipse(Brush brush, Rectangle rect);
     }

@@ -9,10 +9,17 @@ namespace TBSG.View
 {
     public class RendererTest
     {
+        #region Fields
+
         private readonly IAlgorithms mAlgorithms;
         private readonly ICamera mCamera;
         private readonly IGraphics mGraphics;
         private readonly IMap mMap;
+        private readonly TestConfigurationProvider mConfigProvider;
+
+        #endregion
+
+        #region Constructor
 
         public RendererTest()
         {
@@ -20,14 +27,17 @@ namespace TBSG.View
             mCamera = MockRepository.GenerateMock<ICamera>();
             mGraphics = MockRepository.GenerateMock<IGraphics>();
             mMap = MockRepository.GenerateStub<IMap>();
+            mConfigProvider = new TestConfigurationProvider();
         }
+
+        #endregion
 
         #region DrawGrid
 
         [Fact]
         public void DrawGrid_RequestsCalculationForEachTile()
         {
-            var renderer = new Renderer(mAlgorithms, mMap);
+            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
                 .Return(GenerateTile());
@@ -41,7 +51,7 @@ namespace TBSG.View
             renderer.DrawGrid(mGraphics, mCamera);
 
             var drawPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
-                _ => _.DrawPolygon(Arg<Pen>.Is.Anything, Arg<Point[]>.Is.Anything));
+                _ => _.DrawPolygon(Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
 
             Assert.Equal(48, drawPolyCalls.Count);
         }
@@ -50,7 +60,7 @@ namespace TBSG.View
         public void DrawGrid_DrawsOnTilesInView()
         {
             var algorithms = MockRepository.GenerateStub<IAlgorithms>();
-            var renderer = new Renderer(algorithms, mMap);
+            var renderer = new Renderer(algorithms, mMap, mConfigProvider);
 
             StubCameraHexesInView(mCamera, 13, 8, 13, 9);
 
@@ -74,7 +84,7 @@ namespace TBSG.View
         [Fact]
         public void DrawGrid_UsesCameraScale()
         {
-            var renderer = new Renderer(mAlgorithms, mMap);
+            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
                 .Return(GenerateTile());
@@ -92,7 +102,7 @@ namespace TBSG.View
         [Fact]
         public void DrawGrid_DrawsOnlyTilesOnMap()
         {
-            var renderer = new Renderer(mAlgorithms, mMap);
+            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
 
             mMap.Stub(_ => _.TileAt(new HexCoordinate(0, 0)))
                 .Return(GenerateTile());
@@ -105,7 +115,7 @@ namespace TBSG.View
             renderer.DrawGrid(mGraphics, mCamera);
 
             var drawPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
-                _ => _.DrawPolygon(Arg<Pen>.Is.Anything, Arg<Point[]>.Is.Anything));
+                _ => _.DrawPolygon(Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
 
             Assert.Equal(1, drawPolyCalls.Count);
         }
@@ -117,7 +127,7 @@ namespace TBSG.View
         [Fact]
         public void DrawGrid_CallsDrawingOnEachTile()
         {
-            var renderer = new Renderer(mAlgorithms, mMap);
+            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
                 .Return(GenerateTile());
@@ -130,7 +140,7 @@ namespace TBSG.View
             renderer.DrawGrid(mGraphics, mCamera);
 
             var fillPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
-                _ => _.FillPolygon(Arg<Brush>.Is.Anything, Arg<Point[]>.Is.Anything));
+                _ => _.FillPolygon(Arg<Brush>.Is.Anything, Arg<Hexagon>.Is.Anything));
 
             Assert.Equal(20, fillPolyCalls.Count);
         }
@@ -138,7 +148,7 @@ namespace TBSG.View
         [Fact]
         public void DrawGrid_DrawsTilesUsingTerrainColor()
         {
-            var renderer = new Renderer(mAlgorithms, mMap);
+            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Equal(new HexCoordinate(0, 0))))
                 .Return(GenerateTile());
@@ -151,7 +161,7 @@ namespace TBSG.View
             renderer.DrawGrid(mGraphics, mCamera);
 
             mGraphics.AssertWasCalled(
-                _ => _.FillPolygon(Arg<Brush>.Matches(brush => brush != null), Arg<Point[]>.Is.Anything));
+                _ => _.FillPolygon(Arg<Brush>.Matches(brush => brush != null), Arg<Hexagon>.Is.Anything));
         }
 
         #endregion
@@ -161,7 +171,7 @@ namespace TBSG.View
         [Fact]
         public void DrawUnits_RequestsUnitsFromTile()
         {
-            var renderer = new Renderer(mAlgorithms, mMap);
+            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Equal(new HexCoordinate(0, 0))))
                 .Return(GenerateTileWithUnit());
@@ -175,6 +185,18 @@ namespace TBSG.View
 
             mGraphics.AssertWasCalled(_ => _.FillEllipse(
                 Arg<Brush>.Is.Anything, Arg<Rectangle>.Is.Anything));
+        }
+
+        #endregion
+
+        #region DrawSelection
+
+        [Fact]
+        public void DrawSelection_ShouldDrawSelection()
+        {
+            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
+
+            throw new NotImplementedException();
         }
 
         #endregion

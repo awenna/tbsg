@@ -4,19 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TBSG.Data;
 
 namespace TBSG.View
 {
     public class FieldPanel : PictureBox
     {
-        protected override void OnMouseHover(System.EventArgs e)
+        private GameWindowForm mGameWindowForm;
+
+        public void Initialize(GameWindowForm gameWindowForm)
         {
-            base.OnMouseHover(e);
+            mGameWindowForm = gameWindowForm;
         }
 
-        protected override void OnMouseMove(MouseEventArgs e)
+        public void OnMouseClick(object sender, MouseEventArgs e)
         {
-            base.OnMouseMove(e);
+            mGameWindowForm.FieldPanelClick(e);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace TBSG.Model
         {
             var color = new Color();
 
-            var type = random.Next(3);
+            var type = random.Next(4);
             switch (type)
             {
                 case 0:

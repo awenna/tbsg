@@ -30,10 +30,10 @@ namespace TBSG
             var gameController = new GameController(map, null);
             gameController.SetManualTestingMap();
 
-            var renderer = new Renderer(algorithms, map);
+            var renderer = new Renderer(algorithms, map, configProvider);
             var camera = new Camera(algorithms, configProvider);
 
-            var gameWindowForm = new GameWindowForm(renderer, camera, configProvider);
+            var gameWindowForm = new GameWindowForm(algorithms, renderer, camera, configProvider);
 
             Application.Run(gameWindowForm);
         }

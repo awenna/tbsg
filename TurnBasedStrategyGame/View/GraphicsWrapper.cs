@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+﻿using System.Drawing;
+using TBSG.Data;
 
 namespace TBSG.View
 {
@@ -21,9 +17,19 @@ namespace TBSG.View
             mGraphics.DrawPolygon(pen, points);
         }
 
+        public void DrawPolygon(Pen pen, Hexagon hexagon)
+        {
+            mGraphics.DrawPolygon(pen, hexagon.Points);
+        }
+
         public void FillPolygon(Brush brush, Point[] points)
         {
             mGraphics.FillPolygon(brush, points);
+        }
+
+        public void FillPolygon(Brush brush, Hexagon hexagon)
+        {
+            mGraphics.FillPolygon(brush, hexagon.Points);
         }
 
         public void DrawEllipse(Pen pen, Rectangle rect)

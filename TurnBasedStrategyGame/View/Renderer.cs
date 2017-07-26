@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Collections.Generic;
 using TBSG.Data;
 using TBSG.Model;
 
@@ -8,12 +9,16 @@ namespace TBSG.View
     {
         private readonly IAlgorithms mAlgorithms;
         private readonly IMap mMap;
+        private readonly IConfigurationProvider mConfigurationProvider;
 
-        public Renderer(IAlgorithms algorithms, IMap map)
+        public Renderer(IAlgorithms algorithms, IMap map, IConfigurationProvider configProvider)
         {
             mAlgorithms = algorithms;
             mMap = map;
+            mConfigurationProvider = configProvider;
         }
+
+        #region DrawGrid
 
         public void DrawGrid(IGraphics g, ICamera camera)
         {
@@ -38,15 +43,19 @@ namespace TBSG.View
 
                         var brush = new SolidBrush(tile.TerrainType.DrawColor);
 
-                        g.FillPolygon(brush, hexagon.Points);
+                        g.FillPolygon(brush, hexagon);
 
                         brush.Dispose();
 
-                        g.DrawPolygon(Pens.Black, hexagon.Points);
+                        g.DrawPolygon(Pens.Black, hexagon);
                     }
                 }
             }
         }
+
+        #endregion
+
+        #region DrawUnits
 
         public void DrawUnits(IGraphics g, ICamera camera)
         {
@@ -87,5 +96,29 @@ namespace TBSG.View
                 }
             }
         }
+
+        #endregion
+
+        #region DrawSelection
+
+        public void DrawSelection(IGraphics g, ICamera camera, IEnumerable<HexCoordinate> selection)
+        {
+            var scale = camera.GetScale();
+            var cameraLocation = camera.GetLocation();
+
+            var pen = new Pen(Color.White);
+            pen.Width = mConfigurationProvider.GetValue<int>("SelectionDrawWidth");
+
+            foreach (var select in selection)
+            {
+                var worldLocation = mAlgorithms.HexToWorld(select, scale);
+                var screenCoordinate = mAlgorithms.WorldToScreen(worldLocation, cameraLocation);
+
+                var hexagon = mAlgorithms.GetHexagon(screenCoordinate, scale);
+                g.DrawPolygon(pen, hexagon);
+            }
+        }
+
+        #endregion
     }
 }

@@ -87,4 +87,23 @@ namespace TBSG.Data
 
         #endregion
     }
+
+    public static class XY
+    {
+        public static HexCoordinate Hex(int x, int y)
+        {
+            return new HexCoordinate(x, y);
+        }
+
+        public static WorldCoordinate World(int x, int y)
+        {
+            return new WorldCoordinate(x, y);
+        }
+
+        public static ScreenCoordinate Screen(int x, int y)
+        {
+            return new ScreenCoordinate(x, y);
+        }
+
+    }
 }

@@ -1,8 +1,10 @@
 ﻿namespace TBSG.Model
 {
-    public static class Tags
+    public static class Tag
     {
-        public enum actions { Move };
-        public enum effects { Movement };
+        public enum Actions { Move };
+        public enum Effects { Movement };
+        public enum Target { Self, Another, Ground, EntityAndGround };
+        public enum TargetMode { PointTarget, GroundTarget, SelfTarget };
     }
 }

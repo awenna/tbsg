@@ -13,15 +13,20 @@ namespace TBSG.View
 {
     public partial class GameWindowForm : Form
     {
+        private readonly IAlgorithms mAlgorithms;
         private readonly IRenderer mRenderer;
         private readonly ICamera mCamera;
         private readonly IConfigurationProvider mConfigurationProvider;
 
+        private IEnumerable<HexCoordinate> selection { get; set; }
+
         public GameWindowForm(
+            IAlgorithms algorithms,
             IRenderer renderer,
             ICamera camera,
             IConfigurationProvider configProvider)
         {
+            mAlgorithms = algorithms;
             mRenderer = renderer;
             mCamera = camera;
             mConfigurationProvider = configProvider;
@@ -51,6 +56,11 @@ namespace TBSG.View
 
             mRenderer.DrawGrid(gw, mCamera);
             mRenderer.DrawUnits(gw, mCamera);
+
+            if (selection != null)
+            {
+                mRenderer.DrawSelection(gw, mCamera, selection);
+            }
 
             var mouseLoc = fieldPanel.PointToClient(Cursor.Position);
 
@@ -92,6 +102,13 @@ namespace TBSG.View
                     e.IsInputKey = true;
                     break;
             }
+        }
+
+        public void FieldPanelClick(MouseEventArgs e)
+        {
+            var worldCoord = mAlgorithms.ScreenToWorld(XY.Screen(e.X, e.Y), mCamera.GetLocation());
+            var hexCoord = mAlgorithms.WorldToHex(worldCoord, mCamera.GetScale());
+            selection = new List<HexCoordinate> { hexCoord };
         }
     }
 }
