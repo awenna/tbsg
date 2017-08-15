@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using Rhino.Mocks;
 using Xunit;
+using TBSG.Control;
 
 namespace TBSG.View
 {
@@ -8,14 +9,19 @@ namespace TBSG.View
     {
         private readonly IAlgorithms mAlgorithms;
         private readonly IRenderer mRenderer;
-        private readonly ICamera mCamera;
+        private readonly ICameraController mCameraController;
+        private readonly IPanelController mFieldPanelController;
         private readonly TestConfigurationProvider mConfigProvider;
+
+        const int WindowWidth = 16;
+        const int WindowHeight = 39;
 
         public GameFormTests()
         {
             mAlgorithms = new Algorithms();
             mRenderer = MockRepository.GenerateMock<IRenderer>();
-            mCamera = MockRepository.GenerateMock<ICamera>();
+            mCameraController = MockRepository.GenerateMock<ICameraController>();
+            mFieldPanelController = MockRepository.GenerateMock<IPanelController>();
             mConfigProvider = new TestConfigurationProvider();
         }
 
@@ -27,13 +33,17 @@ namespace TBSG.View
             mConfigProvider.SetValue(654, "WindowSizeX");
             mConfigProvider.SetValue(456, "WindowSizeY");
 
-            var form = new GameWindowForm(mAlgorithms, mRenderer, mCamera, mConfigProvider);
-
+            var form = GenerateGameWindowForm();
             var result = form.Size;
 
-            var expected = new Size(654 + 16, 456 + 39);
+            var expected = new Size(654 + WindowWidth, 456 + WindowHeight);
 
             Assert.Equal(expected, result);
+        }
+
+        private GameWindowForm GenerateGameWindowForm()
+        {
+            return new GameWindowForm(mAlgorithms, mRenderer, mCameraController, mFieldPanelController, mConfigProvider);
         }
     }
 }

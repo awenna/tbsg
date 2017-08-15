@@ -1,9 +1,11 @@
-﻿using TBSG.Data;
+﻿using System;
+using TBSG.Data;
 using TBSG.Model;
+using TBSG.View;
 
-namespace TBSG
+namespace TBSG.Control
 {
-    public class GameController
+    public class GameController : IGameController
     {
         private readonly IMap mMap;
         private readonly IPlayer mPlayer;
@@ -16,10 +18,24 @@ namespace TBSG
             mPlayer = player;
         }
 
+        public void UseDefaultAction(ViewState state)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IMap GetMap()
+        {
+            return mMap;
+        }
+
+        #region Manual Testing
+
         public void SetManualTestingMap()
         {
             var unit = new Entity();
             mMap.TileAt(new HexCoordinate(0, 0)).Entity = unit;
         }
+
+        #endregion
     }
 }

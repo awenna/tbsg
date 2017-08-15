@@ -83,17 +83,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CameraTests.cs" />
+    <Compile Include="View\CameraControllerTests.cs" />
     <Compile Include="ConfigurationProviderTests.cs" />
     <Compile Include="Data\CoordTests.cs" />
-    <Compile Include="GameControllerTests.cs" />
-    <Compile Include="GameFormTests.cs" />
+    <Compile Include="Control\GameControllerTests.cs" />
+    <Compile Include="View\GameFormTests.cs" />
     <Compile Include="MapGeneratorTests.cs" />
     <Compile Include="MapTests.cs" />
     <Compile Include="Model\EffectApplierTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RendererTest.cs" />
     <Compile Include="TestConfigurationProvider.cs" />
+    <Compile Include="View\FieldPanelControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -104,6 +105,7 @@
       <Name>TurnBasedStrategyGame</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

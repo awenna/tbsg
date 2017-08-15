@@ -105,5 +105,16 @@ namespace TBSG.Data
             return new ScreenCoordinate(x, y);
         }
 
+        public static HexCoordinate HexFromScreen
+            (int x, int y, IAlgorithms algorithms, int scale, Coordinate location)
+        {
+            return algorithms.ScreenToHex(Screen(x, y), scale, location);
+        }
+
+        public static ScreenCoordinate ScreenFromHex
+            (int x, int y, IAlgorithms algorithms, int scale, Coordinate location)
+        {
+            return algorithms.HexToScreen(Hex(x, y), scale, location);
+        }
     }
 }

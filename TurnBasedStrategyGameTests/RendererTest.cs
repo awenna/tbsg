@@ -12,10 +12,12 @@ namespace TBSG.View
         #region Fields
 
         private readonly IAlgorithms mAlgorithms;
-        private readonly ICamera mCamera;
+        private readonly ICameraController mCameraController;
         private readonly IGraphics mGraphics;
         private readonly IMap mMap;
         private readonly TestConfigurationProvider mConfigProvider;
+
+        private readonly Camera mCamera = new Camera();
 
         #endregion
 
@@ -24,10 +26,12 @@ namespace TBSG.View
         public RendererTest()
         {
             mAlgorithms = new Algorithms();
-            mCamera = MockRepository.GenerateMock<ICamera>();
+            mCameraController = MockRepository.GenerateMock<ICameraController>();
             mGraphics = MockRepository.GenerateMock<IGraphics>();
             mMap = MockRepository.GenerateStub<IMap>();
             mConfigProvider = new TestConfigurationProvider();
+
+            mCameraController.Stub(_ => _.GetCamera()).Return(mCamera);
         }
 
         #endregion
@@ -37,18 +41,16 @@ namespace TBSG.View
         [Fact]
         public void DrawGrid_RequestsCalculationForEachTile()
         {
-            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
+            var renderer = GenerateRenderer();
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
                 .Return(GenerateTile());
 
-            mCamera.Stub(_ => _.GetHexesInView())
-                .Return(Tuple.Create(new HexCoordinate(0, 0), new HexCoordinate(3, 5)));
+            StubCameraHexesInView(mCameraController, 0, 0, 3, 5);
 
-            mCamera.Stub(_ => _.GetLocation())
-                .Return(new WorldCoordinate(0, 0));
+            mCamera.Location = XY.World(0, 0);
 
-            renderer.DrawGrid(mGraphics, mCamera);
+            renderer.DrawGrid(mGraphics, mCameraController);
 
             var drawPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
                 _ => _.DrawPolygon(Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
@@ -62,7 +64,7 @@ namespace TBSG.View
             var algorithms = MockRepository.GenerateStub<IAlgorithms>();
             var renderer = new Renderer(algorithms, mMap, mConfigProvider);
 
-            StubCameraHexesInView(mCamera, 13, 8, 13, 9);
+            StubCameraHexesInView(mCameraController, 13, 8, 13, 9);
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
                 .Return(GenerateTile());
@@ -71,7 +73,7 @@ namespace TBSG.View
                 Arg<ScreenCoordinate>.Is.Anything, Arg<int>.Is.Anything))
                 .Return(new Hexagon(null));
 
-            renderer.DrawGrid(mGraphics, mCamera);
+            renderer.DrawGrid(mGraphics, mCameraController);
 
             algorithms.AssertWasCalled(_ => _.HexToWorld(
                 Arg<HexCoordinate>.Is.Equal(new HexCoordinate(13, 8)),
@@ -82,37 +84,18 @@ namespace TBSG.View
         }
 
         [Fact]
-        public void DrawGrid_UsesCameraScale()
-        {
-            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
-
-            mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
-                .Return(GenerateTile());
-
-            StubCameraHexesInView(mCamera, 1, 1, 1, 2);
-
-            mCamera.Stub(_ => _.GetLocation())
-                .Return(new WorldCoordinate(0, 0));
-
-            renderer.DrawGrid(mGraphics, mCamera);
-
-            mCamera.AssertWasCalled(_ => _.GetScale());
-        }
-
-        [Fact]
         public void DrawGrid_DrawsOnlyTilesOnMap()
         {
-            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
+            var renderer = GenerateRenderer();
 
             mMap.Stub(_ => _.TileAt(new HexCoordinate(0, 0)))
                 .Return(GenerateTile());
 
-            StubCameraHexesInView(mCamera, -1, -2, 1, 1);
+            StubCameraHexesInView(mCameraController, -1, -2, 1, 1);
 
-            mCamera.Stub(_ => _.GetLocation())
-                .Return(new WorldCoordinate(0, 0));
+            mCamera.Location = XY.World(0, 0);
 
-            renderer.DrawGrid(mGraphics, mCamera);
+            renderer.DrawGrid(mGraphics, mCameraController);
 
             var drawPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
                 _ => _.DrawPolygon(Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
@@ -127,17 +110,16 @@ namespace TBSG.View
         [Fact]
         public void DrawGrid_CallsDrawingOnEachTile()
         {
-            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
+            var renderer = GenerateRenderer();
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
                 .Return(GenerateTile());
 
-            StubCameraHexesInView(mCamera, 0, 0, 1, 2);
+            StubCameraHexesInView(mCameraController, 0, 0, 1, 2);
 
-            mCamera.Stub(_ => _.GetLocation())
-                .Return(new WorldCoordinate(0, 0));
+            mCamera.Location = XY.World(0, 0);
 
-            renderer.DrawGrid(mGraphics, mCamera);
+            renderer.DrawGrid(mGraphics, mCameraController);
 
             var fillPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
                 _ => _.FillPolygon(Arg<Brush>.Is.Anything, Arg<Hexagon>.Is.Anything));
@@ -148,17 +130,16 @@ namespace TBSG.View
         [Fact]
         public void DrawGrid_DrawsTilesUsingTerrainColor()
         {
-            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
+            var renderer = GenerateRenderer();
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Equal(new HexCoordinate(0, 0))))
                 .Return(GenerateTile());
 
-            StubCameraHexesInView(mCamera, 0, 0, 0, 0);
+            StubCameraHexesInView(mCameraController, 0, 0, 0, 0);
 
-            mCamera.Stub(_ => _.GetLocation())
-                .Return(new WorldCoordinate(0, 0));
+            mCamera.Location = XY.World(0, 0);
 
-            renderer.DrawGrid(mGraphics, mCamera);
+            renderer.DrawGrid(mGraphics, mCameraController);
 
             mGraphics.AssertWasCalled(
                 _ => _.FillPolygon(Arg<Brush>.Matches(brush => brush != null), Arg<Hexagon>.Is.Anything));
@@ -171,17 +152,16 @@ namespace TBSG.View
         [Fact]
         public void DrawUnits_RequestsUnitsFromTile()
         {
-            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
+            var renderer = GenerateRenderer();
 
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Equal(new HexCoordinate(0, 0))))
                 .Return(GenerateTileWithUnit());
 
-            StubCameraHexesInView(mCamera, 0, 0, 0, 0);
+            StubCameraHexesInView(mCameraController, 0, 0, 0, 0);
 
-            mCamera.Stub(_ => _.GetLocation())
-                .Return(new WorldCoordinate(0, 0));
+            mCamera.Location = XY.World(0, 0);
 
-            renderer.DrawUnits(mGraphics, mCamera);
+            renderer.DrawUnits(mGraphics, mCameraController);
 
             mGraphics.AssertWasCalled(_ => _.FillEllipse(
                 Arg<Brush>.Is.Anything, Arg<Rectangle>.Is.Anything));
@@ -192,11 +172,17 @@ namespace TBSG.View
         #region DrawSelection
 
         [Fact]
-        public void DrawSelection_ShouldDrawSelection()
+        public void DrawSelection_NoSelection_NoDrawing()
         {
-            var renderer = new Renderer(mAlgorithms, mMap, mConfigProvider);
+            var renderer = GenerateRenderer();
 
-            throw new NotImplementedException();
+            mConfigProvider.SetValue(2, "SelectionDrawWidth");
+
+            renderer.DrawSelection(mGraphics, mCameraController, null);
+            renderer.DrawSelection(mGraphics, mCameraController, new HexCoordinate[] { });
+
+            mGraphics.AssertWasNotCalled(_ => _.DrawPolygon(
+                Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
         }
 
         #endregion
@@ -204,10 +190,10 @@ namespace TBSG.View
         #region Helpers
 
         private void StubCameraHexesInView(
-            ICamera camera,
+            ICameraController cameraController,
             int x1, int y1, int x2, int y2)
         {
-            camera.Stub(_ => _.GetHexesInView())
+            cameraController.Stub(_ => _.GetHexesInView())
                 .Return(Tuple.Create(new HexCoordinate(x1, y1), new HexCoordinate(x2, y2)));
         }
 
@@ -215,6 +201,11 @@ namespace TBSG.View
         {
             mMap.Stub(_ => _.TileAt(new HexCoordinate(0, 0)))
                 .Return(new Tile());
+        }
+
+        private Renderer GenerateRenderer()
+        {
+            return new Renderer(mAlgorithms, mMap, mConfigProvider);
         }
 
         private Tile GenerateTile()

@@ -1,8 +1,9 @@
 ﻿using System;
 using Xunit;
 using Rhino.Mocks;
+using TBSG.Model;
 
-namespace TBSG.Model
+namespace TBSG.Control
 {
     public class GameControllerTests
     {

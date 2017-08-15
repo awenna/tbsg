@@ -20,15 +20,15 @@ namespace TBSG.View
 
         #region DrawGrid
 
-        public void DrawGrid(IGraphics g, ICamera camera)
+        public void DrawGrid(IGraphics g, ICameraController controller)
         {
-            var cameraLocation = camera.GetLocation();
-            var viewSize = camera.GetHexesInView();
+            var cameraLocation = controller.GetCamera().Location;
+            var viewSize = controller.GetHexesInView();
 
             var viewStart = viewSize.Item1;
             var viewEnd = viewSize.Item2;
 
-            var scale = camera.GetScale();
+            var scale = controller.GetCamera().Scale;
 
             for (int x = viewStart.x -1 ; x <= viewEnd.x + 1; x++)
             {
@@ -57,15 +57,15 @@ namespace TBSG.View
 
         #region DrawUnits
 
-        public void DrawUnits(IGraphics g, ICamera camera)
+        public void DrawUnits(IGraphics g, ICameraController controller)
         {
-            var cameraLocation = camera.GetLocation();
-            var viewSize = camera.GetHexesInView();
+            var cameraLocation = controller.GetCamera().Location;
+            var viewSize = controller.GetHexesInView();
 
             var viewStart = viewSize.Item1;
             var viewEnd = viewSize.Item2;
 
-            var scale = camera.GetScale();
+            var scale = controller.GetCamera().Scale;
 
             for (int x = viewStart.x - 1; x <= viewEnd.x + 1; x++)
             {
@@ -101,10 +101,13 @@ namespace TBSG.View
 
         #region DrawSelection
 
-        public void DrawSelection(IGraphics g, ICamera camera, IEnumerable<HexCoordinate> selection)
+        public void DrawSelection(IGraphics g, ICameraController cameraController, IEnumerable<HexCoordinate> selection)
         {
-            var scale = camera.GetScale();
-            var cameraLocation = camera.GetLocation();
+            if (selection == null) return;
+
+            var camera = cameraController.GetCamera();
+            var scale = camera.Scale;
+            var cameraLocation = camera.Location;
 
             var pen = new Pen(Color.White);
             pen.Width = mConfigurationProvider.GetValue<int>("SelectionDrawWidth");

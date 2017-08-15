@@ -29,11 +29,9 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.fieldPanel = new FieldPanel();
+            this.fieldPanel = new System.Windows.Forms.PictureBox();
             this.SuspendLayout();
 
-            KeyPreview = true;
-            PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(GameWindowForm_PreviewKeyDown);
             KeyDown += new System.Windows.Forms.KeyEventHandler(GameWindowForm_KeyPress);
 
             var timer = new System.Windows.Forms.Timer();
@@ -50,9 +48,8 @@
                 mConfigurationProvider.GetValue<int>("FieldPanelSizeY"));
             this.fieldPanel.TabIndex = 1;
             this.fieldPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.field_Paint);
-            fieldPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(fieldPanel.OnMouseClick);
+            fieldPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(OnFieldPanelClick);
 
-            fieldPanel.Initialize(this);
             // 
             // GameWindowForm
             // 
@@ -71,7 +68,7 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private FieldPanel fieldPanel;
+        private System.Windows.Forms.PictureBox fieldPanel;
     }
 }
 

@@ -67,6 +67,7 @@
     <Compile Include="Calculation\Algorithms.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="ConfigurationProvider.cs" />
+    <Compile Include="Control\IGameController.cs" />
     <Compile Include="Data\Coordinate.cs" />
     <Compile Include="Model\Ability.cs" />
     <Compile Include="Model\Effect.cs" />
@@ -77,21 +78,19 @@
     <Compile Include="Model\Command.cs" />
     <Compile Include="Model\IEffectApplier.cs" />
     <Compile Include="Model\Tags.cs" />
-    <Compile Include="View\FieldPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\Form1.cs">
+    <Compile Include="View\CameraController.cs" />
+    <Compile Include="View\GameWindowForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\GameWindowForm.Designer.cs">
+      <DependentUpon>GameWindowForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Control\GameController.cs" />
     <Compile Include="View\GraphicsWrapper.cs" />
     <Compile Include="Data\Hexagon.cs" />
     <Compile Include="Data\SubCoordinate.cs" />
     <Compile Include="Calculation\IAlgorithms.cs" />
-    <Compile Include="ICamera.cs" />
+    <Compile Include="View\ICameraController.cs" />
     <Compile Include="IConfigurationProvider.cs" />
     <Compile Include="View\IGraphics.cs" />
     <Compile Include="Model\IMap.cs" />
@@ -102,10 +101,13 @@
     <Compile Include="Model\MapGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\IPanelController.cs" />
     <Compile Include="View\Renderer.cs" />
     <Compile Include="Data\Tile.cs" />
-    <EmbeddedResource Include="View\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\FieldPanelController.cs" />
+    <Compile Include="View\ViewState.cs" />
+    <EmbeddedResource Include="View\GameWindowForm.resx">
+      <DependentUpon>GameWindowForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

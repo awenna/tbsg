@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using TBSG.Data;
 using TBSG.Model;
 using TBSG.View;
+using TBSG.Control;
 
 namespace TBSG
 {
@@ -31,9 +32,11 @@ namespace TBSG
             gameController.SetManualTestingMap();
 
             var renderer = new Renderer(algorithms, map, configProvider);
-            var camera = new Camera(algorithms, configProvider);
+            var cameraController = new CameraController(algorithms, configProvider);
 
-            var gameWindowForm = new GameWindowForm(algorithms, renderer, camera, configProvider);
+            var fieldPanelController = new FieldPanelController(algorithms, gameController);
+
+            var gameWindowForm = new GameWindowForm(algorithms, renderer, cameraController, fieldPanelController, configProvider);
 
             Application.Run(gameWindowForm);
         }

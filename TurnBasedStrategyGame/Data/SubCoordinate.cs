@@ -10,9 +10,14 @@ namespace TBSG.Data
     {
         public HexCoordinate(int pX, int pY) : base(pX, pY) { }
 
-        public WorldCoordinate ToWorldCoordinate()
+        public WorldCoordinate ToWorldCoordinate(IAlgorithms algorithms, int scale)
         {
-            throw new NotImplementedException();
+            return algorithms.HexToWorld(this, scale);
+        }
+
+        public ScreenCoordinate ToScreenCoordinate(IAlgorithms algorithms, int scale, Coordinate location)
+        {
+            return algorithms.HexToScreen(this, scale, location);
         }
 
         #region HexCoordinate Overrides
@@ -44,14 +49,14 @@ namespace TBSG.Data
     {
         public WorldCoordinate(int pX, int pY) : base(pX, pY) { }
 
-        public HexCoordinate ToHexCoordinate()
+        public HexCoordinate ToHexCoordinate(IAlgorithms algorithms, int scale)
         {
-            throw new NotImplementedException();
+            return algorithms.WorldToHex(this, scale);
         }
 
-        public ScreenCoordinate ToScreenCoordinate()
+        public ScreenCoordinate ToScreenCoordinate(IAlgorithms algorithms, Coordinate location)
         {
-            throw new NotImplementedException();
+            return algorithms.WorldToScreen(this, location);
         }
 
         #region HexCoordinate Overrides
@@ -83,9 +88,14 @@ namespace TBSG.Data
     {
         public ScreenCoordinate(int pX, int pY) : base(pX, pY) { }
 
-        public WorldCoordinate ToWorldCoordinate()
+        public WorldCoordinate ToWorldCoordinate(IAlgorithms algorithms, Coordinate location)
         {
-            throw new NotImplementedException();
+            return algorithms.ScreenToWorld(this, location);
+        }
+
+        public HexCoordinate ToHexCoordinate(IAlgorithms algorithms, int scale, Coordinate location)
+        {
+            return algorithms.ScreenToHex(this, scale, location);
         }
 
         #region HexCoordinate Overrides

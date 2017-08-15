@@ -6,16 +6,13 @@ using System.Threading.Tasks;
 using System.Drawing;
 using TBSG.Data;
 
-namespace TBSG
+namespace TBSG.View
 {
-    public interface ICamera
+    public interface ICameraController
     {
-        int GetScale();
-        void SetSize(ScreenCoordinate size);
-        void SetSize(Size size);
-        WorldCoordinate GetLocation();
+        Camera GetCamera();
         Tuple<HexCoordinate, HexCoordinate> GetHexesInView();
-
         void MoveBy(WorldCoordinate amount);
+        void SetViewSize(ScreenCoordinate size);
     }
 }

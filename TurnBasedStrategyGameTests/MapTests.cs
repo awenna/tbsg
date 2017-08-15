@@ -61,12 +61,9 @@ namespace TBSG.Model
         }
 
         [Fact]
-        public void TileAt_OutsideBounds_ReturnsNull()
+        public void TileAt_OutsideBounds_ThrowsOutOfBoundsException()
         {
-            var tileArray = new[] { new[] { new Tile() } };
-
-            mMapGenerator.Stub(_ => _.GenerateMap(Arg<Coordinate>.Is.Anything))
-                .Return(tileArray);
+            SetupOneByOneMap();
 
             var map = new Map(mMapGenerator, new Coordinate(1, 1));
 
@@ -84,10 +81,7 @@ namespace TBSG.Model
         [Fact]
         public void LocationIsWithinBounds_ReturnsCorrectInEdgeCases()
         {
-            var tileArray = new[] { new[] { new Tile() } };
-
-            mMapGenerator.Stub(_ => _.GenerateMap(Arg<Coordinate>.Is.Anything))
-                .Return(tileArray);
+            SetupOneByOneMap();
 
             var map = new Map(mMapGenerator, new Coordinate(1, 1));
 
@@ -96,6 +90,14 @@ namespace TBSG.Model
 
             Assert.False(resultRight);
             Assert.False(resultDown);
+        }
+
+        private void SetupOneByOneMap()
+        {
+            var tileArray = new[] { new[] { new Tile() } };
+
+            mMapGenerator.Stub(_ => _.GenerateMap(Arg<Coordinate>.Is.Anything))
+                .Return(tileArray);
         }
     }
 }

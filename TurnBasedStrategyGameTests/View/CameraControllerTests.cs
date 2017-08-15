@@ -7,25 +7,27 @@ using Xunit;
 using Rhino.Mocks;
 using TBSG.Data;
 
-namespace TBSG
+namespace TBSG.View
 {
-    public class CameraTests
+    public class CameraControllerTests
     {
+        private readonly IAlgorithms mAlgorithms;
         private readonly TestConfigurationProvider mConfigProvider;
 
-        public CameraTests()
+        public CameraControllerTests()
         {
+            mAlgorithms = MockRepository.GenerateStub<IAlgorithms>();
             mConfigProvider = new TestConfigurationProvider();
 
             mConfigProvider.SetValue(10, "CameraScaleDefault");
         }
 
         [Fact]
-        public void Constructor_StartsAtOrigo()
+        public void Constructor_StartsCameraAtOrigo()
         {
-            var camera = new Camera(new Algorithms(), mConfigProvider);
+            var controller = GenerateController();
 
-            var result = camera.GetLocation();
+            var result = controller.Camera.Location;
 
             Assert.Equal(new WorldCoordinate(0, 0), result);
         }
@@ -33,12 +35,12 @@ namespace TBSG
         [Fact]
         public void MoveBy_ChangesLocation()
         {
-            var camera = new Camera(new Algorithms(), mConfigProvider);
+            var controller = GenerateController();
 
-            camera.MoveBy(new WorldCoordinate(32, 15));
-            camera.MoveBy(new WorldCoordinate(-7, -2));
+            controller.MoveBy(new WorldCoordinate(32, 15));
+            controller.MoveBy(new WorldCoordinate(-7, -2));
 
-            var result1 = camera.GetLocation();
+            var result1 = controller.Camera.Location;
 
             Assert.Equal(new WorldCoordinate(25, 13), result1);
         }
@@ -46,23 +48,26 @@ namespace TBSG
         [Fact]
         public void GetHexesInViewe_ReturnsLowerCoordinateFirst()
         {
-            var algs = MockRepository.GenerateStub<IAlgorithms>();
+            var controller = GenerateController();
 
-            algs.Stub(_ => _.WorldToHex(
+            mAlgorithms.Stub(_ => _.WorldToHex(
                 Arg<WorldCoordinate>.Is.Anything, Arg<int>.Is.Anything))
                 .Return(new HexCoordinate(2, 3))
                 .Repeat.Once();
-            algs.Stub(_ => _.WorldToHex(
+            mAlgorithms.Stub(_ => _.WorldToHex(
                 Arg<WorldCoordinate>.Is.Anything, Arg<int>.Is.Anything))
                 .Return(new HexCoordinate(5, 4))
                 .Repeat.Once();
 
-            var camera = new Camera(algs, mConfigProvider);
-
-            var result = camera.GetHexesInView();
+            var result = controller.GetHexesInView();
 
             var expected = Tuple.Create(new HexCoordinate(2, 3), new HexCoordinate(5, 4));
             Assert.Equal(expected, result);
+        }
+
+        private CameraController GenerateController()
+        {
+            return new CameraController(mAlgorithms, mConfigProvider);
         }
     }
 }

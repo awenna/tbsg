@@ -71,7 +71,7 @@ namespace TBSG
             else if (relY < (m * relX) - c)
             {
                 row--;
-                if (row % 2 == 0) column--;
+                if (row % 2 == 0) column++;
             }
             
             return new HexCoordinate(column, row);
@@ -93,6 +93,24 @@ namespace TBSG
         public WorldCoordinate ScreenToWorld(ScreenCoordinate coords, Coordinate location)
         {
             return new WorldCoordinate(coords.x + location.x, coords.y + location.y);
+        }
+
+        #endregion
+
+        #region HexToScreen
+
+        public ScreenCoordinate HexToScreen(HexCoordinate coords, int scale, Coordinate location)
+        {
+            return WorldToScreen(HexToWorld(coords, scale), location);
+        }
+
+        #endregion
+
+        #region ScreenToHex
+
+        public HexCoordinate ScreenToHex(ScreenCoordinate coords, int scale, Coordinate location)
+        {
+            return WorldToHex(ScreenToWorld(coords, location), scale);
         }
 
         #endregion

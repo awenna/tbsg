@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Rhino.Mocks;
-using TBSG.Data;
 
-namespace TBSG
+namespace TBSG.Data
 {
     public class CoordinateTests
     {

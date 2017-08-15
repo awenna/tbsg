@@ -15,6 +15,9 @@ namespace TBSG
         ScreenCoordinate WorldToScreen(WorldCoordinate coords, Coordinate location);
         WorldCoordinate ScreenToWorld(ScreenCoordinate coords, Coordinate location);
 
+        ScreenCoordinate HexToScreen(HexCoordinate coords, int scale, Coordinate location);
+        HexCoordinate ScreenToHex(ScreenCoordinate coords, int scale, Coordinate location);
+
         Hexagon GetHexagon(Coordinate xy, int scale);
     }
 }
