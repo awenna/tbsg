@@ -28,13 +28,16 @@ namespace TBSG
                 configProvider.GetValue<int>("MapSizeYDefault"));
             var map = new Map(mapGenerator, mapSize);
 
-            var gameController = new GameController(map, null);
+            var effectApplier = new EffectApplier(map);
+            var commandResolver = new CommandResolver(map, effectApplier);
+
+            var gameController = new GameController(map, commandResolver);
             gameController.SetManualTestingMap();
 
             var renderer = new Renderer(algorithms, map, configProvider);
             var cameraController = new CameraController(algorithms, configProvider);
 
-            var fieldPanelController = new FieldPanelController(algorithms, gameController);
+            var fieldPanelController = new FieldPanelController(algorithms, gameController, map);
 
             var gameWindowForm = new GameWindowForm(algorithms, renderer, cameraController, fieldPanelController, configProvider);
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TBSG.Model
 {
-    public class CommandResolver
+    public class CommandResolver : ICommandResolver
     {
         private readonly IEffectApplier mEffectApplier;
 
@@ -32,8 +32,8 @@ namespace TBSG.Model
                     case Tag.Target.Ground:
                         mEffectApplier.Apply(targettedEffect.Effect, command.TargetTile);
                         break;
-                    case Tag.Target.EntityAndGround:
-                        mEffectApplier.Apply(targettedEffect.Effect, command.TargetEntity, command.TargetTile);
+                    case Tag.Target.SelfAndGround:
+                        mEffectApplier.Apply(targettedEffect.Effect, command.Commandee, command.TargetTile);
                         break;
                 }
             }

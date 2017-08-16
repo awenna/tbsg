@@ -25,11 +25,30 @@ namespace TBSG.Model
             mMapArray = mMapGenerator.GenerateMap(dimensions);
         }
 
+        public void MoveEntityTo(Entity entity, Tile tile)
+        {
+            if (tile.IsFree())
+            {
+                if (entity.Tile != null) entity.Tile.Entity = null;
+                entity.Tile = tile;
+                tile.Entity = entity;
+            }
+        }
+
         public Tile TileAt(HexCoordinate location)
         {
             if (LocationIsWithinBounds(location))
             {
                 return mMapArray[location.x][location.y];
+            }
+            return null;
+        }
+
+        public Entity EntityAt(HexCoordinate location)
+        {
+            if (LocationIsWithinBounds(location))
+            {
+                return mMapArray[location.x][location.y].Entity;
             }
             return null;
         }

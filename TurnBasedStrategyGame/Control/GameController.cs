@@ -8,19 +8,28 @@ namespace TBSG.Control
     public class GameController : IGameController
     {
         private readonly IMap mMap;
-        private readonly IPlayer mPlayer;
+        private readonly ICommandResolver mCommandResolver;
 
         public GameController(
             IMap map,
-            IPlayer player)
+            ICommandResolver commandResolver)
         {
             mMap = map;
-            mPlayer = player;
+            mCommandResolver = commandResolver;
         }
 
-        public void UseDefaultAction(ViewState state)
+        public void UseDefaultAction(Entity entity, HexCoordinate targetLocation)
         {
-            throw new NotImplementedException();
+            if (entity == null) return;
+
+            var command = new Command
+            {
+                Commandee = entity,
+                Ability = entity.DefaultAbility,
+                TargetTile = mMap.TileAt(targetLocation)
+            };
+
+            mCommandResolver.Resolve(command);
         }
 
         public IMap GetMap()
@@ -32,8 +41,24 @@ namespace TBSG.Control
 
         public void SetManualTestingMap()
         {
-            var unit = new Entity();
-            mMap.TileAt(new HexCoordinate(0, 0)).Entity = unit;
+            var moveEff = new Effect
+            {
+                Tag = Tag.Effects.Movement,
+                Value = 2
+            };
+            var moveTargetted = new TargettedEffect
+            {
+                Target = Tag.Target.SelfAndGround,
+                Effect = moveEff
+            };
+            var moveAbility = new Ability
+            {
+                TargetMode = Tag.TargetMode.GroundTarget,
+                Effects = new[] { moveTargetted }
+            };
+
+            var entity = new Entity { DefaultAbility = moveAbility };
+            mMap.MoveEntityTo(entity, mMap.TileAt(new HexCoordinate(0, 0)));
         }
 
         #endregion

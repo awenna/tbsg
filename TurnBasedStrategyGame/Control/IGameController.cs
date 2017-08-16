@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TBSG.Model;
-using TBSG.View;
+using TBSG.Data;
 
 namespace TBSG.Control
 {
     public interface IGameController
     {
         IMap GetMap();
-        void UseDefaultAction(ViewState state);
+        void UseDefaultAction(Entity entity, HexCoordinate targetLocation);
     }
 }

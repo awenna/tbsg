@@ -92,6 +92,18 @@ namespace TBSG.Model
             Assert.False(resultDown);
         }
 
+        [Fact]
+        public void MoveEntityTo_MovesEntity()
+        {
+            //var map = GenerateSmallMap();
+            throw new NotImplementedException();
+        }
+
+        private void GenerateSmallMap()
+        {
+
+        }
+
         private void SetupOneByOneMap()
         {
             var tileArray = new[] { new[] { new Tile() } };

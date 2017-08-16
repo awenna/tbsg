@@ -16,32 +16,36 @@ namespace TBSG.View
     {
         private readonly IAlgorithms mAlgorithms;
         private readonly IGameController mGameController;
+        private readonly IMap mMap;
 
         public FieldPanelControllerTests()
         {
             mAlgorithms = new Algorithms();
             mGameController = MockRepository.GenerateMock<IGameController>();
+            mMap = MockRepository.GenerateStub<IMap>();
         }
 
         [Fact]
-        public void OnClickLeft_NoTileSelection_CreateTileSelection()
+        public void OnClickLeft_NoSelection_CreateTileAndUnitSelection()
         {
-            var controller = GetViewController();
+            var controller = GetFieldPanelController();
+
+            mMap.Stub(_ => _.EntityAt(Arg<HexCoordinate>.Is.Anything))
+                .Return(new Entity());
 
             var state = new ViewState { Camera = GenerateCamera() };
             var e = new MouseEventArgs(MouseButtons.Left, 1, 50, 50, 0);
 
-            
-
             controller.OnClick(state, e);
 
             Assert.NotNull(state.Selection);
+            Assert.NotNull(state.SelectedEntity);
         }
 
         [Fact]
         public void OnClickLeft_UnitSelection_ClearUnitSelection()
         {
-            var controller = GetViewController();
+            var controller = GetFieldPanelController();
 
             var state = new ViewState { Camera = GenerateCamera(), SelectedEntity = new Entity() };
             var e = new MouseEventArgs(MouseButtons.Left, 1, 50, 50, 0);
@@ -56,7 +60,7 @@ namespace TBSG.View
         [Fact]
         public void OnClickRight_UnitSelection_UseDefaultAction()
         {
-            var controller = GetViewController();
+            var controller = GetFieldPanelController();
 
             var state = new ViewState { Camera = GenerateCamera(), SelectedEntity = new Entity() };
             var e = new MouseEventArgs(MouseButtons.Right, 1, 50, 50, 0);
@@ -64,12 +68,26 @@ namespace TBSG.View
             controller.OnClick(state, e);
 
             mGameController.AssertWasCalled(_ =>
-                _.UseDefaultAction(state));
+                _.UseDefaultAction(Arg<Entity>.Is.Anything, Arg<HexCoordinate>.Is.Anything));
         }
-
-        private FieldPanelController GetViewController()
+        /*
+        [Fact]
+        public void OnClickRight_NoUnitSelection_NoAction()
         {
-            return new FieldPanelController(mAlgorithms, mGameController);
+            var controller = GetViewController();
+
+            var state = new ViewState { Camera = GenerateCamera(), SelectedEntity = new Entity() };
+            var e = new MouseEventArgs(MouseButtons.Right, 1, 50, 50, 0);
+
+            controller.OnClick(state, e);
+
+            mGameController.AssertWasNotCalled(_ =>
+                _.UseDefaultAction(state));
+        }*/
+
+        private FieldPanelController GetFieldPanelController()
+        {
+            return new FieldPanelController(mAlgorithms, mGameController, mMap);
         }
 
         private Camera GenerateCamera()

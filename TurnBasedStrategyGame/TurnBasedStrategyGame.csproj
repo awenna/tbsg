@@ -76,6 +76,7 @@
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Data\TerrainType.cs" />
     <Compile Include="Model\Command.cs" />
+    <Compile Include="Model\ICommandResolver.cs" />
     <Compile Include="Model\IEffectApplier.cs" />
     <Compile Include="Model\Tags.cs" />
     <Compile Include="View\CameraController.cs" />

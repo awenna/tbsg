@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TBSG.Data;
+using TBSG.Model;
 using TBSG.Control;
 
 namespace TBSG.View
@@ -13,35 +14,44 @@ namespace TBSG.View
     {
         private readonly IAlgorithms mAlgorithms;
         private readonly IGameController mGameController;
+        private readonly IMap mMap;
 
-        public FieldPanelController(IAlgorithms algorithms, IGameController gameController)
+        public FieldPanelController(IAlgorithms algorithms, IGameController gameController, IMap map)
         {
             mAlgorithms = algorithms;
             mGameController = gameController;
+            mMap = map;
         }
 
         public void OnClick(ViewState state, MouseEventArgs e)
         {
-            var clickCoord = XY.Screen(e.X, e.Y);
-
+            var clickHex = GetClickHex(state.Camera, XY.Screen(e.X, e.Y));
+            
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    SelectTileAt(state, clickCoord);
+                    SelectTileAt(state, clickHex);
+                    SelectEntityAt(state, clickHex);
                     break;
                 case MouseButtons.Right:
-                    mGameController.UseDefaultAction(state);
+                    mGameController.UseDefaultAction(state.SelectedEntity, clickHex);
                     break;
             }
-            
         }
 
-        private void SelectTileAt(ViewState state, ScreenCoordinate coord)
+        private void SelectTileAt(ViewState state, HexCoordinate coord)
         {
-            var camera = state.Camera;
-            var hexCoordinate = coord.ToHexCoordinate(mAlgorithms, camera.Scale, camera.Location);
-            state.Selection = new[] { hexCoordinate };
-            state.SelectedEntity = null;
+            state.Selection = new[] { coord };
+        }
+
+        private void SelectEntityAt(ViewState state, HexCoordinate coord)
+        {
+            state.SelectedEntity = mMap.EntityAt(coord);
+        }
+
+        private HexCoordinate GetClickHex(Camera camera, ScreenCoordinate coord)
+        {
+            return coord.ToHexCoordinate(mAlgorithms, camera.Scale, camera.Location);
         }
     }
 }

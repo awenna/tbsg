@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TBSG.Data;
+using Xunit;
+using Rhino.Mocks;
 
 namespace TBSG.Model
 {
-    public class Entity
+    public class CommandResolverTests
     {
-        public Ability DefaultAbility { get; set; }
-        public Tile Tile { get; set; }
     }
 }

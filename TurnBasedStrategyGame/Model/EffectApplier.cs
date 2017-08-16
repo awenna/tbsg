@@ -31,10 +31,7 @@ namespace TBSG.Model
             switch (effect.Tag)
             {
                 case Tag.Effects.Movement:
-                    if (tile.IsFree())
-                    {
-                        tile.Entity = entity;
-                    }
+                    mMap.MoveEntityTo(entity, tile);
                     break;
             }
             if (effect.Children != null)
