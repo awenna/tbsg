@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using TBSG.Data;
 
-namespace TBSG.View
+namespace TBSG.View.Forms
 {
     public partial class GameWindowForm : Form
     {

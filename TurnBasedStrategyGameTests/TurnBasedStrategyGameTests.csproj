@@ -88,7 +88,7 @@
     <Compile Include="ConfigurationProviderTests.cs" />
     <Compile Include="Data\CoordTests.cs" />
     <Compile Include="Control\GameControllerTests.cs" />
-    <Compile Include="View\GameFormTests.cs" />
+    <Compile Include="View\Forms\GameFormTests.cs" />
     <Compile Include="Model\MapGeneratorTests.cs" />
     <Compile Include="Model\MapTests.cs" />
     <Compile Include="Model\EffectApplierTests.cs" />

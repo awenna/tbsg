@@ -80,10 +80,10 @@
     <Compile Include="Model\IEffectApplier.cs" />
     <Compile Include="Data\Tags.cs" />
     <Compile Include="View\CameraController.cs" />
-    <Compile Include="View\GameWindowForm.cs">
+    <Compile Include="View\Forms\GameWindowForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\GameWindowForm.Designer.cs">
+    <Compile Include="View\Forms\GameWindowForm.Designer.cs">
       <DependentUpon>GameWindowForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Control\GameController.cs" />
@@ -109,7 +109,7 @@
     <Compile Include="View\FieldPanelController.cs" />
     <Compile Include="View\Selection.cs" />
     <Compile Include="Data\ViewState.cs" />
-    <EmbeddedResource Include="View\GameWindowForm.resx">
+    <EmbeddedResource Include="View\Forms\GameWindowForm.resx">
       <DependentUpon>GameWindowForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

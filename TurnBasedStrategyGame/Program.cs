@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using TBSG.Data;
 using TBSG.Model;
 using TBSG.View;
+using TBSG.View.Forms;
 using TBSG.Control;
 
 namespace TBSG

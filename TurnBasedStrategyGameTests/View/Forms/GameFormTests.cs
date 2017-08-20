@@ -1,9 +1,8 @@
 ﻿using System.Drawing;
 using Rhino.Mocks;
 using Xunit;
-using TBSG.Control;
 
-namespace TBSG.View
+namespace TBSG.View.Forms
 {
     public class GameFormTests
     {
