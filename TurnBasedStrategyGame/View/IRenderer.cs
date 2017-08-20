@@ -10,6 +10,6 @@ namespace TBSG.View
         void DrawSelection(
             IGraphics g,
             ICameraController cameraController,
-            IEnumerable<HexCoordinate> selection);
+            HexCoordinate selection);
     }
 }

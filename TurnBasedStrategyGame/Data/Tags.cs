@@ -1,4 +1,4 @@
-﻿namespace TBSG.Model
+﻿namespace TBSG.Data
 {
     public static class Tag
     {

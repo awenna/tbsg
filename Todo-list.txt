@@ -1,1 +1,2 @@
-Selection follow moved unit
+Selecting outside bounds throws error
+	- Make map throw exceptions

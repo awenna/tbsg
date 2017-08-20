@@ -6,6 +6,7 @@ namespace TBSG.Data
     {
         public TerrainType TerrainType { get; set; }
         public Entity Entity { get; set; }
+        public HexCoordinate Location { get; set; }
 
         public Tile() { }
 

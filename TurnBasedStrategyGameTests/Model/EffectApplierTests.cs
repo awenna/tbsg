@@ -12,8 +12,8 @@ namespace TBSG.Model
     public class EffectApplierTests
     {
         private readonly IMap mMap;
-        private readonly EffectApplier effectApplier;
 
+        private readonly EffectApplier effectApplier;
 
         public EffectApplierTests()
         {
@@ -23,36 +23,17 @@ namespace TBSG.Model
         }
 
         [Fact]
-        public void Apply_Move_MovesUnit()
+        public void Apply_Movement_MovesUnit()
         {
-            var ability = GenerateSimpleMove();
+            var effect = GenerateSimpleMove();
 
             var entity = new Entity();
             var tile = new Tile();
 
-            mMap.Stub(_ => _.TileAt(XY.Hex(0, 0)))
-                .Return(tile);
+            effectApplier.Apply(effect, entity, tile);
 
-            effectApplier.Apply(ability, entity, tile);
-
-            Assert.True(tile.Entity == entity);
-        }
-
-        [Fact]
-        public void Apply_Move_NoSpace_DoesNotMove()
-        {
-            var ability = GenerateSimpleMove();
-
-            var entity = new Entity();
-            var occupant = new Entity();
-            var tile = new Tile { Entity = occupant };
-
-            mMap.Stub(_ => _.TileAt(XY.Hex(0, 0)))
-                .Return(tile);
-
-            effectApplier.Apply(ability, entity, tile);
-
-            Assert.True(tile.Entity == occupant);
+            mMap.AssertWasCalled(_ => _
+                .MoveEntityTo(entity, tile));
         }
 
         #region Helpers

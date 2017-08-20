@@ -16,7 +16,10 @@ namespace TBSG.View
         private readonly IGameController mGameController;
         private readonly IMap mMap;
 
-        public FieldPanelController(IAlgorithms algorithms, IGameController gameController, IMap map)
+        public FieldPanelController(
+            IAlgorithms algorithms,
+            IGameController gameController,
+            IMap map)
         {
             mAlgorithms = algorithms;
             mGameController = gameController;
@@ -30,23 +33,19 @@ namespace TBSG.View
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    SelectTileAt(state, clickHex);
-                    SelectEntityAt(state, clickHex);
+                    SelectAt(state, clickHex);
                     break;
                 case MouseButtons.Right:
-                    mGameController.UseDefaultAction(state.SelectedEntity, clickHex);
+                    mGameController.UseDefaultAction(state.Selection.GetEntity(), clickHex);
                     break;
             }
         }
 
-        private void SelectTileAt(ViewState state, HexCoordinate coord)
+        private void SelectAt(ViewState state, HexCoordinate coord)
         {
-            state.Selection = new[] { coord };
-        }
-
-        private void SelectEntityAt(ViewState state, HexCoordinate coord)
-        {
-            state.SelectedEntity = mMap.EntityAt(coord);
+            state.Selection.Clear();
+            var tile = mMap.TileAt(coord);
+            state.Selection.Set(tile);
         }
 
         private HexCoordinate GetClickHex(Camera camera, ScreenCoordinate coord)

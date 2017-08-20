@@ -9,6 +9,7 @@ using Xunit;
 using TBSG.Data;
 using TBSG.Control;
 using TBSG.Model;
+using TBSG.View;
 
 namespace TBSG.View
 {
@@ -17,12 +18,14 @@ namespace TBSG.View
         private readonly IAlgorithms mAlgorithms;
         private readonly IGameController mGameController;
         private readonly IMap mMap;
+        private readonly ISelection mSelection;
 
         public FieldPanelControllerTests()
         {
             mAlgorithms = new Algorithms();
             mGameController = MockRepository.GenerateMock<IGameController>();
             mMap = MockRepository.GenerateStub<IMap>();
+            mSelection = MockRepository.GenerateStub<ISelection>();
         }
 
         [Fact]
@@ -30,16 +33,16 @@ namespace TBSG.View
         {
             var controller = GetFieldPanelController();
 
-            mMap.Stub(_ => _.EntityAt(Arg<HexCoordinate>.Is.Anything))
-                .Return(new Entity());
+            var tile = new Tile();
+            mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
+                .Return(tile);
 
-            var state = new ViewState { Camera = GenerateCamera() };
+            var state = new ViewState { Camera = GenerateCamera(), Selection = mSelection };
             var e = new MouseEventArgs(MouseButtons.Left, 1, 50, 50, 0);
 
             controller.OnClick(state, e);
 
-            Assert.NotNull(state.Selection);
-            Assert.NotNull(state.SelectedEntity);
+            mSelection.AssertWasCalled(_ => _.Set(tile));
         }
 
         [Fact]
@@ -47,14 +50,14 @@ namespace TBSG.View
         {
             var controller = GetFieldPanelController();
 
-            var state = new ViewState { Camera = GenerateCamera(), SelectedEntity = new Entity() };
+            var state = new ViewState { Camera = GenerateCamera(), Selection = mSelection };
             var e = new MouseEventArgs(MouseButtons.Left, 1, 50, 50, 0);
 
             GenerateCamera();
 
             controller.OnClick(state, e);
 
-            Assert.Null(state.SelectedEntity);
+            mSelection.AssertWasCalled(_ => _.Clear());
         }
 
         [Fact]
@@ -62,7 +65,8 @@ namespace TBSG.View
         {
             var controller = GetFieldPanelController();
 
-            var state = new ViewState { Camera = GenerateCamera(), SelectedEntity = new Entity() };
+            var selection = new Selection { Entity = new Entity() };
+            var state = new ViewState { Camera = GenerateCamera(), Selection = selection };
             var e = new MouseEventArgs(MouseButtons.Right, 1, 50, 50, 0);
 
             controller.OnClick(state, e);

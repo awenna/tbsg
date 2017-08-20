@@ -179,7 +179,6 @@ namespace TBSG.View
             mConfigProvider.SetValue(2, "SelectionDrawWidth");
 
             renderer.DrawSelection(mGraphics, mCameraController, null);
-            renderer.DrawSelection(mGraphics, mCameraController, new HexCoordinate[] { });
 
             mGraphics.AssertWasNotCalled(_ => _.DrawPolygon(
                 Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));

@@ -95,14 +95,33 @@ namespace TBSG.Model
         [Fact]
         public void MoveEntityTo_MovesEntity()
         {
-            //var map = GenerateSmallMap();
-            throw new NotImplementedException();
+            SetupOneByOneMap();
+
+            var map = new Map(mMapGenerator, new Coordinate(1, 1));
+
+            var entity = new Entity();
+
+            map.MoveEntityTo(entity, XY.Hex(0,0));
+
+            Assert.Equal(entity, map.EntityAt(XY.Hex(0, 0)));
         }
 
-        private void GenerateSmallMap()
+        [Fact]
+        public void MoveEntityTo_NoSpace_DoNotMove()
         {
+            SetupOneByOneMap();
 
+            var map = new Map(mMapGenerator, new Coordinate(1, 1));
+
+            var occupant = new Entity();
+            var entity = new Entity();
+
+            map.MoveEntityTo(occupant, XY.Hex(0, 0));
+            map.MoveEntityTo(entity, XY.Hex(0, 0));
+
+            Assert.NotEqual(entity, map.EntityAt(XY.Hex(0, 0)));
         }
+
 
         private void SetupOneByOneMap()
         {

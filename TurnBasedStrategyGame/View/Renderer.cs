@@ -101,7 +101,7 @@ namespace TBSG.View
 
         #region DrawSelection
 
-        public void DrawSelection(IGraphics g, ICameraController cameraController, IEnumerable<HexCoordinate> selection)
+        public void DrawSelection(IGraphics g, ICameraController cameraController, HexCoordinate selection)
         {
             if (selection == null) return;
 
@@ -112,14 +112,11 @@ namespace TBSG.View
             var pen = new Pen(Color.White);
             pen.Width = mConfigurationProvider.GetValue<int>("SelectionDrawWidth");
 
-            foreach (var select in selection)
-            {
-                var worldLocation = mAlgorithms.HexToWorld(select, scale);
-                var screenCoordinate = mAlgorithms.WorldToScreen(worldLocation, cameraLocation);
+            var worldLocation = mAlgorithms.HexToWorld(selection, scale);
+            var screenCoordinate = mAlgorithms.WorldToScreen(worldLocation, cameraLocation);
 
-                var hexagon = mAlgorithms.GetHexagon(screenCoordinate, scale);
-                g.DrawPolygon(pen, hexagon);
-            }
+            var hexagon = mAlgorithms.GetHexagon(screenCoordinate, scale);
+            g.DrawPolygon(pen, hexagon);
         }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TBSG.Model
+namespace TBSG.Data
 {
     public class Ability
     {

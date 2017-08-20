@@ -35,6 +35,13 @@ namespace TBSG.Model
             }
         }
 
+        public void MoveEntityTo(Entity entity, HexCoordinate targetLocation)
+        {
+            var tile = TileAt(targetLocation);
+
+            MoveEntityTo(entity, tile);
+        }
+
         public Tile TileAt(HexCoordinate location)
         {
             if (LocationIsWithinBounds(location))

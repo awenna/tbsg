@@ -18,12 +18,12 @@ namespace TBSG.Model
 
         public void Apply(Effect effect, Entity entity)
         {
-
+            throw new NotImplementedException();
         }
 
         public void Apply(Effect effect, Tile tile)
         {
-            
+            throw new NotImplementedException();
         }
 
         public void Apply(Effect effect, Entity entity, Tile tile)

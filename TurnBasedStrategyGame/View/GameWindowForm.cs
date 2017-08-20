@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TBSG.Data;
-using TBSG.Control;
 
 namespace TBSG.View
 {
@@ -36,7 +35,10 @@ namespace TBSG.View
 
             InitializeComponent();
 
-            viewState = new ViewState { Camera = mCameraController.GetCamera() };
+            viewState = new ViewState {
+                Camera = mCameraController.GetCamera(),
+                Selection = new Selection()
+            };
             var fieldSize = fieldPanel.Size;
             mCameraController.SetViewSize(XY.Screen(fieldSize.Width, fieldSize.Height));
         }
@@ -66,7 +68,7 @@ namespace TBSG.View
 
             mRenderer.DrawGrid(gw, mCameraController);
             mRenderer.DrawUnits(gw, mCameraController);
-            mRenderer.DrawSelection(gw, mCameraController, viewState.Selection);
+            mRenderer.DrawSelection(gw, mCameraController, viewState.Selection.GetLocation());
         }
 
         public void GameWindowForm_KeyPress(object sender, KeyEventArgs e)
