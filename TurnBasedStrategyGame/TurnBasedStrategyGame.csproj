@@ -79,6 +79,7 @@
     <Compile Include="Model\ICommandResolver.cs" />
     <Compile Include="Model\IEffectApplier.cs" />
     <Compile Include="Data\Tags.cs" />
+    <Compile Include="Model\TileOccupants.cs" />
     <Compile Include="View\CameraController.cs" />
     <Compile Include="View\Forms\GameWindowForm.cs">
       <SubType>Form</SubType>

@@ -12,6 +12,7 @@ namespace TBSG.Model
         private readonly IMapGenerator mMapGenerator;
 
         private Tile[][] mMapArray;
+        private TileOccupants mTileOccupants;
         private HexCoordinate mapSize;
 
         public Coordinate Dimensions { get; set; }
@@ -22,6 +23,7 @@ namespace TBSG.Model
             Dimensions = dimensions;
             mapSize = new HexCoordinate(dimensions.x - 1, dimensions.y - 1);
 
+            mTileOccupants = new TileOccupants();
             mMapArray = mMapGenerator.GenerateMap(dimensions);
         }
 
@@ -29,8 +31,10 @@ namespace TBSG.Model
         {
             if (tile.IsFree())
             {
-                if (entity.Tile != null) entity.Tile.Entity = null;
-                entity.Tile = tile;
+                if (mTileOccupants.Get(entity) != null)
+                {
+                    mTileOccupants.Set(entity, tile);
+                }
                 tile.Entity = entity;
             }
         }
@@ -58,6 +62,11 @@ namespace TBSG.Model
                 return mMapArray[location.x][location.y].Entity;
             }
             return null;
+        }
+
+        public Tile TileOf(Entity entity)
+        {
+            return mTileOccupants.Get(entity);
         }
 
         public bool LocationIsWithinBounds(HexCoordinate location)

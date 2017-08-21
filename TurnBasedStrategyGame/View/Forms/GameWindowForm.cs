@@ -68,7 +68,7 @@ namespace TBSG.View.Forms
 
             mRenderer.DrawGrid(gw, mCameraController);
             mRenderer.DrawUnits(gw, mCameraController);
-            mRenderer.DrawSelection(gw, mCameraController, viewState.Selection.GetLocation());
+            mRenderer.DrawSelection(gw, mCameraController, viewState.Selection);
         }
 
         public void GameWindowForm_KeyPress(object sender, KeyEventArgs e)

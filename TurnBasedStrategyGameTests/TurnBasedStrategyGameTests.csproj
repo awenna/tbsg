@@ -84,6 +84,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Model\CommandResolverTests.cs" />
+    <Compile Include="Model\TileOccupantTests.cs" />
     <Compile Include="View\CameraControllerTests.cs" />
     <Compile Include="ConfigurationProviderTests.cs" />
     <Compile Include="Data\CoordTests.cs" />

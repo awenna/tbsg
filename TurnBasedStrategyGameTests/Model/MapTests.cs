@@ -11,14 +11,24 @@ namespace TBSG.Model
 {
     public class MapTests
     {
+        #region Fields
+
         private readonly IMapGenerator mMapGenerator;
         private readonly IConfigurationProvider mConfigurationProvider;
+
+        #endregion
+
+        #region Constructor
 
         public MapTests()
         {
             mMapGenerator = MockRepository.GenerateStub<IMapGenerator>();
             mConfigurationProvider = new TestConfigurationProvider();
         }
+
+        #endregion
+
+        #region MapConstructor
 
         [Fact]
         public void Constructor_SetsMapSizeToParameter()
@@ -27,6 +37,10 @@ namespace TBSG.Model
 
             Assert.Equal(map.Dimensions, new Coordinate(3, 5));
         }
+
+        #endregion
+
+        #region TileAt
 
         [Fact]
         public void TileAt_ReturnsValue()
@@ -78,6 +92,10 @@ namespace TBSG.Model
             Assert.Null(resultDown);
         }
 
+        #endregion
+
+        #region LocationIsWithinBounds
+
         [Fact]
         public void LocationIsWithinBounds_ReturnsCorrectInEdgeCases()
         {
@@ -91,6 +109,10 @@ namespace TBSG.Model
             Assert.False(resultRight);
             Assert.False(resultDown);
         }
+
+        #endregion
+
+        #region MoveEntityTo
 
         [Fact]
         public void MoveEntityTo_MovesEntity()
@@ -122,6 +144,9 @@ namespace TBSG.Model
             Assert.NotEqual(entity, map.EntityAt(XY.Hex(0, 0)));
         }
 
+        #endregion
+
+        #region Helpers
 
         private void SetupOneByOneMap()
         {
@@ -130,5 +155,7 @@ namespace TBSG.Model
             mMapGenerator.Stub(_ => _.GenerateMap(Arg<Coordinate>.Is.Anything))
                 .Return(tileArray);
         }
+
+        #endregion
     }
 }

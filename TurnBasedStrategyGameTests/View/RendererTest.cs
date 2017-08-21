@@ -15,6 +15,7 @@ namespace TBSG.View
         private readonly ICameraController mCameraController;
         private readonly IGraphics mGraphics;
         private readonly IMap mMap;
+        private readonly ISelection mSelection;
         private readonly TestConfigurationProvider mConfigProvider;
 
         private readonly Camera mCamera = new Camera();
@@ -29,6 +30,7 @@ namespace TBSG.View
             mCameraController = MockRepository.GenerateMock<ICameraController>();
             mGraphics = MockRepository.GenerateMock<IGraphics>();
             mMap = MockRepository.GenerateStub<IMap>();
+            mSelection = MockRepository.GenerateStub<ISelection>();
             mConfigProvider = new TestConfigurationProvider();
 
             mCameraController.Stub(_ => _.GetCamera()).Return(mCamera);
@@ -178,9 +180,28 @@ namespace TBSG.View
 
             mConfigProvider.SetValue(2, "SelectionDrawWidth");
 
-            renderer.DrawSelection(mGraphics, mCameraController, null);
+            mSelection.Stub(_ => _.Exists()).Return(false);
+
+            renderer.DrawSelection(mGraphics, mCameraController, mSelection);
 
             mGraphics.AssertWasNotCalled(_ => _.DrawPolygon(
+                Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
+        }
+
+        [Fact]
+        public void DrawSelection_DrawsSelection()
+        {
+            var renderer = new Renderer(
+                MockRepository.GenerateStub<IAlgorithms>(), mMap, mConfigProvider);
+
+            mConfigProvider.SetValue(2, "SelectionDrawWidth");
+
+            mSelection.Stub(_ => _.GetLocation()).Return(XY.Hex(0, 0));
+            mSelection.Stub(_ => _.Exists()).Return(true);
+
+            renderer.DrawSelection(mGraphics, mCameraController, mSelection);
+
+            mGraphics.AssertWasCalled(_ => _.DrawPolygon(
                 Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
         }
 
