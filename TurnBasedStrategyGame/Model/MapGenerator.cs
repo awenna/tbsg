@@ -22,6 +22,8 @@ namespace TBSG.Model
                 {
                     var tile = new Tile();
 
+                    tile.Location = XY.Hex(x, y);
+
                     tile.TerrainType = GetTerrainType(random);
 
                     tileArray[x][y] = tile;

@@ -196,7 +196,7 @@ namespace TBSG.View
 
             mConfigProvider.SetValue(2, "SelectionDrawWidth");
 
-            mSelection.Stub(_ => _.GetLocation()).Return(XY.Hex(0, 0));
+            mMap.Stub(_ => _.LocationOf(mSelection)).Return(XY.Hex(0, 0));
             mSelection.Stub(_ => _.Exists()).Return(true);
 
             renderer.DrawSelection(mGraphics, mCameraController, mSelection);

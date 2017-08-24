@@ -112,7 +112,9 @@ namespace TBSG.View
             var pen = new Pen(Color.White);
             pen.Width = mConfigurationProvider.GetValue<int>("SelectionDrawWidth");
 
-            var worldLocation = mAlgorithms.HexToWorld(selection.GetLocation(), scale);
+            var location = mMap.LocationOf(selection);
+
+            var worldLocation = mAlgorithms.HexToWorld(location, scale);
             var screenCoordinate = mAlgorithms.WorldToScreen(worldLocation, cameraLocation);
 
             var hexagon = mAlgorithms.GetHexagon(screenCoordinate, scale);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TBSG.Data;
+using TBSG.View;
 
 namespace TBSG.Model
 {
@@ -33,8 +34,9 @@ namespace TBSG.Model
             {
                 if (mTileOccupants.Get(entity) != null)
                 {
-                    mTileOccupants.Set(entity, tile);
+                    mTileOccupants.Get(entity).Entity = null;
                 }
+                mTileOccupants.Set(entity, tile);
                 tile.Entity = entity;
             }
         }
@@ -67,6 +69,21 @@ namespace TBSG.Model
         public Tile TileOf(Entity entity)
         {
             return mTileOccupants.Get(entity);
+        }
+
+        public HexCoordinate LocationOf(ISelection selection)
+        {
+            var entity = selection.GetEntity();
+            if (entity != null)
+            {
+                return TileOf(entity).Location;
+            }
+            var tile = selection.GetTile();
+            if (tile != null)
+            {
+                return tile.Location;
+            }
+            throw new ArgumentException();
         }
 
         public bool LocationIsWithinBounds(HexCoordinate location)

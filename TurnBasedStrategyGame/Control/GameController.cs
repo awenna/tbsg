@@ -1,7 +1,6 @@
 ﻿using System;
 using TBSG.Data;
 using TBSG.Model;
-using TBSG.View;
 
 namespace TBSG.Control
 {

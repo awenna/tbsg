@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculation\Algorithms.cs" />
+    <Compile Include="Control\GameState.cs" />
     <Compile Include="Data\Camera.cs" />
     <Compile Include="ConfigurationProvider.cs" />
     <Compile Include="Control\IGameController.cs" />

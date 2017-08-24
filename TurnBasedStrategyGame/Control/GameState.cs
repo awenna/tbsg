@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TBSG.Data
+namespace TBSG.Control
 {
-    public class Entity
+    public class GameState
     {
-        public Ability DefaultAbility { get; set; }
+        public int PlayerTurn { get; set; }
     }
 }

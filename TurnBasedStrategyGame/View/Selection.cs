@@ -40,19 +40,6 @@ namespace TBSG.View
             Tile = null;
         }
 
-        public HexCoordinate GetLocation()
-        {
-            if (Entity != null)
-            {
-                return Entity.Tile.Location;
-            }
-            if (Tile != null)
-            {
-                return Tile.Location;
-            }
-            return null;
-        }
-
         public bool Exists()
         {
             return Entity != null || Tile != null;
