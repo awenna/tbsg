@@ -24,6 +24,12 @@ namespace TBSG.View
 
         public void Set(Tile tile)
         {
+            if (tile == null)
+            {
+                Tile = null;
+                Entity = null;
+                return;
+            }
             if (tile.Entity != null)
             {
                 Entity = tile.Entity;

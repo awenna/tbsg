@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Xunit;
 using Rhino.Mocks;
 using TBSG.Data;
 using TBSG.Model;
+using TBSG.View.Drawing;
 
 namespace TBSG.View
 {
@@ -14,11 +16,13 @@ namespace TBSG.View
         private readonly IAlgorithms mAlgorithms;
         private readonly ICameraController mCameraController;
         private readonly IGraphics mGraphics;
+        private readonly IGridDrawer mGridDrawer;
         private readonly IMap mMap;
         private readonly ISelection mSelection;
         private readonly TestConfigurationProvider mConfigProvider;
 
         private readonly Camera mCamera = new Camera();
+        private readonly Renderer Target;
 
         #endregion
 
@@ -26,14 +30,17 @@ namespace TBSG.View
 
         public RendererTest()
         {
-            mAlgorithms = new Algorithms();
+            mAlgorithms = MockRepository.GenerateMock<IAlgorithms>();
             mCameraController = MockRepository.GenerateMock<ICameraController>();
             mGraphics = MockRepository.GenerateMock<IGraphics>();
+            mGridDrawer = MockRepository.GenerateStub<IGridDrawer>();
             mMap = MockRepository.GenerateStub<IMap>();
             mSelection = MockRepository.GenerateStub<ISelection>();
             mConfigProvider = new TestConfigurationProvider();
 
             mCameraController.Stub(_ => _.GetCamera()).Return(mCamera);
+
+            Target = new Renderer(mAlgorithms, mMap, mGridDrawer, mConfigProvider);
         }
 
         #endregion
@@ -41,132 +48,20 @@ namespace TBSG.View
         #region DrawGrid
 
         [Fact]
-        public void DrawGrid_RequestsCalculationForEachTile()
+        public void DrawGrid_TileNotOnMap_NoDrawing()
         {
-            var renderer = GenerateRenderer();
+            mCameraController.Stub(_ => _.GetHexesInView())
+                .Return(new List<HexCoordinate> { XY.Hex(0, 0) });
 
-            mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
-                .Return(GenerateTile());
+            mCameraController.Stub(_ => _.GetCamera())
+                .Return(new Camera { Scale = 0 });
+            /*
+            mMap.Stub(_ => _.TileAt(XY.Hex(0, 0)))
+                .Return(null);*/
 
-            StubCameraHexesInView(mCameraController, 0, 0, 3, 5);
+            Target.DrawGrid(mGraphics, mCameraController);
 
-            mCamera.Location = XY.World(0, 0);
 
-            renderer.DrawGrid(mGraphics, mCameraController);
-
-            var drawPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
-                _ => _.DrawPolygon(Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
-
-            Assert.Equal(48, drawPolyCalls.Count);
-        }
-
-        [Fact]
-        public void DrawGrid_DrawsOnTilesInView()
-        {
-            var algorithms = MockRepository.GenerateStub<IAlgorithms>();
-            var renderer = new Renderer(algorithms, mMap, mConfigProvider);
-
-            StubCameraHexesInView(mCameraController, 13, 8, 13, 9);
-
-            mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
-                .Return(GenerateTile());
-
-            algorithms.Stub(_ => _.GetHexagon(
-                Arg<ScreenCoordinate>.Is.Anything, Arg<int>.Is.Anything))
-                .Return(new Hexagon(null));
-
-            renderer.DrawGrid(mGraphics, mCameraController);
-
-            algorithms.AssertWasCalled(_ => _.HexToWorld(
-                Arg<HexCoordinate>.Is.Equal(new HexCoordinate(13, 8)),
-                Arg<int>.Is.Anything));
-            algorithms.AssertWasCalled(_ => _.HexToWorld(
-                Arg<HexCoordinate>.Is.Equal(new HexCoordinate(13, 9)),
-                Arg<int>.Is.Anything));
-        }
-
-        [Fact]
-        public void DrawGrid_DrawsOnlyTilesOnMap()
-        {
-            var renderer = GenerateRenderer();
-
-            mMap.Stub(_ => _.TileAt(new HexCoordinate(0, 0)))
-                .Return(GenerateTile());
-
-            StubCameraHexesInView(mCameraController, -1, -2, 1, 1);
-
-            mCamera.Location = XY.World(0, 0);
-
-            renderer.DrawGrid(mGraphics, mCameraController);
-
-            var drawPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
-                _ => _.DrawPolygon(Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
-
-            Assert.Equal(1, drawPolyCalls.Count);
-        }
-
-        #endregion
-
-        #region DrawTiles
-
-        [Fact]
-        public void DrawGrid_CallsDrawingOnEachTile()
-        {
-            var renderer = GenerateRenderer();
-
-            mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything))
-                .Return(GenerateTile());
-
-            StubCameraHexesInView(mCameraController, 0, 0, 1, 2);
-
-            mCamera.Location = XY.World(0, 0);
-
-            renderer.DrawGrid(mGraphics, mCameraController);
-
-            var fillPolyCalls = mGraphics.GetArgumentsForCallsMadeOn(
-                _ => _.FillPolygon(Arg<Brush>.Is.Anything, Arg<Hexagon>.Is.Anything));
-
-            Assert.Equal(20, fillPolyCalls.Count);
-        }
-
-        [Fact]
-        public void DrawGrid_DrawsTilesUsingTerrainColor()
-        {
-            var renderer = GenerateRenderer();
-
-            mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Equal(new HexCoordinate(0, 0))))
-                .Return(GenerateTile());
-
-            StubCameraHexesInView(mCameraController, 0, 0, 0, 0);
-
-            mCamera.Location = XY.World(0, 0);
-
-            renderer.DrawGrid(mGraphics, mCameraController);
-
-            mGraphics.AssertWasCalled(
-                _ => _.FillPolygon(Arg<Brush>.Matches(brush => brush != null), Arg<Hexagon>.Is.Anything));
-        }
-
-        #endregion
-
-        #region DrawUnits
-
-        [Fact]
-        public void DrawUnits_RequestsUnitsFromTile()
-        {
-            var renderer = GenerateRenderer();
-
-            mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Equal(new HexCoordinate(0, 0))))
-                .Return(GenerateTileWithUnit());
-
-            StubCameraHexesInView(mCameraController, 0, 0, 0, 0);
-
-            mCamera.Location = XY.World(0, 0);
-
-            renderer.DrawUnits(mGraphics, mCameraController);
-
-            mGraphics.AssertWasCalled(_ => _.FillEllipse(
-                Arg<Brush>.Is.Anything, Arg<Rectangle>.Is.Anything));
         }
 
         #endregion
@@ -176,13 +71,11 @@ namespace TBSG.View
         [Fact]
         public void DrawSelection_NoSelection_NoDrawing()
         {
-            var renderer = GenerateRenderer();
-
             mConfigProvider.SetValue(2, "SelectionDrawWidth");
 
             mSelection.Stub(_ => _.Exists()).Return(false);
 
-            renderer.DrawSelection(mGraphics, mCameraController, mSelection);
+            Target.DrawSelection(mGraphics, mCameraController, mSelection);
 
             mGraphics.AssertWasNotCalled(_ => _.DrawPolygon(
                 Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
@@ -191,15 +84,12 @@ namespace TBSG.View
         [Fact]
         public void DrawSelection_DrawsSelection()
         {
-            var renderer = new Renderer(
-                MockRepository.GenerateStub<IAlgorithms>(), mMap, mConfigProvider);
-
             mConfigProvider.SetValue(2, "SelectionDrawWidth");
 
             mMap.Stub(_ => _.LocationOf(mSelection)).Return(XY.Hex(0, 0));
             mSelection.Stub(_ => _.Exists()).Return(true);
 
-            renderer.DrawSelection(mGraphics, mCameraController, mSelection);
+            Target.DrawSelection(mGraphics, mCameraController, mSelection);
 
             mGraphics.AssertWasCalled(_ => _.DrawPolygon(
                 Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
@@ -207,25 +97,17 @@ namespace TBSG.View
 
         #endregion
 
-        #region Helpers
+        #region DrawInfoGraphics
 
-        private void StubCameraHexesInView(
-            ICameraController cameraController,
-            int x1, int y1, int x2, int y2)
-        {
-            cameraController.Stub(_ => _.GetHexesInView())
-                .Return(Tuple.Create(new HexCoordinate(x1, y1), new HexCoordinate(x2, y2)));
-        }
+
+        #endregion
+
+        #region Helpers
 
         private void StubOneTileOnMap()
         {
             mMap.Stub(_ => _.TileAt(new HexCoordinate(0, 0)))
                 .Return(new Tile());
-        }
-
-        private Renderer GenerateRenderer()
-        {
-            return new Renderer(mAlgorithms, mMap, mConfigProvider);
         }
 
         private Tile GenerateTile()

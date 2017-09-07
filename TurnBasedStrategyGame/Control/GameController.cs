@@ -6,6 +6,8 @@ namespace TBSG.Control
 {
     public class GameController : IGameController
     {
+        public GameState GameState { get; private set; }
+
         private readonly IMap mMap;
         private readonly ICommandResolver mCommandResolver;
 
@@ -15,6 +17,13 @@ namespace TBSG.Control
         {
             mMap = map;
             mCommandResolver = commandResolver;
+
+            GameState = new GameState();
+        }
+
+        public void PassTurn()
+        {
+            GameState = GameState.NextTurn();
         }
 
         public void UseDefaultAction(Entity entity, HexCoordinate targetLocation)

@@ -115,6 +115,8 @@ namespace TBSG
 
         #endregion
 
+        #region GetHexagon
+
         public Hexagon GetHexagon(Coordinate xy, int scale)
         {
             var cpl = Math.Cos(Math.PI / 6) * scale;
@@ -130,6 +132,26 @@ namespace TBSG
             points[5] = new Point((int)Math.Round(xy.x + cpl), (int)Math.Round(xy.y + spl));
 
             return new Hexagon(points);
+        }
+
+        #endregion
+
+        public List<HexCoordinate> Get2DRange(HexCoordinate start, HexCoordinate end)
+        {
+            var rangeX = Enumerable.Range(start.x, end.x - start.x + 1);
+            var rangeY = Enumerable.Range(start.y, end.y - start.y + 1);
+
+            var list = new List<HexCoordinate>();
+
+            foreach (var x in rangeX)
+            {
+                foreach (var y in rangeY)
+                {
+                    list.Add(XY.Hex(x, y));
+                }
+            }
+
+            return list;
         }
     }
 }

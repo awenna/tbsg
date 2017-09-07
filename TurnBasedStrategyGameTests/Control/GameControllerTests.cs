@@ -11,18 +11,34 @@ namespace TBSG.Control
         private readonly IMap mMap;
         private readonly ICommandResolver mCommandResolver;
 
+        private readonly GameController Target;
+
         public GameControllerTests()
         {
             mMap = MockRepository.GenerateStub<IMap>();
             mCommandResolver = MockRepository.GenerateStub<ICommandResolver>();
+
+            Target = new GameController(mMap, mCommandResolver);
         }
+
+        #region PassTurn
+
+        [Fact]
+        public void PassTurn_UpdatesGameState()
+        {
+            Target.PassTurn();
+
+            Assert.Equal(1, Target.GameState.TurnNumber);
+        }
+
+        #endregion
+
+        #region UseDefaultAction
 
         [Fact]
         public void UseDefaultAction_NullParam_NoCall()
         {
-            var controller = GetGameController();
-
-            controller.UseDefaultAction(null, XY.Hex(0, 0));
+            Target.UseDefaultAction(null, XY.Hex(0, 0));
 
             mCommandResolver.AssertWasNotCalled(x =>
                 x.Resolve(Arg<Command>.Is.Anything));
@@ -31,8 +47,6 @@ namespace TBSG.Control
         [Fact]
         public void UseDefaultAction_UnitSelected_CreateCommandForDefaultAction()
         {
-            var controller = GetGameController();
-
             var entity = GenerateDefaultEntity();
 
             var tile = new Tile();
@@ -44,7 +58,7 @@ namespace TBSG.Control
                 Ability = entity.DefaultAbility
             };
 
-            controller.UseDefaultAction(entity, XY.Hex(0, 0));
+            Target.UseDefaultAction(entity, XY.Hex(0, 0));
 
             mCommandResolver.AssertWasCalled(x =>
                 x.Resolve(Arg<Command>.Matches(_ => 
@@ -53,17 +67,14 @@ namespace TBSG.Control
                     _.TargetTile == tile)));
         }
 
+        #endregion
+
         private Entity GenerateDefaultEntity()
         {
             return new Entity
             {
                 DefaultAbility = new Ability()
             };
-        }
-
-        private GameController GetGameController()
-        {
-            return new GameController(mMap, mCommandResolver);
         }
     }
 }

@@ -19,5 +19,7 @@ namespace TBSG
         HexCoordinate ScreenToHex(ScreenCoordinate coords, int scale, Coordinate location);
 
         Hexagon GetHexagon(Coordinate xy, int scale);
+
+        List<HexCoordinate> Get2DRange(HexCoordinate start, HexCoordinate end);
     }
 }

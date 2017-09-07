@@ -11,7 +11,7 @@ namespace TBSG.View
     public interface ICameraController
     {
         Camera GetCamera();
-        Tuple<HexCoordinate, HexCoordinate> GetHexesInView();
+        IEnumerable<HexCoordinate> GetHexesInView();
         void MoveBy(WorldCoordinate amount);
         void SetViewSize(ScreenCoordinate size);
     }

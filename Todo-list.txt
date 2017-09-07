@@ -1,5 +1,0 @@
-Selecting outside bounds throws error
-	- Make map throw exceptions
-
-Null exceptions. Not a smart idea to have cross references of entities and tiles
-	- Map handler provide the references

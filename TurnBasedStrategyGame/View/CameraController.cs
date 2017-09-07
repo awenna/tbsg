@@ -30,14 +30,14 @@ namespace TBSG.View
             Camera.Location += amount;
         }
 
-        public Tuple<HexCoordinate, HexCoordinate> GetHexesInView()
+        public IEnumerable<HexCoordinate> GetHexesInView()
         {
             var start = mAlgorithms.WorldToHex(Camera.Location, Camera.Scale);
 
             var size = mAlgorithms.ScreenToWorld(Camera.ViewSize, Camera.Location);
             var end = mAlgorithms.WorldToHex(size, Camera.Scale);
 
-            return Tuple.Create(start, end);
+            return mAlgorithms.Get2DRange(start - XY.Hex(1, 1), end + XY.Hex(1, 1));
         }
 
         public Camera GetCamera()

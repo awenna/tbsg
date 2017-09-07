@@ -1,7 +1,9 @@
 ﻿using System.Drawing;
 using System.Collections.Generic;
+using System.Linq;
 using TBSG.Data;
 using TBSG.Model;
+using TBSG.View.Drawing;
 
 namespace TBSG.View
 {
@@ -9,12 +11,18 @@ namespace TBSG.View
     {
         private readonly IAlgorithms mAlgorithms;
         private readonly IMap mMap;
+        private readonly IGridDrawer mGridDrawer;
         private readonly IConfigurationProvider mConfigurationProvider;
 
-        public Renderer(IAlgorithms algorithms, IMap map, IConfigurationProvider configProvider)
+        public Renderer(
+            IAlgorithms algorithms,
+            IMap map,
+            IGridDrawer gridDrawer,
+            IConfigurationProvider configProvider)
         {
             mAlgorithms = algorithms;
             mMap = map;
+            mGridDrawer = gridDrawer;
             mConfigurationProvider = configProvider;
         }
 
@@ -22,33 +30,17 @@ namespace TBSG.View
 
         public void DrawGrid(IGraphics g, ICameraController controller)
         {
-            var cameraLocation = controller.GetCamera().Location;
-            var viewSize = controller.GetHexesInView();
-
-            var viewStart = viewSize.Item1;
-            var viewEnd = viewSize.Item2;
+            var hexesInView = controller.GetHexesInView();
 
             var scale = controller.GetCamera().Scale;
 
-            for (int x = viewStart.x -1 ; x <= viewEnd.x + 1; x++)
+            foreach(var hex in hexesInView)
             {
-                for (int y = viewStart.y -1 ; y <= viewEnd.y + 1; y++)
+                var tile = mMap.TileAt(hex);
+                if (tile != null)
                 {
-                    var tile = mMap.TileAt(new HexCoordinate(x, y));
-                    if (tile != null)
-                    {
-                        var hexLocation = mAlgorithms.HexToWorld(new HexCoordinate(x, y), scale);
-                        var screenCoordinate = mAlgorithms.WorldToScreen(hexLocation, cameraLocation);
-                        var hexagon = mAlgorithms.GetHexagon(screenCoordinate, scale);
-
-                        var brush = new SolidBrush(tile.TerrainType.DrawColor);
-
-                        g.FillPolygon(brush, hexagon);
-
-                        brush.Dispose();
-
-                        g.DrawPolygon(Pens.Black, hexagon);
-                    }
+                    var screenCoordinate = XY.ScreenFromHex(hex, mAlgorithms, scale, controller.GetCamera().Location);
+                    mGridDrawer.DrawTile(g, mAlgorithms, tile, screenCoordinate, scale);
                 }
             }
         }
@@ -60,39 +52,29 @@ namespace TBSG.View
         public void DrawUnits(IGraphics g, ICameraController controller)
         {
             var cameraLocation = controller.GetCamera().Location;
-            var viewSize = controller.GetHexesInView();
-
-            var viewStart = viewSize.Item1;
-            var viewEnd = viewSize.Item2;
+            var hexesInView = controller.GetHexesInView();
 
             var scale = controller.GetCamera().Scale;
 
-            for (int x = viewStart.x - 1; x <= viewEnd.x + 1; x++)
+            foreach (var hex in hexesInView)
             {
-                for (int y = viewStart.y - 1; y <= viewEnd.y + 1; y++)
+                var entity = mMap.EntityAt(hex);
+                if (entity != null)
                 {
-                    var tile = mMap.TileAt(new HexCoordinate(x, y));
-                    if (tile != null)
-                    {
-                        var unit = tile.Entity;
-                        if (unit != null)
-                        {
-                            var hexLocation = mAlgorithms.HexToWorld(new HexCoordinate(x, y), scale);
-                            var screenCoordinate = mAlgorithms.WorldToScreen(hexLocation, cameraLocation);
+                    var hexLocation = mAlgorithms.HexToWorld(hex, scale);
+                    var screenCoordinate = mAlgorithms.WorldToScreen(hexLocation, cameraLocation);
 
-                            var drawCoordinate = screenCoordinate + new ScreenCoordinate(0, scale);
+                    var drawCoordinate = screenCoordinate + XY.Screen(0, scale);
 
-                            var brush = Brushes.DarkBlue;
+                    var brush = Brushes.DarkBlue;
 
-                            var rectangle = new Rectangle(
-                                drawCoordinate.x - scale/2,
-                                drawCoordinate.y - scale/2,
-                                scale, scale);
+                    var rectangle = new Rectangle(
+                        drawCoordinate.x - scale/2,
+                        drawCoordinate.y - scale/2,
+                        scale, scale);
 
-                            g.FillEllipse(brush, rectangle);
-                            g.DrawEllipse(Pens.Black, rectangle);
-                        }
-                    }
+                    g.FillEllipse(brush, rectangle);
+                    g.DrawEllipse(Pens.Black, rectangle);
                 }
             }
         }
@@ -119,6 +101,23 @@ namespace TBSG.View
 
             var hexagon = mAlgorithms.GetHexagon(screenCoordinate, scale);
             g.DrawPolygon(pen, hexagon);
+        }
+
+        #endregion
+
+        public void DrawMinimap(
+            IGraphics g,
+            ScreenCoordinate size,
+            ICameraController cameraController)
+        {
+
+        }
+
+        #region 
+
+        public void DrawInfoGraphics(IGraphics g, ScreenCoordinate size)
+        {
+            g.DrawEllipse(Pens.DarkMagenta, new Rectangle(0, 0, 50, 50));
         }
 
         #endregion

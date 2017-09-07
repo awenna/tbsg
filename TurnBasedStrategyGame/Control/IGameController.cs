@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TBSG.Model;
+﻿using TBSG.Model;
 using TBSG.Data;
 
 namespace TBSG.Control

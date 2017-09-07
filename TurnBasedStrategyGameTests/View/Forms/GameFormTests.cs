@@ -29,6 +29,8 @@ namespace TBSG.View.Forms
         {
             mConfigProvider.SetValue(0, "FieldPanelSizeX");
             mConfigProvider.SetValue(0, "FieldPanelSizeY");
+            mConfigProvider.SetValue(0, "InfoPanelSizeX");
+            mConfigProvider.SetValue(0, "InfoPanelSizeY");
             mConfigProvider.SetValue(654, "WindowSizeX");
             mConfigProvider.SetValue(456, "WindowSizeY");
 
@@ -39,7 +41,7 @@ namespace TBSG.View.Forms
 
             Assert.Equal(expected, result);
         }
-
+        
         private GameWindowForm GenerateGameWindowForm()
         {
             return new GameWindowForm(mAlgorithms, mRenderer, mCameraController, mFieldPanelController, mConfigProvider);

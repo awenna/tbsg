@@ -103,5 +103,23 @@ namespace TBSG.Properties {
                 return ((int)(this["SelectionDrawWidth"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("680")]
+        public int InfoPanelSizeX {
+            get {
+                return ((int)(this["InfoPanelSizeX"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("120")]
+        public int InfoPanelSizeY {
+            get {
+                return ((int)(this["InfoPanelSizeY"]));
+            }
+        }
     }
 }

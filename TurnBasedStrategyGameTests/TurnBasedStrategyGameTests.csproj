@@ -83,6 +83,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Calculation\AlgorithmsTests.cs" />
     <Compile Include="Model\CommandResolverTests.cs" />
     <Compile Include="Model\TileOccupantTests.cs" />
     <Compile Include="View\CameraControllerTests.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="View\RendererTest.cs" />
     <Compile Include="TestConfigurationProvider.cs" />
     <Compile Include="View\FieldPanelControllerTests.cs" />
+    <Compile Include="View\SelectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

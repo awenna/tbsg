@@ -39,8 +39,17 @@ namespace TBSG.View.Forms
                 Camera = mCameraController.GetCamera(),
                 Selection = new Selection()
             };
-            var fieldSize = fieldPanel.Size;
+            var fieldSize = FieldPanel.Size;
             mCameraController.SetViewSize(XY.Screen(fieldSize.Width, fieldSize.Height));
+        }
+
+        public void Initialize()
+        {
+            InitializeGameWindow();
+            InitializeFieldPanel();
+            InitializeInfoPanel();
+
+            SuspendLayout();
         }
 
         public ViewState GetState()
@@ -55,20 +64,33 @@ namespace TBSG.View.Forms
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            fieldPanel.Invalidate();
+            FieldPanel.Invalidate();
+            InfoPanel.Invalidate();
         }
 
         public void field_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
+            var graphics = GetGraphics(e);
 
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            mRenderer.DrawGrid(graphics, mCameraController);
+            mRenderer.DrawUnits(graphics, mCameraController);
+            mRenderer.DrawSelection(graphics, mCameraController, viewState.Selection);
+        }
 
-            var gw = new GraphicsWrapper(g);
+        public void info_Paint(object sender, PaintEventArgs e)
+        {
+            var graphics = GetGraphics(e);
 
-            mRenderer.DrawGrid(gw, mCameraController);
-            mRenderer.DrawUnits(gw, mCameraController);
-            mRenderer.DrawSelection(gw, mCameraController, viewState.Selection);
+            var size = XY.Screen(InfoPanel.Size.Width, InfoPanel.Size.Height);
+            mRenderer.DrawInfoGraphics(graphics, size);
+        }
+
+        public void minimap_paint(object sender, PaintEventArgs e)
+        {
+            var graphics = GetGraphics(e);
+
+            var size = XY.Screen(Minimap.Size.Width, Minimap.Size.Height);
+            mRenderer.DrawMinimap(graphics, size, mCameraController);
         }
 
         public void GameWindowForm_KeyPress(object sender, KeyEventArgs e)
@@ -95,5 +117,64 @@ namespace TBSG.View.Forms
         {
             mFieldPanelController.OnClick(viewState, e);
         }
+
+        #region Private
+
+        private GraphicsWrapper GetGraphics(PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            return new GraphicsWrapper(g);
+        }
+
+        private void InitializeGameWindow()
+        {
+            KeyDown += new KeyEventHandler(GameWindowForm_KeyPress);
+
+            var timer = new Timer();
+            timer.Interval = 10;
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+
+            AutoScaleDimensions = new SizeF(6F, 13F);
+            AutoScaleMode = AutoScaleMode.Font;
+            /*ClientSize = new Size(
+                mConfigurationProvider.GetValue<int>("WindowSizeX"),
+                mConfigurationProvider.GetValue<int>("WindowSizeY"));*/
+            Name = "GameWindowForm";
+            Text = "GameWindowForm";
+            Load += new EventHandler(Form1_Load);
+            ResumeLayout(false);
+        }
+
+        private void InitializeInfoPanel()
+        {
+            InfoPanel.TabIndex = 1;
+            /*InfoPanel.Size = new Size(
+                mConfigurationProvider.GetValue<int>("InfoPanelSizeX"),
+                mConfigurationProvider.GetValue<int>("InfoPanelSizeY"));*/
+            InfoPanel.Paint += new PaintEventHandler(info_Paint);
+            InfoPanel.BackColor = Color.DarkGray;
+        }
+
+        private void InitializeFieldPanel()
+        {
+            /*FieldPanel.Size = new Size(
+                mConfigurationProvider.GetValue<int>("FieldPanelSizeX"),
+                mConfigurationProvider.GetValue<int>("FieldPanelSizeY"));*/
+            FieldPanel.TabIndex = 1;
+            FieldPanel.Paint += new PaintEventHandler(field_Paint);
+            FieldPanel.MouseDown += new MouseEventHandler(OnFieldPanelClick);
+
+        }
+
+        private void InitializeMinimap()
+        {
+            Minimap.Paint += new PaintEventHandler(minimap_paint);
+        }
+
+        #endregion
     }
 }

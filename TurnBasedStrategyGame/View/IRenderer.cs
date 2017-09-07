@@ -11,5 +11,8 @@ namespace TBSG.View
             IGraphics g,
             ICameraController cameraController,
             ISelection selection);
+
+        void DrawInfoGraphics(IGraphics g, ScreenCoordinate size);
+        void DrawMinimap(IGraphics g, ScreenCoordinate size, ICameraController cameraController);
     }
 }
