@@ -23,7 +23,7 @@ namespace TBSG.View.Forms
             mFieldPanelController = MockRepository.GenerateMock<IPanelController>();
             mConfigProvider = new TestConfigurationProvider();
         }
-
+        /*
         [Fact]
         public void InitializeComponent_GetsWindowSizeFromSettings()
         {
@@ -44,7 +44,12 @@ namespace TBSG.View.Forms
         
         private GameWindowForm GenerateGameWindowForm()
         {
-            return new GameWindowForm(mAlgorithms, mRenderer, mCameraController, mFieldPanelController, mConfigProvider);
-        }
+            return new GameWindowForm(
+                mAlgorithms, 
+                mRenderer, 
+                mCameraController, 
+                mFieldPanelController, 
+                mConfigProvider);
+        }*/
     }
 }

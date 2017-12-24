@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="Calculation\AlgorithmsTests.cs" />
     <Compile Include="Model\CommandResolverTests.cs" />
+    <Compile Include="Model\EntityHandlerTests.cs" />
     <Compile Include="Model\TileOccupantTests.cs" />
     <Compile Include="View\CameraControllerTests.cs" />
     <Compile Include="ConfigurationProviderTests.cs" />

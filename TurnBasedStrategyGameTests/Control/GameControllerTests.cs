@@ -1,5 +1,4 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using Rhino.Mocks;
 using TBSG.Model;
 using TBSG.Data;

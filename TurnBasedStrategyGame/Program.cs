@@ -41,9 +41,15 @@ namespace TBSG
             var renderer = new Renderer(algorithms, map, gridDrawer, configProvider);
             var cameraController = new CameraController(algorithms, configProvider);
 
-            var fieldPanelController = new FieldPanelController(algorithms, gameController, map);
+            var gameWindowForm = 
+                new GameWindowForm(
+                    algorithms, 
+                    gameController,
+                    map,
+                    renderer, 
+                    cameraController, 
+                    configProvider);
 
-            var gameWindowForm = new GameWindowForm(algorithms, renderer, cameraController, fieldPanelController, configProvider);
             gameWindowForm.Initialize();
 
             Application.Run(gameWindowForm);

@@ -14,6 +14,21 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -71,16 +86,19 @@
     <Compile Include="Control\IGameController.cs" />
     <Compile Include="Data\Coordinate.cs" />
     <Compile Include="Data\Ability.cs" />
+    <Compile Include="Data\Cost.cs" />
     <Compile Include="Data\Effect.cs" />
+    <Compile Include="Data\Stat.cs" />
     <Compile Include="Model\CommandResolver.cs" />
     <Compile Include="Model\EffectApplier.cs" />
     <Compile Include="Data\Entity.cs" />
     <Compile Include="Data\TerrainType.cs" />
     <Compile Include="Model\Command.cs" />
+    <Compile Include="Model\EntityHandler.cs" />
     <Compile Include="Model\ICommandResolver.cs" />
     <Compile Include="Model\IEffectApplier.cs" />
     <Compile Include="Data\Tags.cs" />
-    <Compile Include="Model\TileOccupants.cs" />
+    <Compile Include="Model\Map\TileOccupants.cs" />
     <Compile Include="View\CameraController.cs" />
     <Compile Include="View\Drawing\GridDraw.cs" />
     <Compile Include="View\Drawing\IGridDrawer.cs" />
@@ -102,7 +120,7 @@
     <Compile Include="Model\IMapGenerator.cs" />
     <Compile Include="Model\IPlayer.cs" />
     <Compile Include="View\IRenderer.cs" />
-    <Compile Include="Model\Map.cs" />
+    <Compile Include="Model\Map\Map.cs" />
     <Compile Include="Model\MapGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,7 +128,7 @@
     <Compile Include="View\ISelection.cs" />
     <Compile Include="View\Renderer.cs" />
     <Compile Include="Data\Tile.cs" />
-    <Compile Include="View\FieldPanelController.cs" />
+    <Compile Include="View\Forms\FieldPanelController.cs" />
     <Compile Include="View\Selection.cs" />
     <Compile Include="Data\ViewState.cs" />
     <EmbeddedResource Include="View\Forms\GameWindowForm.resx">
@@ -140,7 +158,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

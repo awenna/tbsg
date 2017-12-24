@@ -1,0 +1,6 @@
+UI code is all over the place. 
+Refigure responsibilities:
+	- Why is gamewindowform passed to panel so that selection state can be Get?
+	- What do panels need? Construct them elsewhere?
+		- Could be code that preps a view: Menu to game etc
+	- What draw code actually needs and where to get it

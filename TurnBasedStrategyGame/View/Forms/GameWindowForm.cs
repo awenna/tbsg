@@ -6,32 +6,31 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TBSG.Control;
 using TBSG.Data;
+using TBSG.Model;
 
 namespace TBSG.View.Forms
 {
     public partial class GameWindowForm : Form
     {
-        private readonly IAlgorithms mAlgorithms;
         private readonly IRenderer mRenderer;
         private readonly ICameraController mCameraController;
-        private readonly IPanelController mFieldPanelController;
-        private readonly IConfigurationProvider mConfigurationProvider;
 
-        private ViewState viewState { get; set; }
+        public ViewState viewState { get; private set; }
+
+        private GameState gameState { get; set; }
 
         public GameWindowForm(
             IAlgorithms algorithms,
+            IGameController gameController,
+            IMap map,
             IRenderer renderer,
             ICameraController cameraController,
-            IPanelController fieldPanelController,
             IConfigurationProvider configProvider)
         {
-            mAlgorithms = algorithms;
             mRenderer = renderer;
             mCameraController = cameraController;
-            mFieldPanelController = fieldPanelController;
-            mConfigurationProvider = configProvider;
 
             InitializeComponent();
 
@@ -41,20 +40,28 @@ namespace TBSG.View.Forms
             };
             var fieldSize = FieldPanel.Size;
             mCameraController.SetViewSize(XY.Screen(fieldSize.Width, fieldSize.Height));
+
+            var fieldPanelController = 
+                new FieldPanelController(
+                    FieldPanel, 
+                    this, 
+                    algorithms,
+                    cameraController,
+                    mRenderer,
+                    gameController, 
+                    map);
         }
 
         public void Initialize()
         {
             InitializeGameWindow();
-            InitializeFieldPanel();
+            //mFieldpanel.Initialize();
+
             InitializeInfoPanel();
+            InitializeSidePanel();
+            InitializeMinimap();
 
             SuspendLayout();
-        }
-
-        public ViewState GetState()
-        {
-            return viewState;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -66,15 +73,7 @@ namespace TBSG.View.Forms
         {
             FieldPanel.Invalidate();
             InfoPanel.Invalidate();
-        }
-
-        public void field_Paint(object sender, PaintEventArgs e)
-        {
-            var graphics = GetGraphics(e);
-
-            mRenderer.DrawGrid(graphics, mCameraController);
-            mRenderer.DrawUnits(graphics, mCameraController);
-            mRenderer.DrawSelection(graphics, mCameraController, viewState.Selection);
+            SidePanel.Invalidate();
         }
 
         public void info_Paint(object sender, PaintEventArgs e)
@@ -91,6 +90,11 @@ namespace TBSG.View.Forms
 
             var size = XY.Screen(Minimap.Size.Width, Minimap.Size.Height);
             mRenderer.DrawMinimap(graphics, size, mCameraController);
+        }
+
+        public void sidepanel_paint(object sender, PaintEventArgs e)
+        {
+            TurnCounter.Text = "Turn is: " + gameState.TurnNumber;
         }
 
         public void GameWindowForm_KeyPress(object sender, KeyEventArgs e)
@@ -111,11 +115,6 @@ namespace TBSG.View.Forms
                     mCameraController.MoveBy(new WorldCoordinate(scale, 0));
                     break;
             }
-        }
-
-        public void OnFieldPanelClick(object sender, MouseEventArgs e)
-        {
-            mFieldPanelController.OnClick(viewState, e);
         }
 
         #region Private
@@ -152,22 +151,13 @@ namespace TBSG.View.Forms
         private void InitializeInfoPanel()
         {
             InfoPanel.TabIndex = 1;
-            /*InfoPanel.Size = new Size(
-                mConfigurationProvider.GetValue<int>("InfoPanelSizeX"),
-                mConfigurationProvider.GetValue<int>("InfoPanelSizeY"));*/
             InfoPanel.Paint += new PaintEventHandler(info_Paint);
             InfoPanel.BackColor = Color.DarkGray;
         }
 
-        private void InitializeFieldPanel()
+        private void InitializeSidePanel()
         {
-            /*FieldPanel.Size = new Size(
-                mConfigurationProvider.GetValue<int>("FieldPanelSizeX"),
-                mConfigurationProvider.GetValue<int>("FieldPanelSizeY"));*/
-            FieldPanel.TabIndex = 1;
-            FieldPanel.Paint += new PaintEventHandler(field_Paint);
-            FieldPanel.MouseDown += new MouseEventHandler(OnFieldPanelClick);
-
+            SideInfoBox.Paint += new PaintEventHandler(sidepanel_paint);
         }
 
         private void InitializeMinimap()
