@@ -55,7 +55,11 @@ namespace TBSG.View.Forms
             }
         }
 
-        public void Paint(object sender, PaintEventArgs e)
+        #endregion
+
+        #region PanelFunctionality
+
+        private void Paint(object sender, PaintEventArgs e)
         {
             var graphics = GetGraphics(e);
 
