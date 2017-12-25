@@ -35,13 +35,14 @@ namespace TBSG.View.Forms
 
             mPanel.TabIndex = 1;
             mPanel.Paint += new PaintEventHandler(Paint);
-            mPanel.MouseDown += new MouseEventHandler(Click);
+            mPanel.MouseDown += new MouseEventHandler(OnClick);
         }
 
         #region Public
 
-        public void OnClick(ViewState state, MouseEventArgs e)
+        public void OnClick(object sender, MouseEventArgs e)
         {
+            var state = mGameWindowForm.viewState;
             var clickHex = GetClickHex(state.Camera, XY.Screen(e.X, e.Y));
             
             switch (e.Button)
@@ -78,11 +79,6 @@ namespace TBSG.View.Forms
         private HexCoordinate GetClickHex(Camera camera, ScreenCoordinate coord)
         {
             return coord.ToHexCoordinate(mAlgorithms, camera.Scale, camera.Location);
-        }
-
-        private void Click(object sender, MouseEventArgs e)
-        {
-            OnClick(mGameWindowForm.viewState, e);
         }
 
         private GraphicsWrapper GetGraphics(PaintEventArgs e)
