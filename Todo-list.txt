@@ -4,3 +4,10 @@ Refigure responsibilities:
 	- What do panels need? Construct them elsewhere?
 		- Could be code that preps a view: Menu to game etc
 	- What draw code actually needs and where to get it
+	
+Camera:
+    Rename CameraController to Camera
+    Put Camera's variables into CamCont
+    Remove old Camera
+    
+    No point to separate data and function just for the sake of it?
