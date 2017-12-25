@@ -69,6 +69,7 @@ namespace TBSG.View.Forms
 
         #region Private
 
+        // Move to ViewController
         private void SelectAt(ViewState state, HexCoordinate coord)
         {
             state.Selection.Clear();
@@ -80,7 +81,8 @@ namespace TBSG.View.Forms
         {
             return coord.ToHexCoordinate(mAlgorithms, camera.Scale, camera.Location);
         }
-
+        
+        //Move under ViewController?????
         private GraphicsWrapper GetGraphics(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
