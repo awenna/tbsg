@@ -9,12 +9,12 @@ namespace TBSG.View.Forms
     public class FieldPanelController : IPanelController
     {
         private readonly PictureBox mPanel;
-        private readonly GameWindowForm mGameWindowForm;
-        private readonly IAlgorithms mAlgorithms;
-        private readonly ICameraController mCameraController;
-        private readonly IRenderer mRenderer;
+        private readonly GameWindowForm mGameWindowForm; // Changes
+        private readonly IAlgorithms mAlgorithms; // Someone else's responsibility?
+        private readonly ICameraController mCameraController; //ViewControl
+        private readonly IRenderer mRenderer; 
         private readonly IGameController mGameController;
-        private readonly IMap mMap;
+        private readonly IMap mMap; // ViewControl
 
         public FieldPanelController(
             PictureBox panel,
