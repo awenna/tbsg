@@ -17,7 +17,7 @@ namespace TBSG.View.Forms
         private readonly IRenderer mRenderer;
         private readonly ICameraController mCameraController;
 
-        public ViewState viewState { get; private set; }
+        public ViewState viewState { get; }
 
         private GameState gameState { get; set; }
 
@@ -41,15 +41,15 @@ namespace TBSG.View.Forms
             var fieldSize = FieldPanel.Size;
             mCameraController.SetViewSize(XY.Screen(fieldSize.Width, fieldSize.Height));
 
-            var fieldPanelController = 
-                new FieldPanelController(
-                    FieldPanel, 
-                    this, 
-                    algorithms,
-                    cameraController,
-                    mRenderer,
-                    gameController, 
-                    map);
+                var fieldPanelController = 
+                    new FieldPanelController(
+                        FieldPanel, 
+                        this, 
+                        algorithms,
+                        cameraController,
+                        mRenderer,
+                        gameController, 
+                        map);
         }
 
         public void Initialize()
