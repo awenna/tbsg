@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using Rhino.Mocks;
 using Xunit;
 using TBSG.Data;
 using TBSG.Control;
 using TBSG.Model;
-using TBSG.View;
 using TBSG.View.Forms;
 
 namespace TBSG.View
@@ -90,7 +84,7 @@ namespace TBSG.View
                 _.UseDefaultAction(state));
         }*/
 
-        private FieldPanelController GetFieldPanelController()
+        private FieldPanel GetFieldPanelController()
         {
             return null;
         }

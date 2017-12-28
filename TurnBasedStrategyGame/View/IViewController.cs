@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using TBSG.Control;
 using TBSG.Data;
-using TBSG.View.Forms;
+using TBSG.View.Panels;
 
 namespace TBSG.View
 {
@@ -11,6 +11,10 @@ namespace TBSG.View
         IGameController GetGameController();
         ICameraController GetCamera();
 
-        FieldPanelController CreateFieldPanelController(PictureBox panel);
+        void SelectAt(ViewState state, HexCoordinate hex);
+        GraphicsWrapper GetGraphics(PaintEventArgs e);
+
+        FieldPanel CreateFieldPanel(PictureBox panel);
+        InfoPanel CreateInfoPanel(Panel panel);
     }
 }

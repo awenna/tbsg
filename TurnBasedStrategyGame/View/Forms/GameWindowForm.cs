@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using TBSG.Control;
 using TBSG.Data;
-using TBSG.Model;
 
 namespace TBSG.View.Forms
 {
@@ -41,8 +35,8 @@ namespace TBSG.View.Forms
         {
             InitializeGameWindow();
 
-            mViewController.CreateFieldPanelController(FieldPanel);
-            InitializeInfoPanel();
+            mViewController.CreateFieldPanel(FieldPanel);
+            mViewController.CreateInfoPanel(InfoPanel);
             InitializeSidePanel();
             InitializeMinimap();
 
@@ -59,14 +53,6 @@ namespace TBSG.View.Forms
             FieldPanel.Invalidate();
             InfoPanel.Invalidate();
             SidePanel.Invalidate();
-        }
-
-        public void info_Paint(object sender, PaintEventArgs e)
-        {
-            var graphics = GetGraphics(e);
-
-            var size = XY.Screen(InfoPanel.Size.Width, InfoPanel.Size.Height);
-            mRenderer.DrawInfoGraphics(graphics, size);
         }
 
         public void minimap_paint(object sender, PaintEventArgs e)
@@ -131,13 +117,6 @@ namespace TBSG.View.Forms
             Text = "GameWindowForm";
             Load += new EventHandler(Form1_Load);
             ResumeLayout(false);
-        }
-
-        private void InitializeInfoPanel()
-        {
-            InfoPanel.TabIndex = 1;
-            InfoPanel.Paint += new PaintEventHandler(info_Paint);
-            InfoPanel.BackColor = Color.DarkGray;
         }
 
         private void InitializeSidePanel()

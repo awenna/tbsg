@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using TBSG.Control;
 using TBSG.Data;
-using TBSG.Model;
-using TBSG.View.Forms;
+using TBSG.View.Panels;
 
 namespace TBSG.View
 {
@@ -38,6 +33,17 @@ namespace TBSG.View
             };
         }
 
+        public void SelectAt(ViewState state, HexCoordinate coord)
+        {
+            var map = mGameController.GetMap();
+
+            state.Selection.Clear();
+
+            var tile = map.TileAt(coord);
+            state.Selection.Set(tile);
+        }
+
+
         #region Getters
 
         public ViewState GetViewState()
@@ -55,15 +61,37 @@ namespace TBSG.View
             return mGameController;
         }
 
+        public GraphicsWrapper GetGraphics(PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            return new GraphicsWrapper(g);
+        }
+
         #endregion
 
-        public FieldPanelController CreateFieldPanelController(PictureBox panel)
+        #region CreateControllers
+
+        public FieldPanel CreateFieldPanel(PictureBox panel)
         {
-            return new FieldPanelController(
+            return new FieldPanel(
                 panel,
                 this,
                 mAlgorithms,
                 mRenderer);
         }
+
+        public InfoPanel CreateInfoPanel(Panel panel)
+        {
+            return new InfoPanel(
+                panel,
+                this,
+                mAlgorithms,
+                mRenderer);
+        }
+
+        #endregion
     }
 }

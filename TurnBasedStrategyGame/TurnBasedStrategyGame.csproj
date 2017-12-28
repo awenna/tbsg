@@ -109,6 +109,7 @@
       <DependentUpon>GameWindowForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Control\GameController.cs" />
+    <Compile Include="View\Forms\InfoPanel.cs" />
     <Compile Include="View\GraphicsWrapper.cs" />
     <Compile Include="Data\Hexagon.cs" />
     <Compile Include="Data\SubCoordinate.cs" />
@@ -129,7 +130,7 @@
     <Compile Include="View\IViewController.cs" />
     <Compile Include="View\Renderer.cs" />
     <Compile Include="Data\Tile.cs" />
-    <Compile Include="View\Forms\FieldPanelController.cs" />
+    <Compile Include="View\Forms\FieldPanel.cs" />
     <Compile Include="View\Selection.cs" />
     <Compile Include="Data\ViewState.cs" />
     <Compile Include="View\ViewController.cs" />
