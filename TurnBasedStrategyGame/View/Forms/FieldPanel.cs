@@ -9,29 +9,20 @@ namespace TBSG.View.Forms
     public class FieldPanelController : IPanelController
     {
         private readonly PictureBox mPanel;
-        private readonly GameWindowForm mGameWindowForm; // Changes
+        private readonly IViewController mViewController; // Changes
         private readonly IAlgorithms mAlgorithms; // Someone else's responsibility?
-        private readonly ICameraController mCameraController; //ViewControl
-        private readonly IRenderer mRenderer; 
-        private readonly IGameController mGameController;
-        private readonly IMap mMap; // ViewControl
+        private readonly IRenderer mRenderer;
 
         public FieldPanelController(
             PictureBox panel,
-            GameWindowForm gameWindowForm,
+            IViewController viewController,
             IAlgorithms algorithms,
-            ICameraController cameraController,
-            IRenderer renderer,
-            IGameController gameController,
-            IMap map)
+            IRenderer renderer)
         {
             mPanel = panel;
-            mGameWindowForm = gameWindowForm;
+            mViewController = viewController;
             mAlgorithms = algorithms;
-            mCameraController = cameraController;
             mRenderer = renderer;
-            mGameController = gameController;
-            mMap = map;
 
             mPanel.TabIndex = 1;
             mPanel.Paint += new PaintEventHandler(Paint);
@@ -42,7 +33,7 @@ namespace TBSG.View.Forms
 
         public void OnClick(object sender, MouseEventArgs e)
         {
-            var state = mGameWindowForm.viewState;
+            var state = mViewController.GetViewState();
             var clickHex = GetClickHex(state.Camera, XY.Screen(e.X, e.Y));
             
             switch (e.Button)
@@ -51,7 +42,8 @@ namespace TBSG.View.Forms
                     SelectAt(state, clickHex);
                     break;
                 case MouseButtons.Right:
-                    mGameController.UseDefaultAction(state.Selection.GetEntity(), clickHex);
+                    mViewController.GetGameController()
+                        .UseDefaultAction(state.Selection.GetEntity(), clickHex);
                     break;
             }
         }
@@ -63,10 +55,11 @@ namespace TBSG.View.Forms
         private void Paint(object sender, PaintEventArgs e)
         {
             var graphics = GetGraphics(e);
+            var camera = mViewController.GetCamera();
 
-            mRenderer.DrawGrid(graphics, mCameraController);
-            mRenderer.DrawUnits(graphics, mCameraController);
-            mRenderer.DrawSelection(graphics, mCameraController, mGameWindowForm.viewState.Selection);
+            mRenderer.DrawGrid(graphics, camera);
+            mRenderer.DrawUnits(graphics, camera);
+            mRenderer.DrawSelection(graphics, camera, mViewController.GetViewState().Selection);
         }
 
         #endregion
@@ -76,8 +69,11 @@ namespace TBSG.View.Forms
         // Move to ViewController
         private void SelectAt(ViewState state, HexCoordinate coord)
         {
+            var map = mViewController.GetGameController().GetMap();
+
             state.Selection.Clear();
-            var tile = mMap.TileAt(coord);
+
+            var tile = map.TileAt(coord);
             state.Selection.Set(tile);
         }
 

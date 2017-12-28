@@ -5,6 +5,6 @@ namespace TBSG.View
 {
     public interface IPanelController
     {
-        void OnClick(ViewState state, MouseEventArgs e);
+        void OnClick(object sender, MouseEventArgs e);
     }
 }

@@ -16,47 +16,32 @@ namespace TBSG.View.Forms
     {
         private readonly IRenderer mRenderer;
         private readonly ICameraController mCameraController;
-
-        public ViewState viewState { get; }
+        private readonly IViewController mViewController;
 
         private GameState gameState { get; set; }
 
         public GameWindowForm(
-            IAlgorithms algorithms,
-            IGameController gameController,
-            IMap map,
             IRenderer renderer,
             ICameraController cameraController,
+            IViewController viewController,
             IConfigurationProvider configProvider)
         {
             mRenderer = renderer;
             mCameraController = cameraController;
+            mViewController = viewController;
 
             InitializeComponent();
 
-            viewState = new ViewState {
-                Camera = mCameraController.GetCamera(),
-                Selection = new Selection()
-            };
+            
             var fieldSize = FieldPanel.Size;
             mCameraController.SetViewSize(XY.Screen(fieldSize.Width, fieldSize.Height));
-
-                var fieldPanelController = 
-                    new FieldPanelController(
-                        FieldPanel, 
-                        this, 
-                        algorithms,
-                        cameraController,
-                        mRenderer,
-                        gameController, 
-                        map);
         }
 
         public void Initialize()
         {
             InitializeGameWindow();
-            //mFieldpanel.Initialize();
 
+            mViewController.CreateFieldPanelController(FieldPanel);
             InitializeInfoPanel();
             InitializeSidePanel();
             InitializeMinimap();

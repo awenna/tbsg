@@ -92,12 +92,7 @@ namespace TBSG.View
 
         private FieldPanelController GetFieldPanelController()
         {
-            return new FieldPanelController(
-                new PictureBox(),
-                
-                mAlgorithms, 
-                mGameController, 
-                mMap);
+            return null;
         }
 
         private Camera GenerateCamera()
