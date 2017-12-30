@@ -5,6 +5,7 @@ using TBSG.Data;
 using TBSG.Control;
 using TBSG.Model;
 using TBSG.View.Forms;
+using TBSG.View.Panels;
 
 namespace TBSG.View
 {
