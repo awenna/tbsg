@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Xunit;
-using TBSG.Data;
+using TBSG.Data.Entities;
+using TBSG.Data.Hexmap;
+using TBSG.Model.Hexmap;
 
 namespace TBSG.Model
 {

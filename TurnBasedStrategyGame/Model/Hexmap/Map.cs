@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TBSG.Data;
-using TBSG.View;
+using TBSG.Data.Entities;
+using TBSG.Data.Hexmap;
+using TBSG.Data.View;
 
-namespace TBSG.Model
+namespace TBSG.Model.Hexmap
 {
     public class Map : IMap
     {
@@ -22,7 +19,7 @@ namespace TBSG.Model
         {
             mMapGenerator = mapGenerator;
             Dimensions = dimensions;
-            mapSize = new HexCoordinate(dimensions.x - 1, dimensions.y - 1);
+            mapSize = new HexCoordinate(dimensions.X - 1, dimensions.Y - 1);
 
             mTileOccupants = new TileOccupants();
             mMapArray = mMapGenerator.GenerateMap(dimensions);
@@ -52,7 +49,7 @@ namespace TBSG.Model
         {
             if (LocationIsWithinBounds(location))
             {
-                return mMapArray[location.x][location.y];
+                return mMapArray[location.X][location.Y];
             }
             return null;
         }
@@ -61,7 +58,7 @@ namespace TBSG.Model
         {
             if (LocationIsWithinBounds(location))
             {
-                return mMapArray[location.x][location.y].Entity;
+                return mMapArray[location.X][location.Y].Entity;
             }
             return null;
         }
@@ -88,10 +85,10 @@ namespace TBSG.Model
 
         public bool LocationIsWithinBounds(HexCoordinate location)
         {
-            if (location.x < 0 ||
-                location.y < 0 ||
-                location.x > mapSize.x ||
-                location.y > mapSize.y)
+            if (location.X < 0 ||
+                location.Y < 0 ||
+                location.X > mapSize.X ||
+                location.Y > mapSize.Y)
             {
                 return false;
             }

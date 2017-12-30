@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TBSG.Data.Hexmap;
 using Xunit;
-using TBSG.Data;
-using Rhino.Mocks;
 
 namespace TBSG.Calculation
 {
@@ -54,10 +51,10 @@ namespace TBSG.Calculation
                 XY.Hex(2, 2), XY.Hex(3, 2), XY.Hex(4, 2),
                 XY.Hex(2, 3), XY.Hex(3, 3), XY.Hex(4, 3),
                 XY.Hex(2, 4), XY.Hex(3, 4), XY.Hex(4, 4),
-            }.OrderBy(h => h.x);
+            }.OrderBy(h => h.X);
 
             var result = Target.Get2DRange(XY.Hex(2, 1), XY.Hex(4, 4))
-                .OrderBy(h => h.x);
+                .OrderBy(h => h.X);
 
             Assert.True(result.SequenceEqual(expected));
         }

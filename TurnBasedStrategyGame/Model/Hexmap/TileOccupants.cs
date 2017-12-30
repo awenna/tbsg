@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TBSG.Data;
+﻿using System.Collections.Generic;
+using TBSG.Data.Entities;
+using TBSG.Data.Hexmap;
 
-namespace TBSG.Model
+namespace TBSG.Model.Hexmap
 {
     public class TileOccupants
     {

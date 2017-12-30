@@ -1,4 +1,6 @@
 ﻿using TBSG.Data;
+using TBSG.Data.Abilities;
+using TBSG.Data.Entities;
 
 namespace TBSG.Model
 {

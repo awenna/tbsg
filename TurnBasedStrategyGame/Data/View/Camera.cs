@@ -1,4 +1,6 @@
-﻿namespace TBSG.Data
+﻿using TBSG.Data.Hexmap;
+
+namespace TBSG.Data.View
 {
     public class Camera
     {

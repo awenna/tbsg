@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using TBSG.Data;
+using TBSG.Data.Hexmap;
 
 namespace TBSG
 {
@@ -20,15 +21,15 @@ namespace TBSG
 
             int x, y;
 
-            if (coords.y % 2 == 0)
+            if (coords.Y % 2 == 0)
             {
-                x = (int)Math.Round((cpl * (2 * coords.x + 1)));
-                y = (int)(3 * coords.y * scale / 2);
+                x = (int)Math.Round((cpl * (2 * coords.X + 1)));
+                y = (int)(3 * coords.Y * scale / 2);
             }
             else
             {
-                x = (int)Math.Round((2 * cpl * (coords.x + 1)));
-                y = (int)Math.Round((spl + scale + 3 * (coords.y - 1) * scale / 2));
+                x = (int)Math.Round((2 * cpl * (coords.X + 1)));
+                y = (int)Math.Round((spl + scale + 3 * (coords.Y - 1) * scale / 2));
             }
 
             return new WorldCoordinate(x, y);
@@ -46,19 +47,19 @@ namespace TBSG
             double gridHeight = 2 * scale - spl;
             double gridWidth = 2 * scale * Math.Cos(Math.PI / 6);
 
-            int row = (int)(coords.y / gridHeight);
+            int row = (int)(coords.Y / gridHeight);
             int column;
             if (row % 2 == 0)
-                column = (int)(coords.x / gridWidth);
+                column = (int)(coords.X / gridWidth);
             else
-                column = (int)((coords.x - gridWidth / 2) / gridWidth);
+                column = (int)((coords.X - gridWidth / 2) / gridWidth);
 
-            double relY = coords.y - row * gridHeight;
+            double relY = coords.Y - row * gridHeight;
             double relX;
             if (row % 2 == 0)
-                relX = coords.x - column * gridWidth;
+                relX = coords.X - column * gridWidth;
             else
-                relX = coords.x - (column * gridWidth) - gridWidth / 2;
+                relX = coords.X - (column * gridWidth) - gridWidth / 2;
 
             var c = scale / 2;
             var m = c / (gridWidth / 2);
@@ -83,7 +84,7 @@ namespace TBSG
 
         public ScreenCoordinate WorldToScreen(WorldCoordinate coords, Coordinate location)
         {
-            return new ScreenCoordinate(coords.x - location.x, coords.y - location.y);
+            return new ScreenCoordinate(coords.X - location.X, coords.Y - location.Y);
         }
 
         #endregion
@@ -92,7 +93,7 @@ namespace TBSG
 
         public WorldCoordinate ScreenToWorld(ScreenCoordinate coords, Coordinate location)
         {
-            return new WorldCoordinate(coords.x + location.x, coords.y + location.y);
+            return new WorldCoordinate(coords.X + location.X, coords.Y + location.Y);
         }
 
         #endregion
@@ -125,11 +126,11 @@ namespace TBSG
             var points = new Point[6];
 
             points[0] = xy.Point();
-            points[1] = new Point((int)Math.Round(xy.x - cpl), (int)Math.Round(xy.y + spl));
-            points[2] = new Point((int)Math.Round(xy.x - cpl), (int)Math.Round(xy.y + spl + scale));
-            points[3] = new Point(xy.x, xy.y + 2 * scale);
-            points[4] = new Point((int)Math.Round(xy.x + cpl), (int)Math.Round(xy.y + spl + scale));
-            points[5] = new Point((int)Math.Round(xy.x + cpl), (int)Math.Round(xy.y + spl));
+            points[1] = new Point((int)Math.Round(xy.X - cpl), (int)Math.Round(xy.Y + spl));
+            points[2] = new Point((int)Math.Round(xy.X - cpl), (int)Math.Round(xy.Y + spl + scale));
+            points[3] = new Point(xy.X, xy.Y + 2 * scale);
+            points[4] = new Point((int)Math.Round(xy.X + cpl), (int)Math.Round(xy.Y + spl + scale));
+            points[5] = new Point((int)Math.Round(xy.X + cpl), (int)Math.Round(xy.Y + spl));
 
             return new Hexagon(points);
         }
@@ -138,8 +139,8 @@ namespace TBSG
 
         public List<HexCoordinate> Get2DRange(HexCoordinate start, HexCoordinate end)
         {
-            var rangeX = Enumerable.Range(start.x, end.x - start.x + 1);
-            var rangeY = Enumerable.Range(start.y, end.y - start.y + 1);
+            var rangeX = Enumerable.Range(start.X, end.X - start.X + 1);
+            var rangeY = Enumerable.Range(start.Y, end.Y - start.Y + 1);
 
             var list = new List<HexCoordinate>();
 

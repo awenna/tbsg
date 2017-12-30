@@ -6,6 +6,8 @@ using TBSG.View;
 using TBSG.View.Drawing;
 using TBSG.View.Forms;
 using TBSG.Control;
+using TBSG.Data.Hexmap;
+using TBSG.Model.Hexmap;
 
 namespace TBSG
 {

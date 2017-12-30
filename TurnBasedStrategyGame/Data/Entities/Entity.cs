@@ -1,4 +1,6 @@
-﻿namespace TBSG.Data
+﻿using TBSG.Data.Abilities;
+
+namespace TBSG.Data.Entities
 {
     public class Entity
     {

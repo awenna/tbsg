@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TBSG.Data;
+﻿using TBSG.Data.Entities;
+using TBSG.Data.Hexmap;
 
-namespace TBSG.View
+namespace TBSG.Data.View
 {
     public class Selection : ISelection
     {

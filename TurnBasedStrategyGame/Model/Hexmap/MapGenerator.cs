@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using TBSG.Data;
+using TBSG.Data.Hexmap;
 
-namespace TBSG.Model
+namespace TBSG.Model.Hexmap
 {
     public class MapGenerator : IMapGenerator
     {
@@ -14,11 +10,11 @@ namespace TBSG.Model
         {
             var random = new Random();
             
-            Tile[][] tileArray = new Tile[dimensions.x][];
-            for (int x = 0; x < dimensions.x; x++)
+            Tile[][] tileArray = new Tile[dimensions.X][];
+            for (int x = 0; x < dimensions.X; x++)
             {
-                tileArray[x] = new Tile[dimensions.y];
-                for (int y = 0; y < dimensions.y; y++)
+                tileArray[x] = new Tile[dimensions.Y];
+                for (int y = 0; y < dimensions.Y; y++)
                 {
                     var tile = new Tile();
 

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace TBSG.Data
+namespace TBSG.Data.Abilities
 {
     public class Ability
     {

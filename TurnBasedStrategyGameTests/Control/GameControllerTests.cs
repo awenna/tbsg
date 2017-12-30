@@ -2,6 +2,10 @@
 using Rhino.Mocks;
 using TBSG.Model;
 using TBSG.Data;
+using TBSG.Data.Abilities;
+using TBSG.Data.Entities;
+using TBSG.Data.Hexmap;
+using TBSG.Model.Hexmap;
 
 namespace TBSG.Control
 {

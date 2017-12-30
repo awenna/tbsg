@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 
-namespace TBSG.Data
+namespace TBSG.Data.Hexmap
 {
     public class Coordinate : IEquatable<Coordinate>
     {
-        public int x { get; }
-        public int y { get; }
+        public int X { get; }
+        public int Y { get; }
 
         public Coordinate(int pX, int pY)
         {
-            x = pX;
-            y = pY;
+            X = pX;
+            Y = pY;
         }
 
         public Point Point()
         {
-            return new Point(x, y);
+            return new Point(X, Y);
         }
 
         #region Overrides
@@ -38,17 +34,17 @@ namespace TBSG.Data
                 return false;
             }
 
-            return (x == p.x) && (y == p.y);
+            return (X == p.X) && (Y == p.Y);
         }
 
         public override int GetHashCode()
         {
-            return x ^ y;
+            return X ^ Y;
         }
 
         public override string ToString()
         {
-            return "Coords(" + x + "," + y + ")";
+            return "Coords(" + X + "," + Y + ")";
         }
 
         #endregion
@@ -62,27 +58,27 @@ namespace TBSG.Data
                 return false;
             }
 
-            return (x == p.x) && (y == p.y);
+            return (X == p.X) && (Y == p.Y);
         }
 
         public static Coordinate operator +(Coordinate c1, Coordinate c2)
         {
-            return new Coordinate(c1.x + c2.x, c1.y + c2.y);
+            return new Coordinate(c1.X + c2.X, c1.Y + c2.Y);
         }
 
         public static Coordinate operator -(Coordinate c1, Coordinate c2)
         {
-            return new Coordinate(c1.x - c2.x, c1.y - c2.y);
+            return new Coordinate(c1.X - c2.X, c1.Y - c2.Y);
         }
 
         public static Coordinate operator *(Coordinate c1, Coordinate c2)
         {
-            return new Coordinate(c1.x * c2.x, c1.y * c2.y);
+            return new Coordinate(c1.X * c2.X, c1.Y * c2.Y);
         }
 
         public static Coordinate operator /(Coordinate c1, Coordinate c2)
         {
-            return new Coordinate(c1.x / c2.x, c1.y / c2.y);
+            return new Coordinate(c1.X / c2.X, c1.Y / c2.Y);
         }
 
         #endregion

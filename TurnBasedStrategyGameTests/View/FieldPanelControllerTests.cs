@@ -1,10 +1,11 @@
 ﻿using System.Windows.Forms;
 using Rhino.Mocks;
 using Xunit;
-using TBSG.Data;
 using TBSG.Control;
-using TBSG.Model;
-using TBSG.View.Forms;
+using TBSG.Data.Entities;
+using TBSG.Data.Hexmap;
+using TBSG.Data.View;
+using TBSG.Model.Hexmap;
 using TBSG.View.Panels;
 
 namespace TBSG.View

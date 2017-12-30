@@ -1,8 +1,7 @@
 ﻿using System.Drawing;
-using System.Collections.Generic;
-using System.Linq;
-using TBSG.Data;
-using TBSG.Model;
+using TBSG.Data.Hexmap;
+using TBSG.Data.View;
+using TBSG.Model.Hexmap;
 using TBSG.View.Drawing;
 
 namespace TBSG.View
@@ -69,8 +68,8 @@ namespace TBSG.View
                     var brush = Brushes.DarkBlue;
 
                     var rectangle = new Rectangle(
-                        drawCoordinate.x - scale/2,
-                        drawCoordinate.y - scale/2,
+                        drawCoordinate.X - scale/2,
+                        drawCoordinate.Y - scale/2,
                         scale, scale);
 
                     g.FillEllipse(brush, rectangle);

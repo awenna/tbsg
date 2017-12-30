@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using TBSG.Data;
+using TBSG.Data.Hexmap;
 
 namespace TBSG.View.Drawing
 {

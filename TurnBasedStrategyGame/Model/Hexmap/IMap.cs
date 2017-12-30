@@ -1,7 +1,8 @@
-﻿using TBSG.Data;
-using TBSG.View;
+﻿using TBSG.Data.Entities;
+using TBSG.Data.Hexmap;
+using TBSG.Data.View;
 
-namespace TBSG.Model
+namespace TBSG.Model.Hexmap
 {
     public interface IMap
     {

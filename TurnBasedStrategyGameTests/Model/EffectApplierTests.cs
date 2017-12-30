@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rhino.Mocks;
+﻿using Rhino.Mocks;
 using Xunit;
 using TBSG.Data;
+using TBSG.Data.Abilities;
+using TBSG.Data.Entities;
+using TBSG.Data.Hexmap;
+using TBSG.Model.Hexmap;
 
 namespace TBSG.Model
 {

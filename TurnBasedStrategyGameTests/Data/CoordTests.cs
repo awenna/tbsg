@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TBSG.Data.Hexmap;
 using Xunit;
-using Rhino.Mocks;
 
 namespace TBSG.Data
 {
@@ -15,8 +10,8 @@ namespace TBSG.Data
         {
             var coord = new Coordinate(3, 5);
 
-            Assert.Equal(coord.x, 3);
-            Assert.Equal(coord.y, 5);
+            Assert.Equal(coord.X, 3);
+            Assert.Equal(coord.Y, 5);
         }
 
         #region Operators

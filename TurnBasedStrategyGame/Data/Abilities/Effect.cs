@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TBSG.Data
+namespace TBSG.Data.Abilities
 {
     public class Effect
     {

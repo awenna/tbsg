@@ -1,5 +1,7 @@
 ﻿using System.Windows.Forms;
 using TBSG.Data;
+using TBSG.Data.Hexmap;
+using TBSG.Data.View;
 
 namespace TBSG.View.Panels
 {

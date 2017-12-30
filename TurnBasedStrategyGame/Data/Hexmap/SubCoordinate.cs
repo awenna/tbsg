@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TBSG.Data
+﻿namespace TBSG.Data.Hexmap
 {
     public class HexCoordinate : Coordinate
     {
@@ -24,22 +18,22 @@ namespace TBSG.Data
 
         public static HexCoordinate operator +(HexCoordinate c1, HexCoordinate c2)
         {
-            return new HexCoordinate(c1.x + c2.x, c1.y + c2.y);
+            return new HexCoordinate(c1.X + c2.X, c1.Y + c2.Y);
         }
 
         public static HexCoordinate operator -(HexCoordinate c1, HexCoordinate c2)
         {
-            return new HexCoordinate(c1.x - c2.x, c1.y - c2.y);
+            return new HexCoordinate(c1.X - c2.X, c1.Y - c2.Y);
         }
 
         public static HexCoordinate operator *(HexCoordinate c1, HexCoordinate c2)
         {
-            return new HexCoordinate(c1.x * c2.x, c1.y * c2.y);
+            return new HexCoordinate(c1.X * c2.X, c1.Y * c2.Y);
         }
 
         public static HexCoordinate operator /(HexCoordinate c1, HexCoordinate c2)
         {
-            return new HexCoordinate(c1.x / c2.x, c1.y / c2.y);
+            return new HexCoordinate(c1.X / c2.X, c1.Y / c2.Y);
         }
 
         #endregion
@@ -63,22 +57,22 @@ namespace TBSG.Data
 
         public static WorldCoordinate operator +(WorldCoordinate c1, WorldCoordinate c2)
         {
-            return new WorldCoordinate(c1.x + c2.x, c1.y + c2.y);
+            return new WorldCoordinate(c1.X + c2.X, c1.Y + c2.Y);
         }
 
         public static WorldCoordinate operator -(WorldCoordinate c1, WorldCoordinate c2)
         {
-            return new WorldCoordinate(c1.x - c2.x, c1.y - c2.y);
+            return new WorldCoordinate(c1.X - c2.X, c1.Y - c2.Y);
         }
 
         public static WorldCoordinate operator *(WorldCoordinate c1, WorldCoordinate c2)
         {
-            return new WorldCoordinate(c1.x * c2.x, c1.y * c2.y);
+            return new WorldCoordinate(c1.X * c2.X, c1.Y * c2.Y);
         }
 
         public static WorldCoordinate operator /(WorldCoordinate c1, WorldCoordinate c2)
         {
-            return new WorldCoordinate(c1.x / c2.x, c1.y / c2.y);
+            return new WorldCoordinate(c1.X / c2.X, c1.Y / c2.Y);
         }
 
         #endregion
@@ -102,22 +96,22 @@ namespace TBSG.Data
 
         public static ScreenCoordinate operator +(ScreenCoordinate c1, ScreenCoordinate c2)
         {
-            return new ScreenCoordinate(c1.x + c2.x, c1.y + c2.y);
+            return new ScreenCoordinate(c1.X + c2.X, c1.Y + c2.Y);
         }
 
         public static ScreenCoordinate operator -(ScreenCoordinate c1, ScreenCoordinate c2)
         {
-            return new ScreenCoordinate(c1.x - c2.x, c1.y - c2.y);
+            return new ScreenCoordinate(c1.X - c2.X, c1.Y - c2.Y);
         }
 
         public static ScreenCoordinate operator *(ScreenCoordinate c1, ScreenCoordinate c2)
         {
-            return new ScreenCoordinate(c1.x * c2.x, c1.y * c2.y);
+            return new ScreenCoordinate(c1.X * c2.X, c1.Y * c2.Y);
         }
 
         public static ScreenCoordinate operator /(ScreenCoordinate c1, ScreenCoordinate c2)
         {
-            return new ScreenCoordinate(c1.x / c2.x, c1.y / c2.y);
+            return new ScreenCoordinate(c1.X / c2.X, c1.Y / c2.Y);
         }
 
         #endregion

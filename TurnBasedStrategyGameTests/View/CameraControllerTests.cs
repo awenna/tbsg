@@ -1,6 +1,6 @@
 ﻿using Xunit;
 using Rhino.Mocks;
-using TBSG.Data;
+using TBSG.Data.Hexmap;
 
 namespace TBSG.View
 {

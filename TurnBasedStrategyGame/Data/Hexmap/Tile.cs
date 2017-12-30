@@ -1,6 +1,6 @@
-﻿using TBSG.Model;
+﻿using TBSG.Data.Entities;
 
-namespace TBSG.Data
+namespace TBSG.Data.Hexmap
 {
     public class Tile
     {
