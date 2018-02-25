@@ -4,7 +4,8 @@ Refigure responsibilities:
 	- What draw code actually needs and where to get it
 
 
-
+Bugs:
+    - Crashes on click on bot left of empty hex in top row
 
 Turns:
 	- Data structures for turns
