@@ -20,13 +20,13 @@ namespace TBSG
 
             if (coords.Y % 2 == 0)
             {
-                x = (int)Math.Round((cpl * (2 * coords.X + 1)));
+                x = (int)Math.Round(cpl * (2 * coords.X + 1));
                 y = (int)(3 * coords.Y * scale / 2);
             }
             else
             {
-                x = (int)Math.Round((2 * cpl * (coords.X + 1)));
-                y = (int)Math.Round((spl + scale + 3 * (coords.Y - 1) * scale / 2));
+                x = (int)Math.Round(2 * cpl * (coords.X + 1));
+                y = (int)Math.Round(spl + scale + 3.0 * (coords.Y - 1) * scale / 2);
             }
 
             return new WorldCoordinate(x, y);
