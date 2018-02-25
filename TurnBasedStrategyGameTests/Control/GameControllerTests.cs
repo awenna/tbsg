@@ -55,12 +55,6 @@ namespace TBSG.Control
             var tile = new Tile();
             mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything)).Return(tile);
 
-            var expectedCommand = new Command
-            {
-                Commandee = entity,
-                Ability = entity.DefaultAbility
-            };
-
             Target.UseDefaultAction(entity, XY.Hex(0, 0));
 
             mCommandResolver.AssertWasCalled(x =>

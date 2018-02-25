@@ -6,9 +6,21 @@ namespace TBSG.Data
 {
     public class Command
     {
-        public Entity Commandee { get; set; }
-        public Entity TargetEntity { get; set; }
-        public Tile TargetTile { get; set; }
-        public Ability Ability { get; set; }
+        public Entity Commandee { get; }
+        public Entity TargetEntity { get; }
+        public Tile TargetTile { get; }
+        public Ability Ability { get; }
+
+        public Command(
+            Entity commandee,
+            Entity targetEntity,
+            Tile targetTile,
+            Ability ability)
+        {
+            Commandee = commandee;
+            TargetEntity = targetEntity;
+            TargetTile = targetTile;
+            Ability = ability;
+        }
     }
 }

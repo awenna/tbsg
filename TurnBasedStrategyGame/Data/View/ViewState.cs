@@ -1,6 +1,4 @@
-﻿using TBSG.View;
-
-namespace TBSG.Data.View
+﻿namespace TBSG.Data.View
 {
     public class ViewState
     {

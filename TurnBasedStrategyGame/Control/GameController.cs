@@ -33,12 +33,12 @@ namespace TBSG.Control
         {
             if (entity == null) return;
 
-            var command = new Command
-            {
-                Commandee = entity,
-                Ability = entity.DefaultAbility,
-                TargetTile = mMap.TileAt(targetLocation)
-            };
+            var command = new Command(
+                entity,
+                null,
+                mMap.TileAt(targetLocation),
+                entity.DefaultAbility
+            );
 
             mCommandResolver.Resolve(command);
         }
