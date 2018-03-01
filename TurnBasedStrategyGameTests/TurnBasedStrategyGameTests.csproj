@@ -99,7 +99,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\RendererTest.cs" />
     <Compile Include="TestConfigurationProvider.cs" />
-    <Compile Include="View\FieldPanelControllerTests.cs" />
+    <Compile Include="View\FieldPanelTests.cs" />
     <Compile Include="View\SelectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
