@@ -29,3 +29,5 @@ Future features:
 -Replays
 -Json loading
 -Builder app
+-Code generate images to use as graphics
+-
