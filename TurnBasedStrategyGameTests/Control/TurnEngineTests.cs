@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using TBSG.Data.Control;
 using Xunit;
 
 namespace TBSG.Control
@@ -13,15 +15,17 @@ namespace TBSG.Control
         }
 
         [Fact]
-        public void AddCommand_AddsLegalCommands()
+        public void CompileTurn_ResetsActions()
         {
             throw new NotImplementedException();
         }
 
-        [Fact]
-        public void CompileTurn_ResetsActions()
+        internal class TurnEngineExtension : TurnEngine
         {
-            throw new NotImplementedException();
+            public List<PlayerAction> GetActions()
+            {
+                return Actions; 
+            }
         }
     }
 }

@@ -1,21 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TBSG.Data.Control;
 
 namespace TBSG.Control
 {
     public class TurnEngine
     {
-        private IEnumerable<PlayerAction> Actions;
+        protected List<PlayerAction> Actions;
 
-        public void AddAction()
+        public TurnEngine()
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public void AddAction(PlayerAction action)
+        {
+            Actions.Add(action);
         }
 
         public GameState CompileTurn(GameState oldState)
         {
-            throw new NotImplementedException();
+            Actions = new List<PlayerAction>();
+            return null;
         }
     }
 }
