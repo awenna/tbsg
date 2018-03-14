@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using TBSG.Data.Control;
 
 namespace TBSG.Control
@@ -11,7 +9,7 @@ namespace TBSG.Control
 
         public TurnEngine()
         {
-            
+            Actions = new List<PlayerAction>();
         }
 
         public void AddAction(PlayerAction action)
