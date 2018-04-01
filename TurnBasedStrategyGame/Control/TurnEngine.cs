@@ -20,7 +20,8 @@ namespace TBSG.Control
         public GameState CompileTurn(GameState oldState)
         {
             Actions = new List<PlayerAction>();
-            return null;
+            var newState = new GameState(oldState.TurnNumber + 1, oldState.Map);
+            return newState;
         }
     }
 }

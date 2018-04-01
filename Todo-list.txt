@@ -16,7 +16,14 @@ Turns:
 		[] Action
 	- GameState + Turn = GameState
 		- Turn processing
-
+    - GameState stack
+    - GUI has a mutable GameState that is discarded
+    - Compile turn -> actual game state stack
+    
+    - Every command goes through GameController
+        - GameController creates Commands and passes on 
+            -> resolution or not -> stack
+    - GameController has full info -> GUI requests and modifies etc
 	
 Camera:
     Rename CameraController to Camera

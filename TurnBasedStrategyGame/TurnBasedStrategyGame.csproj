@@ -81,9 +81,11 @@
   <ItemGroup>
     <Compile Include="Calculation\Algorithms.cs" />
     <Compile Include="Control\GameState.cs" />
+    <Compile Include="Control\ITurnEngine.cs" />
     <Compile Include="Control\TurnEngine.cs" />
     <Compile Include="Data\Control\PlayerAction.cs" />
     <Compile Include="Data\Player.cs" />
+    <Compile Include="Data\State\Replay.cs" />
     <Compile Include="Data\View\Camera.cs" />
     <Compile Include="ConfigurationProvider.cs" />
     <Compile Include="Control\IGameController.cs" />
@@ -176,9 +178,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\State\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

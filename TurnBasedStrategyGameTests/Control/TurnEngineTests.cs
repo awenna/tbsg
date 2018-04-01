@@ -17,9 +17,18 @@ namespace TBSG.Control
         public void CompileTurn_ResetsActions()
         {
             target.AddAction(null);
-            var state = new GameState();
+            var state = new GameState(0, null);
             target.CompileTurn(state);
             Assert.Empty(target.GetActions());
+        }
+
+        [Fact]
+        public void CompileTurn_IncrementsTurnCount()
+        {
+            target.AddAction(null);
+            var state = new GameState(7, null);
+            var result = target.CompileTurn(state);
+            Assert.Equal(8, result.TurnNumber);
         }
 
         internal class TurnEngineExtension : TurnEngine

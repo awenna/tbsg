@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 using Rhino.Mocks;
 using TBSG.Model;
 using TBSG.Data;
@@ -27,11 +28,21 @@ namespace TBSG.Control
         #region PassTurn
 
         [Fact]
-        public void PassTurn_UpdatesGameState()
+        public void PassTurn_AppendsNewState()
         {
-            Target.PassTurn();
+            throw new NotImplementedException();
+        }
 
-            Assert.Equal(1, Target.GameState.TurnNumber);
+        [Fact]
+        public void PassTurn_UsesTurnEngine()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public void SomeOtherTypeOfCommand_IsAddedNormallyToStack()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

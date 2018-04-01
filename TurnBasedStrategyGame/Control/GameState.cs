@@ -1,16 +1,16 @@
-﻿namespace TBSG.Control
+﻿using TBSG.Model.Hexmap;
+
+namespace TBSG.Control
 {
     public class GameState
     {
-        public int PlayerTurn { get; private set; }
-        public int TurnNumber { get; private set; }
+        public int TurnNumber { get; }
+        public IMap Map { get; }
 
-        public GameState NextTurn()
+        public GameState(int turnNumber, IMap map)
         {
-            return new GameState
-            {
-                TurnNumber = TurnNumber + 1,
-            };
+            TurnNumber = turnNumber;
+            Map = map;
         }
     }
 }
