@@ -13,9 +13,6 @@ namespace TBSG
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
@@ -35,12 +32,14 @@ namespace TBSG
             var effectApplier = new EffectApplier(map);
             var commandResolver = new CommandResolver(map, effectApplier);
 
-            var gameController = new GameController(map, commandResolver);
+            var turnEngine = new TurnEngine();
+
+            var gameController = new GameController(map, commandResolver, turnEngine);
             gameController.SetManualTestingMap();
 
             var gridDrawer = new GridDrawer();
 
-            var renderer = new Renderer(algorithms, map, gridDrawer, configProvider);
+            var renderer = new Renderer(algorithms, gridDrawer, configProvider);
             var cameraController = new CameraController(algorithms, configProvider);
 
             var viewController = 

@@ -10,7 +10,7 @@ namespace TBSG.Control
 {
     public class GameController : IGameController
     {
-        public GameState CurrentGameState { get; private set; }
+        private GameState CurrentGameState { get;  set; }
         private Replay mReplay { get; set; }
 
         private readonly IMap mMap;
@@ -19,17 +19,21 @@ namespace TBSG.Control
 
         public GameController(
             IMap map,
-            ICommandResolver commandResolver)
+            ICommandResolver commandResolver,
+            ITurnEngine turnEngine)
         {
             mMap = map;
             mCommandResolver = commandResolver;
+            mTurnEngine = turnEngine;
 
-            CurrentGameState = new GameState(0, null);
+            CurrentGameState = new GameState(0, map);
+            mReplay = new Replay();
         }
 
         public void PassTurn()
         {
-            
+            CurrentGameState = mTurnEngine.CompileTurn(CurrentGameState);
+            mReplay = mReplay.AddGameState(CurrentGameState);
         }
 
         public void UseDefaultAction(Entity entity, HexCoordinate targetLocation)
@@ -46,9 +50,19 @@ namespace TBSG.Control
             mCommandResolver.Resolve(command);
         }
 
+        public GameState GetGameState()
+        {
+            return CurrentGameState;
+        }
+
         public IMap GetMap()
         {
             return mMap;
+        }
+
+        public Replay GetReplay()
+        {
+            return mReplay;
         }
 
         #region Manual Testing

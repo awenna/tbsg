@@ -10,7 +10,8 @@ namespace TBSG.View
     public class ViewController : IViewController
     {
         private ViewState mViewState { get; set; }
-        
+        private GameState mGameState { get; set; }
+
         private readonly IAlgorithms mAlgorithms;
         private readonly ICameraController mCameraController;
         private readonly IGameController mGameController;
@@ -32,6 +33,7 @@ namespace TBSG.View
                 Camera = mCameraController.GetCamera(),
                 Selection = new Selection()
             };
+            mGameState = mGameController.GetGameState();
         }
 
         public void SelectAt(ViewState state, HexCoordinate coord)
@@ -44,12 +46,22 @@ namespace TBSG.View
             state.Selection.Set(tile);
         }
 
+        public void PassTurn()
+        {
+            mGameController.PassTurn();
+            mGameState = mGameController.GetGameState();
+        }
 
         #region Getters
 
         public ViewState GetViewState()
         {
             return mViewState;
+        }
+
+        public GameState GetGameState()
+        {
+            return mGameState;
         }
 
         public ICameraController GetCamera()

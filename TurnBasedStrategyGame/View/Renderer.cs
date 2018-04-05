@@ -9,25 +9,23 @@ namespace TBSG.View
     public class Renderer : IRenderer
     {
         private readonly IAlgorithms mAlgorithms;
-        private readonly IMap mMap;
         private readonly IGridDrawer mGridDrawer;
         private readonly IConfigurationProvider mConfigurationProvider;
 
         public Renderer(
             IAlgorithms algorithms,
-            IMap map,
             IGridDrawer gridDrawer,
             IConfigurationProvider configProvider)
         {
             mAlgorithms = algorithms;
-            mMap = map;
             mGridDrawer = gridDrawer;
             mConfigurationProvider = configProvider;
         }
 
         #region DrawGrid
 
-        public void DrawGrid(IGraphics g, ICameraController controller)
+        public void DrawGrid(
+            IGraphics g, ICameraController controller, IMap map)
         {
             var hexesInView = controller.GetHexesInView();
 
@@ -35,7 +33,7 @@ namespace TBSG.View
 
             foreach(var hex in hexesInView)
             {
-                var tile = mMap.TileAt(hex);
+                var tile = map.TileAt(hex);
                 if (tile != null)
                 {
                     var screenCoordinate = XY.ScreenFromHex(hex, mAlgorithms, scale, controller.GetCamera().Location);
@@ -48,7 +46,7 @@ namespace TBSG.View
 
         #region DrawUnits
 
-        public void DrawUnits(IGraphics g, ICameraController controller)
+        public void DrawUnits(IGraphics g, ICameraController controller, IMap map)
         {
             var cameraLocation = controller.GetCamera().Location;
             var hexesInView = controller.GetHexesInView();
@@ -57,7 +55,7 @@ namespace TBSG.View
 
             foreach (var hex in hexesInView)
             {
-                var entity = mMap.EntityAt(hex);
+                var entity = map.EntityAt(hex);
                 if (entity != null)
                 {
                     var hexLocation = mAlgorithms.HexToWorld(hex, scale);
@@ -82,7 +80,8 @@ namespace TBSG.View
 
         #region DrawSelection
 
-        public void DrawSelection(IGraphics g, ICameraController cameraController, ISelection selection)
+        public void DrawSelection(
+            IGraphics g, ICameraController cameraController, ISelection selection, IMap map)
         {
             if (!selection.Exists()) return;
 
@@ -93,7 +92,7 @@ namespace TBSG.View
             var pen = new Pen(Color.White);
             pen.Width = mConfigurationProvider.GetValue<int>("SelectionDrawWidth");
 
-            var location = mMap.LocationOf(selection);
+            var location = map.LocationOf(selection);
 
             var worldLocation = mAlgorithms.HexToWorld(location, scale);
             var screenCoordinate = mAlgorithms.WorldToScreen(worldLocation, cameraLocation);

@@ -54,10 +54,11 @@ namespace TBSG.View.Panels
         {
             var graphics = mViewController.GetGraphics(e);
             var camera = mViewController.GetCamera();
+            var map = mViewController.GetGameState().Map;
 
-            mRenderer.DrawGrid(graphics, camera);
-            mRenderer.DrawUnits(graphics, camera);
-            mRenderer.DrawSelection(graphics, camera, mViewController.GetViewState().Selection);
+            mRenderer.DrawGrid(graphics, camera, map);
+            mRenderer.DrawUnits(graphics, camera, map);
+            mRenderer.DrawSelection(graphics, camera, mViewController.GetViewState().Selection, map);
         }
 
         #endregion

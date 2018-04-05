@@ -16,7 +16,7 @@ namespace TBSG.Data.State
         {
             var newList = mGameStates;
             newList.Add(gameState);
-            var newReplay = new Replay();
+            var newReplay = new Replay(newList);
             return newReplay;
         }
     }

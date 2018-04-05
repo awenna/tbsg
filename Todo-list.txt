@@ -1,8 +1,7 @@
 UI code is all over the place. 
-Refigure responsibilities:
-		- Could be code that preps a view: Menu to game etc
-	- What draw code actually needs and where to get it
-
+	- Code generate graphics png's
+		- Tie png's to other unit data
+	- Utilize form functionality more
 
 Bugs:
     - Crashes on click on bot left of empty hex in top row

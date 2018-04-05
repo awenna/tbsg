@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Xunit;
 using Rhino.Mocks;
@@ -41,7 +42,7 @@ namespace TBSG.View
 
             mCameraController.Stub(_ => _.GetCamera()).Return(mCamera);
 
-            Target = new Renderer(mAlgorithms, mMap, mGridDrawer, mConfigProvider);
+            Target = new Renderer(mAlgorithms, mGridDrawer, mConfigProvider);
         }
 
         #endregion
@@ -60,9 +61,9 @@ namespace TBSG.View
             mMap.Stub(_ => _.TileAt(XY.Hex(0, 0)))
                 .Return(null);*/
 
-            Target.DrawGrid(mGraphics, mCameraController);
+            Target.DrawGrid(mGraphics, mCameraController, mMap);
 
-
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -76,7 +77,7 @@ namespace TBSG.View
 
             mSelection.Stub(_ => _.Exists()).Return(false);
 
-            Target.DrawSelection(mGraphics, mCameraController, mSelection);
+            Target.DrawSelection(mGraphics, mCameraController, mSelection, mMap);
 
             mGraphics.AssertWasNotCalled(_ => _.DrawPolygon(
                 Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));
@@ -90,7 +91,7 @@ namespace TBSG.View
             mMap.Stub(_ => _.LocationOf(mSelection)).Return(XY.Hex(0, 0));
             mSelection.Stub(_ => _.Exists()).Return(true);
 
-            Target.DrawSelection(mGraphics, mCameraController, mSelection);
+            Target.DrawSelection(mGraphics, mCameraController, mSelection, mMap);
 
             mGraphics.AssertWasCalled(_ => _.DrawPolygon(
                 Arg<Pen>.Is.Anything, Arg<Hexagon>.Is.Anything));

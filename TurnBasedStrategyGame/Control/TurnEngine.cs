@@ -3,7 +3,7 @@ using TBSG.Data.Control;
 
 namespace TBSG.Control
 {
-    public class TurnEngine
+    public class TurnEngine : ITurnEngine
     {
         protected List<PlayerAction> Actions;
 

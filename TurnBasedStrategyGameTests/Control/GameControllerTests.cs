@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xunit;
 using Rhino.Mocks;
 using TBSG.Model;
@@ -6,6 +7,7 @@ using TBSG.Data;
 using TBSG.Data.Abilities;
 using TBSG.Data.Entities;
 using TBSG.Data.Hexmap;
+using TBSG.Data.State;
 using TBSG.Model.Hexmap;
 
 namespace TBSG.Control
@@ -14,6 +16,7 @@ namespace TBSG.Control
     {
         private readonly IMap mMap;
         private readonly ICommandResolver mCommandResolver;
+        private readonly ITurnEngine mTurnEngine;
 
         private readonly GameController Target;
 
@@ -21,22 +24,38 @@ namespace TBSG.Control
         {
             mMap = MockRepository.GenerateStub<IMap>();
             mCommandResolver = MockRepository.GenerateStub<ICommandResolver>();
+            mTurnEngine = MockRepository.GenerateMock<ITurnEngine>();
 
-            Target = new GameController(mMap, mCommandResolver);
+            Target = new GameController(mMap, mCommandResolver, mTurnEngine);
         }
 
         #region PassTurn
 
         [Fact]
-        public void PassTurn_AppendsNewState()
+        public void PassTurn_AppendsNewStateToReplay()
         {
-            throw new NotImplementedException();
+            var state = new GameState(0, null);
+            var expected = new Replay(new List<GameState>{state});
+
+            mTurnEngine.Stub(
+                _ => _.CompileTurn(Arg<GameState>.Is.Anything)).Return(state);
+
+            Target.PassTurn();
+
+            var result = Target.GetReplay();
+
+            Assert.Equal(expected.mGameStates, result.mGameStates);
         }
 
         [Fact]
         public void PassTurn_UsesTurnEngine()
         {
-            throw new NotImplementedException();
+            var expected = Target.GetGameState();
+
+            Target.PassTurn();
+
+            mTurnEngine.AssertWasCalled(
+                _ => _.CompileTurn(expected));
         }
 
         [Fact]

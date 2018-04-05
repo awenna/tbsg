@@ -13,8 +13,6 @@ namespace TBSG.View.Forms
         private readonly ICameraController mCameraController;
         private readonly IViewController mViewController;
 
-        private GameState gameState { get; set; }
-
         public GameWindowForm(
             IRenderer renderer,
             ICameraController cameraController,
@@ -54,6 +52,9 @@ namespace TBSG.View.Forms
             FieldPanel.Invalidate();
             InfoPanel.Invalidate();
             SidePanel.Invalidate();
+
+            TurnCounter.Text = "Turn is: " + mViewController.GetGameState().TurnNumber;
+            TurnCounter.Invalidate();
         }
 
         public void minimap_paint(object sender, PaintEventArgs e)
@@ -66,7 +67,7 @@ namespace TBSG.View.Forms
 
         public void sidepanel_paint(object sender, PaintEventArgs e)
         {
-            TurnCounter.Text = "Turn is: " + gameState.TurnNumber;
+            
         }
 
         public void GameWindowForm_KeyPress(object sender, KeyEventArgs e)
@@ -85,6 +86,9 @@ namespace TBSG.View.Forms
                     break;
                 case Keys.D://Right:
                     mCameraController.MoveBy(new WorldCoordinate(scale, 0));
+                    break;
+                case Keys.Enter:
+                    mViewController.PassTurn();
                     break;
             }
         }

@@ -66,9 +66,9 @@
             // TurnCounter
             // 
             this.TurnCounter.AutoSize = true;
-            this.TurnCounter.Location = new System.Drawing.Point(7, 4);
+            this.TurnCounter.Location = new System.Drawing.Point(3, 4);
             this.TurnCounter.Name = "TurnCounter";
-            this.TurnCounter.Size = new System.Drawing.Size(35, 80);
+            this.TurnCounter.Size = new System.Drawing.Size(35, 13);
             this.TurnCounter.TabIndex = 2;
             this.TurnCounter.Text = "Turn: ";
             // 

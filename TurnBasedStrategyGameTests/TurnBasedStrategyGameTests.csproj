@@ -101,6 +101,7 @@
     <Compile Include="TestConfigurationProvider.cs" />
     <Compile Include="View\FieldPanelTests.cs" />
     <Compile Include="View\SelectionTests.cs" />
+    <Compile Include="View\ViewControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -9,9 +9,11 @@ namespace TBSG.View
     public interface IViewController
     {
         ViewState GetViewState();
+        GameState GetGameState();
         IGameController GetGameController();
         ICameraController GetCamera();
 
+        void PassTurn();
         void SelectAt(ViewState state, HexCoordinate hex);
         GraphicsWrapper GetGraphics(PaintEventArgs e);
 
