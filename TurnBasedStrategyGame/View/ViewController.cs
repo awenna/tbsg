@@ -36,7 +36,7 @@ namespace TBSG.View
             mGameState = mGameController.GetGameState();
         }
 
-        public void SelectAt(ViewState state, HexCoordinate coord)
+        public void SelectAt(ViewState state, HexCoord coord)
         {
             var map = mGameController.GetMap();
 

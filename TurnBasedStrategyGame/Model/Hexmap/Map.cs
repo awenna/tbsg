@@ -1,4 +1,5 @@
 ﻿using System;
+using TBSG.Data;
 using TBSG.Data.Entities;
 using TBSG.Data.Hexmap;
 using TBSG.Data.View;
@@ -8,18 +9,20 @@ namespace TBSG.Model.Hexmap
     public class Map : IMap
     {
         private readonly IMapGenerator mMapGenerator;
+        private readonly IMapFunctions mMapFunctions;
 
-        private Tile[][] mMapArray;
-        private TileOccupants mTileOccupants;
-        private HexCoordinate mapSize;
+        private readonly Tile[][] mMapArray;
+        private readonly TileOccupants mTileOccupants;
+        private readonly HexCoord mapSize;
 
         public Coordinate Dimensions { get; set; }
 
-        public Map(IMapGenerator mapGenerator, Coordinate dimensions)
+        public Map(IMapGenerator mapGenerator, Coordinate dimensions, IMapFunctions mapFunctions)
         {
             mMapGenerator = mapGenerator;
             Dimensions = dimensions;
-            mapSize = new HexCoordinate(dimensions.X - 1, dimensions.Y - 1);
+            mMapFunctions = mapFunctions;
+            mapSize = new HexCoord(dimensions.X - 1, dimensions.Y - 1);
 
             mTileOccupants = new TileOccupants();
             mMapArray = mMapGenerator.GenerateMap(dimensions);
@@ -38,14 +41,14 @@ namespace TBSG.Model.Hexmap
             }
         }
 
-        public void MoveEntityTo(Entity entity, HexCoordinate targetLocation)
+        public void MoveEntityTo(Entity entity, HexCoord targetLocation)
         {
             var tile = TileAt(targetLocation);
 
             MoveEntityTo(entity, tile);
         }
 
-        public Tile TileAt(HexCoordinate location)
+        public Tile TileAt(HexCoord location)
         {
             if (LocationIsWithinBounds(location))
             {
@@ -54,7 +57,7 @@ namespace TBSG.Model.Hexmap
             return null;
         }
 
-        public Entity EntityAt(HexCoordinate location)
+        public Entity EntityAt(HexCoord location)
         {
             if (LocationIsWithinBounds(location))
             {
@@ -68,7 +71,13 @@ namespace TBSG.Model.Hexmap
             return mTileOccupants.Get(entity);
         }
 
-        public HexCoordinate LocationOf(ISelection selection)
+        public HexCoord LocationOf(Entity entity)
+        {
+            var tile = TileOf(entity);
+            return tile.Location;
+        }
+
+        public HexCoord LocationOf(ISelection selection)
         {
             var entity = selection.GetEntity();
             if (entity != null)
@@ -83,7 +92,7 @@ namespace TBSG.Model.Hexmap
             throw new ArgumentException();
         }
 
-        public bool LocationIsWithinBounds(HexCoordinate location)
+        public bool LocationIsWithinBounds(HexCoord location)
         {
             if (location.X < 0 ||
                 location.Y < 0 ||
@@ -93,6 +102,21 @@ namespace TBSG.Model.Hexmap
                 return false;
             }
             return true;
+        }
+
+        public bool InRange
+            (Entity entity, HexCoord targetLocation, int range, Tag.Range rangeType)
+        {
+            if (!LocationIsWithinBounds(targetLocation)) return false;
+            var entityLocation = LocationOf(entity);
+
+            switch (rangeType)
+            {
+                case Tag.Range.Absolute:
+                    var distance = mMapFunctions.Distance(entityLocation, targetLocation, rangeType);
+                    return distance <= range;
+            }
+            throw new NotImplementedException();
         }
     }
 }

@@ -86,40 +86,45 @@ namespace TBSG.Data.Hexmap
 
     public static class XY
     {
-        public static HexCoordinate Hex(int x, int y)
+        public static HexCoord Hex(int x, int y)
         {
-            return new HexCoordinate(x, y);
+            return new HexCoord(x, y);
         }
 
-        public static WorldCoordinate World(int x, int y)
+        public static WorldCoord World(int x, int y)
         {
-            return new WorldCoordinate(x, y);
+            return new WorldCoord(x, y);
         }
 
-        public static ScreenCoordinate Screen(int x, int y)
+        public static ScreenCoord Screen(int x, int y)
         {
-            return new ScreenCoordinate(x, y);
+            return new ScreenCoord(x, y);
         }
 
-        public static HexCoordinate HexFromScreen
-            (ScreenCoordinate coord, IAlgorithms algorithms, int scale, Coordinate location)
+        public static CubeCoord Cube(int x, int y)
+        {
+            return new CubeCoord(x, y);
+        }
+
+        public static HexCoord HexFromScreen
+            (ScreenCoord coord, IAlgorithms algorithms, int scale, Coordinate location)
         {
             return algorithms.ScreenToHex(coord, scale, location);
         }
 
-        public static HexCoordinate HexFromScreen
+        public static HexCoord HexFromScreen
             (int x, int y, IAlgorithms algorithms, int scale, Coordinate location)
         {
             return algorithms.ScreenToHex(Screen(x, y), scale, location);
         }
 
-        public static ScreenCoordinate ScreenFromHex
-            (HexCoordinate coord, IAlgorithms algorithms, int scale, Coordinate location)
+        public static ScreenCoord ScreenFromHex
+            (HexCoord coord, IAlgorithms algorithms, int scale, Coordinate location)
         {
             return algorithms.HexToScreen(coord, scale, location);
         }
 
-        public static ScreenCoordinate ScreenFromHex
+        public static ScreenCoord ScreenFromHex
             (int x, int y, IAlgorithms algorithms, int scale, Coordinate location)
         {
             return algorithms.HexToScreen(Hex(x, y), scale, location);

@@ -76,16 +76,16 @@ namespace TBSG.View.Forms
             switch (e.KeyCode)
             {
                 case Keys.W://Up:
-                    mCameraController.MoveBy(new WorldCoordinate(0, -scale));
+                    mCameraController.MoveBy(new WorldCoord(0, -scale));
                     break;
                 case Keys.S://Down:
-                    mCameraController.MoveBy(new WorldCoordinate(0, scale));
+                    mCameraController.MoveBy(new WorldCoord(0, scale));
                     break;
                 case Keys.A://Left:
-                    mCameraController.MoveBy(new WorldCoordinate(-scale, 0));
+                    mCameraController.MoveBy(new WorldCoord(-scale, 0));
                     break;
                 case Keys.D://Right:
-                    mCameraController.MoveBy(new WorldCoordinate(scale, 0));
+                    mCameraController.MoveBy(new WorldCoord(scale, 0));
                     break;
                 case Keys.Enter:
                     mViewController.PassTurn();

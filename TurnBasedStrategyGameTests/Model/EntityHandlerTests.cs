@@ -7,7 +7,6 @@ namespace TBSG.Model
 {
     public class EntityHandlerTests
     {
-
         private readonly EntityHandler Target;
 
         public EntityHandlerTests()

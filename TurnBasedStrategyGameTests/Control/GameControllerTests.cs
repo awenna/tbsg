@@ -4,7 +4,6 @@ using Xunit;
 using Rhino.Mocks;
 using TBSG.Model;
 using TBSG.Data;
-using TBSG.Data.Abilities;
 using TBSG.Data.Entities;
 using TBSG.Data.Hexmap;
 using TBSG.Data.State;
@@ -83,7 +82,7 @@ namespace TBSG.Control
             var entity = GenerateDefaultEntity();
 
             var tile = new Tile();
-            mMap.Stub(_ => _.TileAt(Arg<HexCoordinate>.Is.Anything)).Return(tile);
+            mMap.Stub(_ => _.TileAt(Arg<HexCoord>.Is.Anything)).Return(tile);
 
             Target.UseDefaultAction(entity, XY.Hex(0, 0));
 
@@ -94,14 +93,27 @@ namespace TBSG.Control
                     _.TargetTile == tile)));
         }
 
+        [Fact]
+        public void UseDefaultAction_ChecksValid()
+        {
+            var entity = GenerateDefaultEntity();
+            var coord = XY.Hex(0, 0);
+
+            Target.UseDefaultAction(entity, coord);
+
+            mCommandResolver.Stub(_ => _.IsValid(
+                Arg<Command>.Is.Anything,
+                Arg<IMap>.Is.Anything)).Return(false);
+
+            mCommandResolver.AssertWasNotCalled(x =>
+                x.Resolve(Arg<Command>.Is.Anything));
+        }
+
         #endregion
 
         private Entity GenerateDefaultEntity()
         {
-            return new Entity
-            {
-                DefaultAbility = new Ability()
-            };
+            return new Entity();
         }
     }
 }

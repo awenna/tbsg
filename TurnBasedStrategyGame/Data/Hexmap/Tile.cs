@@ -6,7 +6,7 @@ namespace TBSG.Data.Hexmap
     {
         public TerrainType TerrainType { get; set; }
         public Entity Entity { get; set; }
-        public HexCoordinate Location { get; set; }
+        public HexCoord Location { get; set; }
 
         public Tile() { }
 

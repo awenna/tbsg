@@ -14,7 +14,7 @@ namespace TBSG.View
         ICameraController GetCamera();
 
         void PassTurn();
-        void SelectAt(ViewState state, HexCoordinate hex);
+        void SelectAt(ViewState state, HexCoord hex);
         GraphicsWrapper GetGraphics(PaintEventArgs e);
 
         FieldPanel CreateFieldPanel(PictureBox panel);

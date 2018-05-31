@@ -1,4 +1,5 @@
-﻿using TBSG.Data;
+﻿using System;
+using TBSG.Data;
 using TBSG.Model.Hexmap;
 
 namespace TBSG.Model
@@ -6,10 +7,36 @@ namespace TBSG.Model
     public class CommandResolver : ICommandResolver
     {
         private readonly IEffectApplier mEffectApplier;
+        private readonly IEntityHandler mEntityHandler;
 
-        public CommandResolver(IMap map, IEffectApplier effectApplier)
+        public CommandResolver(
+            IEffectApplier effectApplier, IEntityHandler entityHandler)
         {
             mEffectApplier = effectApplier;
+            mEntityHandler = entityHandler;
+        }
+
+        public bool IsValid(Command command, IMap map)
+        {
+            var ability = command.Ability;
+            foreach (var limitation in ability.Limitations)
+            {
+                switch (limitation.Tag)
+                {
+                    case Tag.Limitation.Range:
+                        var inRange = map.InRange(
+                            command.Commandee,
+                            command.TargetTile.Location,
+                            limitation.Value,
+                            Tag.Range.Absolute);
+                        if (!inRange)
+                        {
+                            return false;
+                        }
+                        break;
+                }
+            }
+            return true;
         }
 
         public void Resolve(Command command)

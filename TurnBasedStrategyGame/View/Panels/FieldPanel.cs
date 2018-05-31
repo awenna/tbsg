@@ -65,9 +65,9 @@ namespace TBSG.View.Panels
 
         #region Private
 
-        private HexCoordinate GetClickHex(Camera camera, ScreenCoordinate coord)
+        private HexCoord GetClickHex(Camera camera, ScreenCoord coord)
         {
-            return coord.ToHexCoordinate(mAlgorithms, camera.Scale, camera.Location);
+            return coord.ToHexCoord(mAlgorithms, camera.Scale, camera.Location);
         }
 
         #endregion

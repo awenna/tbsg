@@ -1,3 +1,4 @@
+
 UI code is all over the place. 
 	- Code generate graphics png's
 		- Tie png's to other unit data
@@ -5,6 +6,14 @@ UI code is all over the place.
 
 Bugs:
     - Crashes on click on bot left of empty hex in top row
+
+Misc:
+	- UseDefaultAction needs to attack if location has an enemy
+		- Wrap target to a class?
+		- Figure specifics somewhere
+			- AI class?
+	- Goals. Goals break into actions of an individual turn.
+	- Action is probably a better description that Command?
 
 Turns:
 	- Data structures for turns

@@ -36,7 +36,7 @@ namespace TBSG.Control
             mReplay = mReplay.AddGameState(CurrentGameState);
         }
 
-        public void UseDefaultAction(Entity entity, HexCoordinate targetLocation)
+        public void UseDefaultAction(Entity entity, HexCoord targetLocation)
         {
             if (entity == null) return;
 
@@ -47,7 +47,10 @@ namespace TBSG.Control
                 entity.DefaultAbility
             );
 
-            mCommandResolver.Resolve(command);
+            if(mCommandResolver.IsValid(command, mMap))
+            {
+                mCommandResolver.Resolve(command);
+            }
         }
 
         public GameState GetGameState()
@@ -71,22 +74,23 @@ namespace TBSG.Control
         {
             var moveEff = new Effect
             {
-                Tag = Tag.Effects.Movement,
-                Value = 2
+                Tag = Tag.Effects.Movement
             };
-            var moveTargetted = new TargettedEffect
-            {
-                Target = Tag.Target.SelfAndGround,
-                Effect = moveEff
-            };
-            var moveAbility = new Ability
-            {
-                TargetMode = Tag.TargetMode.GroundTarget,
-                Effects = new[] { moveTargetted }
-            };
+            var moveTargetted = new TargettedEffect(
+                Tag.Target.SelfAndGround,
+                moveEff);
+
+            var moveAbility = new Ability(
+                    Tag.TargetMode.GroundTarget,
+                    new[] { moveTargetted },
+                    new []
+                    {
+                        new Limitation(Tag.Limitation.Range, 2) 
+                    }
+                );
 
             var entity = new Entity { DefaultAbility = moveAbility };
-            mMap.MoveEntityTo(entity, mMap.TileAt(new HexCoordinate(0, 0)));
+            mMap.MoveEntityTo(entity, mMap.TileAt(new HexCoord(0, 0)));
         }
 
         #endregion

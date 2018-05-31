@@ -105,7 +105,7 @@ namespace TBSG.View
 
         public void DrawMinimap(
             IGraphics g,
-            ScreenCoordinate size,
+            ScreenCoord size,
             ICameraController cameraController)
         {
 
@@ -113,7 +113,7 @@ namespace TBSG.View
 
         #region 
 
-        public void DrawInfoGraphics(IGraphics g, ScreenCoordinate size)
+        public void DrawInfoGraphics(IGraphics g, ScreenCoord size)
         {
             g.DrawEllipse(Pens.DarkMagenta, new Rectangle(0, 0, 50, 50));
         }

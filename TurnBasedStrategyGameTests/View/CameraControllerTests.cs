@@ -26,29 +26,29 @@ namespace TBSG.View
         {
             var result = Target.Camera.Location;
 
-            Assert.Equal(new WorldCoordinate(0, 0), result);
+            Assert.Equal(new WorldCoord(0, 0), result);
         }
 
         [Fact]
         public void MoveBy_ChangesLocation()
         {
-            Target.MoveBy(new WorldCoordinate(32, 15));
-            Target.MoveBy(new WorldCoordinate(-7, -2));
+            Target.MoveBy(new WorldCoord(32, 15));
+            Target.MoveBy(new WorldCoord(-7, -2));
 
             var result1 = Target.Camera.Location;
 
-            Assert.Equal(new WorldCoordinate(25, 13), result1);
+            Assert.Equal(new WorldCoord(25, 13), result1);
         }
 
         [Fact]
         public void GetHexesInView_CallsWithExtraSpace()
         {
             mAlgorithms.Stub(_ => _.WorldToHex(
-                Arg<WorldCoordinate>.Is.Anything, Arg<int>.Is.Anything))
+                Arg<WorldCoord>.Is.Anything, Arg<int>.Is.Anything))
                 .Return(XY.Hex(2, 3))
                 .Repeat.Times(2);
             mAlgorithms.Stub(_ => _.ScreenToWorld(
-                Arg<ScreenCoordinate>.Is.Anything, Arg<Coordinate>.Is.Anything))
+                Arg<ScreenCoord>.Is.Anything, Arg<Coordinate>.Is.Anything))
                 .Return(XY.World(0, 0))
                 .Repeat.Once();
 

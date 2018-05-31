@@ -11,7 +11,7 @@ namespace TBSG
 
         #region HexToWorld
 
-        public WorldCoordinate HexToWorld(HexCoordinate coords, int scale)
+        public WorldCoord HexToWorld(HexCoord coords, int scale)
         {
             var cpl = Math.Cos(Math.PI / 6) * scale;
             var spl = 0.5d * scale;
@@ -29,14 +29,14 @@ namespace TBSG
                 y = (int)Math.Round(spl + scale + 3.0 * (coords.Y - 1) * scale / 2);
             }
 
-            return new WorldCoordinate(x, y);
+            return new WorldCoord(x, y);
         }
 
         #endregion
 
         #region WorldToHex
 
-        public HexCoordinate WorldToHex(WorldCoordinate coords, int scale)
+        public HexCoord WorldToHex(WorldCoord coords, int scale)
         {
             var cpl = Math.Cos(Math.PI / 6) * scale;
             var spl = 0.5d * scale;
@@ -72,32 +72,32 @@ namespace TBSG
                 if (row % 2 == 0) column++;
             }
             
-            return new HexCoordinate(column, row);
+            return new HexCoord(column, row);
         }
 
         #endregion
 
         #region WorldToScreen
 
-        public ScreenCoordinate WorldToScreen(WorldCoordinate coords, Coordinate location)
+        public ScreenCoord WorldToScreen(WorldCoord coords, Coordinate location)
         {
-            return new ScreenCoordinate(coords.X - location.X, coords.Y - location.Y);
+            return new ScreenCoord(coords.X - location.X, coords.Y - location.Y);
         }
 
         #endregion
 
         #region ScreenToWorld
 
-        public WorldCoordinate ScreenToWorld(ScreenCoordinate coords, Coordinate location)
+        public WorldCoord ScreenToWorld(ScreenCoord coords, Coordinate location)
         {
-            return new WorldCoordinate(coords.X + location.X, coords.Y + location.Y);
+            return new WorldCoord(coords.X + location.X, coords.Y + location.Y);
         }
 
         #endregion
 
         #region HexToScreen
 
-        public ScreenCoordinate HexToScreen(HexCoordinate coords, int scale, Coordinate location)
+        public ScreenCoord HexToScreen(HexCoord coords, int scale, Coordinate location)
         {
             return WorldToScreen(HexToWorld(coords, scale), location);
         }
@@ -106,7 +106,7 @@ namespace TBSG
 
         #region ScreenToHex
 
-        public HexCoordinate ScreenToHex(ScreenCoordinate coords, int scale, Coordinate location)
+        public HexCoord ScreenToHex(ScreenCoord coords, int scale, Coordinate location)
         {
             return WorldToHex(ScreenToWorld(coords, location), scale);
         }
@@ -134,12 +134,14 @@ namespace TBSG
 
         #endregion
 
-        public List<HexCoordinate> Get2DRange(HexCoordinate start, HexCoordinate end)
+        #region Get2DRange
+
+        public List<HexCoord> Get2DRange(HexCoord start, HexCoord end)
         {
             var rangeX = Enumerable.Range(start.X, end.X - start.X + 1);
             var rangeY = Enumerable.Range(start.Y, end.Y - start.Y + 1);
 
-            var list = new List<HexCoordinate>();
+            var list = new List<HexCoord>();
 
             foreach (var x in rangeX)
             {
@@ -151,5 +153,21 @@ namespace TBSG
 
             return list;
         }
+
+        #endregion
+
+        #region HexDistance
+
+        public double HexDistance(HexCoord first, HexCoord second)
+        {
+            var cubeFirst = first.ToCubeCoord();
+            var cubeSecond = second.ToCubeCoord();
+
+            return (Math.Abs(cubeFirst.X - cubeSecond.X) +
+                    Math.Abs(cubeFirst.Y - cubeSecond.Y) +
+                    Math.Abs(cubeFirst.Z - cubeSecond.Z)) / 2;
+        }
+
+        #endregion
     }
 }

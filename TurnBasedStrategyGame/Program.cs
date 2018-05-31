@@ -24,13 +24,15 @@ namespace TBSG
             var algorithms = new Algorithms();
 
             var mapGenerator = new MapGenerator();
+            var mapFunctions = new MapFunctions(algorithms);
             var mapSize = new Coordinate(
                 configProvider.GetValue<int>("MapSizeXDefault"),
                 configProvider.GetValue<int>("MapSizeYDefault"));
-            var map = new Map(mapGenerator, mapSize);
+            var map = new Map(mapGenerator, mapSize, mapFunctions);
 
+            var entityHandler = new EntityHandler();
             var effectApplier = new EffectApplier(map);
-            var commandResolver = new CommandResolver(map, effectApplier);
+            var commandResolver = new CommandResolver(effectApplier, entityHandler);
 
             var turnEngine = new TurnEngine();
 

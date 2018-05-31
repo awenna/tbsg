@@ -4,7 +4,7 @@ using TBSG.Data.Entities;
 
 namespace TBSG.Model
 {
-    public class EntityHandler
+    public class EntityHandler : IEntityHandler
     {
         public bool CanPay(Entity entity, Cost cost)
         {

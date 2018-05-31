@@ -10,10 +10,10 @@ namespace TBSG.View.Drawing
             IGraphics g,
             IAlgorithms algorithms,
             Tile tile,
-            ScreenCoordinate screenCoordinate,
+            ScreenCoord screenCoord,
             int scale)
         {
-            var hexagon = algorithms.GetHexagon(screenCoordinate, scale);
+            var hexagon = algorithms.GetHexagon(screenCoord, scale);
 
             var brush = new SolidBrush(tile.TerrainType.DrawColor);
 

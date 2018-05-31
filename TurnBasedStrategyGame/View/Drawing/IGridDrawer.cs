@@ -14,7 +14,7 @@ namespace TBSG.View.Drawing
             IGraphics g,
             IAlgorithms algorithms,
             Tile tile,
-            ScreenCoordinate screenCoordinate,
+            ScreenCoord screenCoord,
             int scale);
     }
 }

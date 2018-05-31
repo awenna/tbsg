@@ -22,12 +22,12 @@ namespace TBSG.View
             Camera.Location = XY.World(0, 0);
         }
 
-        public void MoveBy(WorldCoordinate amount)
+        public void MoveBy(WorldCoord amount)
         {
             Camera.Location += amount;
         }
 
-        public IEnumerable<HexCoordinate> GetHexesInView()
+        public IEnumerable<HexCoord> GetHexesInView()
         {
             var start = mAlgorithms.WorldToHex(Camera.Location, Camera.Scale);
 
@@ -42,7 +42,7 @@ namespace TBSG.View
             return Camera;
         }
 
-        public void SetViewSize(ScreenCoordinate size)
+        public void SetViewSize(ScreenCoord size)
         {
             Camera.ViewSize = size;
         }

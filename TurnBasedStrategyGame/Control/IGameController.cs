@@ -8,7 +8,7 @@ namespace TBSG.Control
     {
         GameState GetGameState();
         IMap GetMap();
-        void UseDefaultAction(Entity entity, HexCoordinate targetLocation);
+        void UseDefaultAction(Entity entity, HexCoord targetLocation);
         void PassTurn();
     }
 }

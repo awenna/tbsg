@@ -53,7 +53,7 @@ namespace TBSG.View
         public void DrawGrid_TileNotOnMap_NoDrawing()
         {
             mCameraController.Stub(_ => _.GetHexesInView())
-                .Return(new List<HexCoordinate> { XY.Hex(0, 0) });
+                .Return(new List<HexCoord> { XY.Hex(0, 0) });
 
             mCameraController.Stub(_ => _.GetCamera())
                 .Return(new Camera { Scale = 0 });
@@ -108,7 +108,7 @@ namespace TBSG.View
 
         private void StubOneTileOnMap()
         {
-            mMap.Stub(_ => _.TileAt(new HexCoordinate(0, 0)))
+            mMap.Stub(_ => _.TileAt(new HexCoord(0, 0)))
                 .Return(new Tile());
         }
 

@@ -39,7 +39,7 @@ namespace TBSG.View
             fieldPanel.OnClick(new object(), e);
 
             mViewController.AssertWasCalled(_ => 
-                _.SelectAt(Arg<ViewState>.Is.Equal(state), Arg<HexCoordinate>.Is.Anything));
+                _.SelectAt(Arg<ViewState>.Is.Equal(state), Arg<HexCoord>.Is.Anything));
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace TBSG.View
             fieldPanel.OnClick(state, e);
 
             gameController.AssertWasCalled(_ => 
-            _.UseDefaultAction(Arg<Entity>.Is.Anything, Arg<HexCoordinate>.Is.Anything));
+            _.UseDefaultAction(Arg<Entity>.Is.Anything, Arg<HexCoord>.Is.Anything));
         }
 
         private FieldPanel GetFieldPanel()
