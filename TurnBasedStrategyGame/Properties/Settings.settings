@@ -1,7 +1,39 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TBSG.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TestKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CameraScaleDefault" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">32</Value>
+    </Setting>
+    <Setting Name="MapSizeXDefault" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="MapSizeYDefault" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">16</Value>
+    </Setting>
+    <Setting Name="WindowSizeX" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">800</Value>
+    </Setting>
+    <Setting Name="WindowSizeY" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">600</Value>
+    </Setting>
+    <Setting Name="FieldPanelSizeX" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">680</Value>
+    </Setting>
+    <Setting Name="FieldPanelSizeY" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">480</Value>
+    </Setting>
+    <Setting Name="SelectionDrawWidth" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="InfoPanelSizeX" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">680</Value>
+    </Setting>
+    <Setting Name="InfoPanelSizeY" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">120</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

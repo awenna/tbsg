@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
+using Rhino.Mocks;
 
-namespace TurnBasedStrategyGameTests
+namespace TBSG.Model
 {
-    class Program
+    public class CommandResolverTests
     {
-        static void Main(string[] args)
-        {
-        }
     }
 }
