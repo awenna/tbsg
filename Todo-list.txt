@@ -1,8 +1,8 @@
-
 UI code is all over the place. 
 	- Code generate graphics png's
 		- Tie png's to other unit data
 	- Utilize form functionality more
+	- Use matrixes?
 
 Bugs:
     - Crashes on click on bot left of empty hex in top row
@@ -14,6 +14,9 @@ Misc:
 			- AI class?
 	- Goals. Goals break into actions of an individual turn.
 	- Action is probably a better description that Command?
+
+Window & settings:
+    - Stretchable, don't save resolution to settings
 
 Turns:
 	- Data structures for turns
@@ -45,4 +48,4 @@ Future features:
 -Json loading
 -Builder app
 -Code generate images to use as graphics
--
+-Dedicated (REST?) game server
