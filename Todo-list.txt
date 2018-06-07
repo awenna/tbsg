@@ -14,6 +14,7 @@ Misc:
 			- AI class?
 	- Goals. Goals break into actions of an individual turn.
 	- Action is probably a better description that Command?
+	- Use Target instead of hard coded. Replace in Command
 
 Window & settings:
     - Stretchable, don't save resolution to settings
