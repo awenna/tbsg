@@ -84,11 +84,14 @@ namespace TBSG.Control
             var tile = new Tile();
             mMap.Stub(_ => _.TileAt(Arg<HexCoord>.Is.Anything)).Return(tile);
 
+            mCommandResolver
+                .Stub(_ => _.IsValid(Arg<Command>.Is.Anything, Arg<IMap>.Is.Anything))
+                .Return(true);
+
             Target.UseDefaultAction(entity, XY.Hex(0, 0));
 
             mCommandResolver.AssertWasCalled(x =>
                 x.Resolve(Arg<Command>.Matches(_ => 
-                    _.Ability == entity.DefaultAbility &&
                     _.Commandee == entity &&
                     _.TargetTile == tile)));
         }
@@ -113,7 +116,10 @@ namespace TBSG.Control
 
         private Entity GenerateDefaultEntity()
         {
-            return new Entity();
+            var ability = new Ability(Tag.TargetMode.SelfTarget, null, null);
+            var entity = new Entity();
+            entity.DefaultAbility = ability;
+            return entity;
         }
     }
 }
