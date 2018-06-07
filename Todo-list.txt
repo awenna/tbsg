@@ -1,52 +1,61 @@
-UI code is all over the place. 
-	- Code generate graphics png's
-		- Tie png's to other unit data
-	- Utilize form functionality more
-	- Use matrixes?
+Current:
+	Turns:
+		- Data structures for turns
+		- Show current turn in UI
+		- Main controller
 
-Bugs:
-    - Crashes on click on bot left of empty hex in top row
+		- Turn:
+			[] Action
+		- GameState + Turn = GameState
+			- Turn processing
+		- GameState stack
+		- GUI has a mutable GameState that is discarded
+		- Compile turn -> actual game state stack
+		
+		- Every command goes through GameController
+			- GameController creates Commands and passes on 
+				-> resolution or not -> stack
+		- GameController has full info -> GUI requests and modifies etc
 
-Misc:
-	- UseDefaultAction needs to attack if location has an enemy
-		- Wrap target to a class?
-		- Figure specifics somewhere
-			- AI class?
-	- Goals. Goals break into actions of an individual turn.
-	- Action is probably a better description that Command?
-	- Use Target instead of hard coded. Replace in Command
+Later:
+		
+	UI code is all over the place. 
+		- Code generate graphics png's
+			- Tie png's to other unit data
+		- Utilize form functionality more
+		- Use matrixes?
 
-Window & settings:
-    - Stretchable, don't save resolution to settings
+	Bugs:
+		- Crashes on click on bot left of empty hex in top row
 
-Turns:
-	- Data structures for turns
-	- Show current turn in UI
-	- Main controller
+	Misc:
+		- UseDefaultAction needs to attack if location has an enemy
+			- Wrap target to a class?
+			- Figure specifics somewhere
+				- AI class?
+		- Goals. Goals break into actions of an individual turn.
+		- Action is probably a better description that Command?
+		- Use Target instead of hard coded. Replace in Command
 
-	- Turn:
-		[] Action
-	- GameState + Turn = GameState
-		- Turn processing
-    - GameState stack
-    - GUI has a mutable GameState that is discarded
-    - Compile turn -> actual game state stack
-    
-    - Every command goes through GameController
-        - GameController creates Commands and passes on 
-            -> resolution or not -> stack
-    - GameController has full info -> GUI requests and modifies etc
-	
-Camera:
-    Rename CameraController to Camera
-    Put Camera's variables into CamCont
-    Remove old Camera
-    
-    No point to separate data and function just for the sake of it?
+	Window & settings:
+		- Stretchable, don't save resolution to settings
+		
+	Camera:
+		Rename CameraController to Camera
+		Put Camera's variables into CamCont
+		Remove old Camera
+		
+		No point to separate data and function just for the sake of it?
 
 Future features:
+-Show potential targetting borders
+-Rivers
+-Buildings
+-Gathering
 -Replays
--Json loading
--Builder app
+-Json loading units
+-Builder app for units
 -Code generate images to use as graphics
+-Transformation matrix support
 -Dedicated (REST?) game server
+-Network play
