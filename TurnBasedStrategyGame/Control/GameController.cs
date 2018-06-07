@@ -36,6 +36,11 @@ namespace TBSG.Control
             mReplay = mReplay.AddGameState(CurrentGameState);
         }
 
+        public void AddAction(Entity entity, Target target)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void UseDefaultAction(Entity entity, HexCoord targetLocation)
         {
             if (entity == null) return;

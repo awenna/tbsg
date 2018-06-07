@@ -71,6 +71,7 @@
     <Compile Include="Calculation\Algorithms.cs" />
     <Compile Include="Control\GameState.cs" />
     <Compile Include="Control\ITurnEngine.cs" />
+    <Compile Include="Data\Target.cs" />
     <Compile Include="Control\TurnEngine.cs" />
     <Compile Include="Data\Control\PlayerAction.cs" />
     <Compile Include="Data\Player.cs" />

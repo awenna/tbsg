@@ -4,6 +4,7 @@ using Xunit;
 using Rhino.Mocks;
 using TBSG.Model;
 using TBSG.Data;
+using TBSG.Data.Abilities;
 using TBSG.Data.Entities;
 using TBSG.Data.Hexmap;
 using TBSG.Data.State;
@@ -60,6 +61,8 @@ namespace TBSG.Control
         [Fact]
         public void SomeOtherTypeOfCommand_IsAddedNormallyToStack()
         {
+            //Target.AddAction();
+
             throw new NotImplementedException();
         }
 
