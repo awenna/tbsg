@@ -6,6 +6,6 @@ namespace TBSG.Model
     public interface ICommandResolver
     {
         bool IsValid(Command command, IMap map);
-        void Resolve(Command command);
+        IMap Resolve(Command command, IMap map);
     }
 }

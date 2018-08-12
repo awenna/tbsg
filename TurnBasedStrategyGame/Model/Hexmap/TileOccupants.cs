@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TBSG.Data.Entities;
 using TBSG.Data.Hexmap;
 
 namespace TBSG.Model.Hexmap
 {
+    [Serializable]
     public class TileOccupants
     {
         protected Dictionary<Entity, Tile> Occupants;

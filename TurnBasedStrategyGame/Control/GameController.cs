@@ -1,5 +1,6 @@
 ﻿using TBSG.Data;
 using TBSG.Data.Abilities;
+using TBSG.Data.Control;
 using TBSG.Data.Entities;
 using TBSG.Data.Hexmap;
 using TBSG.Data.State;
@@ -11,7 +12,7 @@ namespace TBSG.Control
     public class GameController : IGameController
     {
         private GameState CurrentGameState { get;  set; }
-        private Replay mReplay { get; set; }
+        private Replay Replay { get; set; }
 
         private readonly IMap mMap;
         private readonly ICommandResolver mCommandResolver;
@@ -27,18 +28,21 @@ namespace TBSG.Control
             mTurnEngine = turnEngine;
 
             CurrentGameState = new GameState(0, map);
-            mReplay = new Replay();
+            Replay = new Replay();
         }
 
         public void PassTurn()
         {
             CurrentGameState = mTurnEngine.CompileTurn(CurrentGameState);
-            mReplay = mReplay.AddGameState(CurrentGameState);
+            Replay = Replay.AddGameState(CurrentGameState);
         }
 
-        public void AddAction(Entity entity, Target target)
+        public void AddAction(PlayerAction action)
         {
-            throw new System.NotImplementedException();
+            if (mCommandResolver.IsValid(action.Command, mMap))
+            {
+                mTurnEngine.AddAction(action);
+            }
         }
 
         public void UseDefaultAction(Entity entity, HexCoord targetLocation)
@@ -52,10 +56,9 @@ namespace TBSG.Control
                 entity.DefaultAbility
             );
 
-            if(mCommandResolver.IsValid(command, mMap))
-            {
-                mCommandResolver.Resolve(command);
-            }
+            var action = new PlayerAction(command);
+
+            AddAction(action);
         }
 
         public GameState GetGameState()
@@ -70,7 +73,7 @@ namespace TBSG.Control
 
         public Replay GetReplay()
         {
-            return mReplay;
+            return Replay;
         }
 
         #region Manual Testing

@@ -1,7 +1,9 @@
-﻿using TBSG.Data.Entities;
+﻿using System;
+using TBSG.Data.Entities;
 
 namespace TBSG.Data.Hexmap
 {
+    [Serializable]
     public class Tile
     {
         public TerrainType TerrainType { get; set; }

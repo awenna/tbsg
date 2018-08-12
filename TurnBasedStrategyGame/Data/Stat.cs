@@ -1,5 +1,8 @@
-﻿namespace TBSG.Data
+﻿using System;
+
+namespace TBSG.Data
 {
+    [Serializable]
     public class Stat
     {
         public int Cap { get; }

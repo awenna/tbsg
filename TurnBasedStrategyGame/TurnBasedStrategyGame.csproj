@@ -71,6 +71,8 @@
     <Compile Include="Calculation\Algorithms.cs" />
     <Compile Include="Control\GameState.cs" />
     <Compile Include="Control\ITurnEngine.cs" />
+    <Compile Include="Common\ObjectExtensions.cs" />
+    <Compile Include="Data\Hexmap\TileArray.cs" />
     <Compile Include="Data\Target.cs" />
     <Compile Include="Control\TurnEngine.cs" />
     <Compile Include="Data\Control\PlayerAction.cs" />
@@ -172,7 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>10.0.3</Version>
+      <Version>11.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

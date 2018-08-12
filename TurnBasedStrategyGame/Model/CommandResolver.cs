@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using TBSG.Data;
 using TBSG.Model.Hexmap;
 
@@ -39,7 +40,7 @@ namespace TBSG.Model
             return true;
         }
 
-        public void Resolve(Command command)
+        public IMap Resolve(Command command, IMap map)
         {
             var targettedEffects = command.Ability.Effects;
 
@@ -48,19 +49,21 @@ namespace TBSG.Model
                 switch (targettedEffect.Target)
                 {
                     case Tag.Target.Self:
-                        mEffectApplier.Apply(targettedEffect.Effect, command.Commandee);
+                        mEffectApplier.Apply(map, targettedEffect.Effect, command.Commandee);
                         break;
                     case Tag.Target.Another:
-                        mEffectApplier.Apply(targettedEffect.Effect, command.TargetEntity);
+                        mEffectApplier.Apply(map, targettedEffect.Effect, command.TargetEntity);
                         break;
                     case Tag.Target.Ground:
-                        mEffectApplier.Apply(targettedEffect.Effect, command.TargetTile);
+                        mEffectApplier.Apply(map, targettedEffect.Effect, command.TargetTile);
                         break;
                     case Tag.Target.SelfAndGround:
-                        mEffectApplier.Apply(targettedEffect.Effect, command.Commandee, command.TargetTile);
+                        mEffectApplier.Apply(map, targettedEffect.Effect, command.Commandee, command.TargetTile);
                         break;
                 }
             }
+
+            return map;
         }
     }
 }

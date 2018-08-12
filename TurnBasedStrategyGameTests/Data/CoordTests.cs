@@ -6,15 +6,6 @@ namespace TBSG.Data
 {
     public class CoordinateTests
     {
-        [Fact]
-        public void Constructor_Coords_HoldsConstructorValues()
-        {
-            var coord = new Coordinate(3, 5);
-
-            Assert.Equal(coord.X, 3);
-            Assert.Equal(coord.Y, 5);
-        }
-
         #region Operators
 
         [Fact]

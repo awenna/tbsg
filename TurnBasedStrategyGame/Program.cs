@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using TBSG.Data;
 using TBSG.Model;
 using TBSG.View;
 using TBSG.View.Drawing;
@@ -28,13 +27,15 @@ namespace TBSG
             var mapSize = new Coordinate(
                 configProvider.GetValue<int>("MapSizeXDefault"),
                 configProvider.GetValue<int>("MapSizeYDefault"));
-            var map = new Map(mapGenerator, mapSize, mapFunctions);
+
+            var tileArray = mapGenerator.GenerateMap(mapSize);
+            var map = new Map(tileArray, new TileOccupants(), mapFunctions);
 
             var entityHandler = new EntityHandler();
-            var effectApplier = new EffectApplier(map);
+            var effectApplier = new EffectApplier();
             var commandResolver = new CommandResolver(effectApplier, entityHandler);
 
-            var turnEngine = new TurnEngine();
+            var turnEngine = new TurnEngine(commandResolver);
 
             var gameController = new GameController(map, commandResolver, turnEngine);
             gameController.SetManualTestingMap();
