@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TBSG.Data.Abilities
 {
+    [Serializable]
     public class Effect
     {
         public Tag.Effects Tag { get; set; }

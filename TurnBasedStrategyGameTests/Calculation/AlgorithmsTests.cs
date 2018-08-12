@@ -64,11 +64,11 @@ namespace TBSG.Calculation
         [Fact]
         public void Get2DRange_InvalidArguments_ThrowsError()
         {
-            var exception = Record.Exception(
-                () => Target.Get2DRange(XY.Hex(5, 4), XY.Hex(1, 3)));
-
-            Assert.NotNull(exception);
-            Assert.IsType(typeof(ArgumentOutOfRangeException), exception);
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => Target.Get2DRange(
+                    XY.Hex(5, 4), 
+                    XY.Hex(1, 3)
+                    ));
         }
 
         #endregion

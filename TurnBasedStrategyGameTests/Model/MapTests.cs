@@ -1,5 +1,7 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 using Rhino.Mocks;
+using Shouldly;
 using TBSG.Data;
 using TBSG.Data.Entities;
 using TBSG.Data.Hexmap;
@@ -11,7 +13,6 @@ namespace TBSG.Model
     {
         #region Fields
 
-        private readonly IMapGenerator mMapGenerator;
         private readonly IAlgorithms mAlgorithms;
         private readonly IMapFunctions mMapFunctions;
 
@@ -23,7 +24,6 @@ namespace TBSG.Model
 
         public MapTests()
         {
-            mMapGenerator = MockRepository.GenerateStub<IMapGenerator>();
             mAlgorithms = MockRepository.GenerateStub<IAlgorithms>();
             mMapFunctions = MockRepository.GenerateStub<IMapFunctions>();
 
@@ -32,14 +32,18 @@ namespace TBSG.Model
 
         #endregion
 
-        #region MapConstructor
+        #region TileArray
 
-        [Fact]
-        public void Constructor_SetsMapSizeToParameter()
+        [Fact] // Not 100% sure on the order
+        public void TileArray_GivesCorrectSize()
         {
-            var map = new Map(mMapGenerator, new Coordinate(3, 5), mMapFunctions);
-
-            Assert.Equal(map.Dimensions, new Coordinate(3, 5));
+            var array = new[] {
+                new[] {new Tile()},
+                new[] {new Tile()},
+                new[] {new Tile()}
+            };
+            var tileArray = new TileArray(array);
+            tileArray.Size().ShouldBe(new Coordinate(1, 3));
         }
 
         #endregion
@@ -49,13 +53,9 @@ namespace TBSG.Model
         [Fact]
         public void TileAt_ReturnsValue()
         {
-            var dimensions = new Coordinate(1, 1);
-            var tileArray = new[] { new[] { new Tile() } };
+            var tileArray = new TileArray(new[] { new[] { new Tile() } });
 
-            mMapGenerator.Stub(_ => _.GenerateMap(Arg<Coordinate>.Is.Anything))
-                .Return(tileArray);
-
-            var map = new Map(mMapGenerator, dimensions, mMapFunctions);
+            var map = new Map(tileArray, new TileOccupants(), mMapFunctions);
 
             var tile = map.TileAt(new HexCoord(0, 0));
 
@@ -65,9 +65,7 @@ namespace TBSG.Model
         [Fact]
         public void TileAt_OutsideBounds_ThrowsOutOfBoundsException()
         {
-            SetupOneByOneMap();
-
-            var map = new Map(mMapGenerator, new Coordinate(1, 1), mMapFunctions);
+            var map = new Map(GenerateTileArray(), new TileOccupants(), mMapFunctions);
 
             var resultLeft = map.TileAt(new HexCoord(-1, 0));
             var resultRight = map.TileAt(new HexCoord(0, 2));
@@ -84,18 +82,23 @@ namespace TBSG.Model
 
         #region LocationIsWithinBounds
 
-        [Fact]
-        public void LocationIsWithinBounds_ReturnsCorrectInEdgeCases()
+        [Theory]
+        [InlineData(0, 0, true)]
+        [InlineData(2, 1, true)]
+        [InlineData(-1, 0, false)]
+        [InlineData(3, -1, false)]
+        [InlineData(5, 3, false)]
+        [InlineData(3, 3, true)]
+        [InlineData(3, 2, true)]
+        [InlineData(4, 4, false)]
+        public void LocationIsWithinBounds_ReturnsCorrectInEdgeCases(
+            int x, int y, bool withinBounds)
         {
-            SetupOneByOneMap();
+            var map = SetupTestMap();
 
-            var map = new Map(mMapGenerator, new Coordinate(1, 1), mMapFunctions);
-
-            var resultRight = map.LocationIsWithinBounds(new HexCoord(1, 0));
-            var resultDown = map.LocationIsWithinBounds(new HexCoord(0, 1));
-
-            Assert.False(resultRight);
-            Assert.False(resultDown);
+            var result = map.LocationIsWithinBounds(XY.Hex(x, y));
+            
+            result.ShouldBe(withinBounds);
         }
 
         #endregion
@@ -105,9 +108,7 @@ namespace TBSG.Model
         [Fact]
         public void MoveEntityTo_MovesEntity()
         {
-            SetupOneByOneMap();
-
-            var map = new Map(mMapGenerator, new Coordinate(1, 1), mMapFunctions);
+            var map = new Map(GenerateTileArray(), new TileOccupants(), mMapFunctions);
 
             var entity = new Entity();
 
@@ -119,9 +120,7 @@ namespace TBSG.Model
         [Fact]
         public void MoveEntityTo_NoSpace_DoNotMove()
         {
-            SetupOneByOneMap();
-
-            var map = new Map(mMapGenerator, new Coordinate(1, 1), mMapFunctions);
+            var map = new Map(GenerateTileArray(), new TileOccupants(), mMapFunctions);
 
             var occupant = new Entity();
             var entity = new Entity();
@@ -130,6 +129,19 @@ namespace TBSG.Model
             map.MoveEntityTo(entity, XY.Hex(0, 0));
 
             Assert.NotEqual(entity, map.EntityAt(XY.Hex(0, 0)));
+        }
+
+        [Theory]
+        [InlineData(0, -1)]
+        [InlineData(5, 5)]
+        [InlineData(-3, 1)]
+        public void MoveEntityTo_OutOfBounds_RaiseException(
+            int x, int y)
+        {
+            var map = GenerateMap(GenerateTileArray());
+
+            Assert.Throws<ArgumentException>(
+                () => map.MoveEntityTo(new Entity(), XY.Hex(x, y)));
         }
 
         #endregion
@@ -154,30 +166,21 @@ namespace TBSG.Model
 
             Assert.False(result);
         }
-        /*
-        [Fact]
-        public void InRange_Absolute_CallsMapFunctionsCorrect()
-        {
-            var entity = new Entity();
-            var location = XY.Hex(0, 0);
-
-            target.MoveEntityTo(entity, XY.Hex(0,0));
-            target.InRange(entity, location, 3, Tag.Range.Absolute);
-
-            mMapFunctions
-                .AssertWasCalled(_=>_.Distance(XY.Hex(0,0), location, Tag.Range.Absolute));
-        }*/
 
         #endregion
 
         #region Helpers
 
-        private void SetupOneByOneMap()
+        private Map GenerateMap(TileArray array)
+        {
+            return new Map(array, new TileOccupants(), mMapFunctions);
+        }
+
+        private TileArray GenerateTileArray()
         {
             var tileArray = new[] { new[] { new Tile() } };
 
-            mMapGenerator.Stub(_ => _.GenerateMap(Arg<Coordinate>.Is.Anything))
-                .Return(tileArray);
+            return new TileArray(tileArray);
         }
 
         private Map SetupTestMap()
@@ -209,10 +212,7 @@ namespace TBSG.Model
                 }
             };
 
-            mMapGenerator.Stub(_ => _.GenerateMap(Arg<Coordinate>.Is.Anything))
-                .Return(tileArray);
-
-            return new Map(mMapGenerator, new Coordinate(4, 4), mMapFunctions);
+            return GenerateMap(new TileArray(tileArray));
         }
 
         #endregion

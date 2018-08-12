@@ -3,6 +3,7 @@ using System.Drawing;
 
 namespace TBSG.Data.Hexmap
 {
+    [Serializable]
     public class Coordinate : IEquatable<Coordinate>
     {
         public int X { get; }

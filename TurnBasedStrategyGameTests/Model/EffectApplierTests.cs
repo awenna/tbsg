@@ -1,4 +1,4 @@
-﻿using Rhino.Mocks;
+﻿using NSubstitute;
 using Xunit;
 using TBSG.Data;
 using TBSG.Data.Abilities;
@@ -16,9 +16,9 @@ namespace TBSG.Model
 
         public EffectApplierTests()
         {
-            mMap = MockRepository.GenerateStub<IMap>();
+            mMap = Substitute.For<IMap>();
 
-            effectApplier = new EffectApplier(mMap);
+            effectApplier = new EffectApplier();
         }
 
         [Fact]
@@ -29,10 +29,9 @@ namespace TBSG.Model
             var entity = new Entity();
             var tile = new Tile();
 
-            effectApplier.Apply(effect, entity, tile);
+            effectApplier.Apply(mMap, effect, entity, tile);
 
-            mMap.AssertWasCalled(_ => _
-                .MoveEntityTo(entity, tile));
+            mMap.Received().MoveEntityTo(entity, tile);
         }
 
         #region Helpers

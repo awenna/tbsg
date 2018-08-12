@@ -1,5 +1,8 @@
-﻿namespace TBSG.Data
+﻿using System;
+
+namespace TBSG.Data
 {
+    [Serializable]
     public static class Tag
     {
         public enum Actions { Move }

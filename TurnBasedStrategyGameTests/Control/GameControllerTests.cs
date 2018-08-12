@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Xunit;
+﻿using System.Collections.Generic;
+using NSubstitute;
 using Rhino.Mocks;
+using Shouldly;
+using Xunit;
 using TBSG.Model;
 using TBSG.Data;
+using TBSG.Data.Abilities;
+using TBSG.Data.Control;
 using TBSG.Data.Entities;
 using TBSG.Data.Hexmap;
 using TBSG.Data.State;
@@ -21,9 +24,9 @@ namespace TBSG.Control
 
         public GameControllerTests()
         {
-            mMap = MockRepository.GenerateStub<IMap>();
-            mCommandResolver = MockRepository.GenerateStub<ICommandResolver>();
-            mTurnEngine = MockRepository.GenerateMock<ITurnEngine>();
+            mMap = Substitute.For<IMap>();
+            mCommandResolver = Substitute.For<ICommandResolver>();
+            mTurnEngine = Substitute.For<ITurnEngine>();
 
             Target = new GameController(mMap, mCommandResolver, mTurnEngine);
         }
@@ -36,14 +39,13 @@ namespace TBSG.Control
             var state = new GameState(0, null);
             var expected = new Replay(new List<GameState>{state});
 
-            mTurnEngine.Stub(
-                _ => _.CompileTurn(Arg<GameState>.Is.Anything)).Return(state);
+            mTurnEngine.CompileTurn(null).ReturnsForAnyArgs(state);
 
             Target.PassTurn();
 
             var result = Target.GetReplay();
 
-            Assert.Equal(expected.mGameStates, result.mGameStates);
+            expected.mGameStates.ShouldBe(result.mGameStates);
         }
 
         [Fact]
@@ -53,14 +55,37 @@ namespace TBSG.Control
 
             Target.PassTurn();
 
-            mTurnEngine.AssertWasCalled(
-                _ => _.CompileTurn(expected));
+            mTurnEngine.Received().CompileTurn(expected);
+        }
+
+        #endregion
+
+        #region AddAction
+
+        [Fact]
+        public void AddAction_ValidCommand_AddedToStack()
+        {
+            var command = new Command(null, null, null, null);
+            var action = new PlayerAction(command);
+
+            mCommandResolver.IsValid(null, null).ReturnsForAnyArgs(true);
+
+            Target.AddAction(action);
+
+            mTurnEngine.Received().AddAction(action);
         }
 
         [Fact]
-        public void SomeOtherTypeOfCommand_IsAddedNormallyToStack()
+        public void AddAction_InvalidCommand_NotAdded()
         {
-            throw new NotImplementedException();
+            var command = new Command(null, null, null, null);
+            var action = new PlayerAction(command);
+
+            mCommandResolver.IsValid(null, null).ReturnsForAnyArgs(false);
+
+            Target.AddAction(action);
+
+            mTurnEngine.DidNotReceive().AddAction(action);
         }
 
         #endregion
@@ -72,25 +97,7 @@ namespace TBSG.Control
         {
             Target.UseDefaultAction(null, XY.Hex(0, 0));
 
-            mCommandResolver.AssertWasNotCalled(x =>
-                x.Resolve(Arg<Command>.Is.Anything));
-        }
-
-        [Fact]
-        public void UseDefaultAction_UnitSelected_CreateCommandForDefaultAction()
-        {
-            var entity = GenerateDefaultEntity();
-
-            var tile = new Tile();
-            mMap.Stub(_ => _.TileAt(Arg<HexCoord>.Is.Anything)).Return(tile);
-
-            Target.UseDefaultAction(entity, XY.Hex(0, 0));
-
-            mCommandResolver.AssertWasCalled(x =>
-                x.Resolve(Arg<Command>.Matches(_ => 
-                    _.Ability == entity.DefaultAbility &&
-                    _.Commandee == entity &&
-                    _.TargetTile == tile)));
+            mCommandResolver.DidNotReceiveWithAnyArgs().Resolve(null, null);
         }
 
         [Fact]
@@ -99,21 +106,34 @@ namespace TBSG.Control
             var entity = GenerateDefaultEntity();
             var coord = XY.Hex(0, 0);
 
+            mCommandResolver.IsValid(null, null).ReturnsForAnyArgs(false);
+
             Target.UseDefaultAction(entity, coord);
 
-            mCommandResolver.Stub(_ => _.IsValid(
-                Arg<Command>.Is.Anything,
-                Arg<IMap>.Is.Anything)).Return(false);
+            mCommandResolver.DidNotReceiveWithAnyArgs().Resolve(null, null);
+        }
 
-            mCommandResolver.AssertWasNotCalled(x =>
-                x.Resolve(Arg<Command>.Is.Anything));
+        [Fact]
+        public void UseDefaultAction_CallsTurnEngine()
+        {
+            var entity = GenerateDefaultEntity();
+            var coord = XY.Hex(0, 0);
+
+            mCommandResolver.IsValid(null, null).ReturnsForAnyArgs(true);
+
+            Target.UseDefaultAction(entity, coord);
+
+            mTurnEngine.ReceivedWithAnyArgs().AddAction(null);
         }
 
         #endregion
 
         private Entity GenerateDefaultEntity()
         {
-            return new Entity();
+            var ability = new Ability(Tag.TargetMode.SelfTarget, null, null);
+            var entity = new Entity();
+            entity.DefaultAbility = ability;
+            return entity;
         }
     }
 }

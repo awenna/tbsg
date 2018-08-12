@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TBSG.Data.Abilities
 {
+    [Serializable]
     public class Ability
     {
         public Tag.TargetMode TargetMode { get; }
@@ -19,6 +21,7 @@ namespace TBSG.Data.Abilities
         }
     }
 
+    [Serializable]
     public class Limitation
     {
         public Tag.Limitation Tag { get; }
@@ -31,6 +34,7 @@ namespace TBSG.Data.Abilities
         }
     }
 
+    [Serializable]
     public class TargettedEffect
     {
         public Tag.Target Target { get; }

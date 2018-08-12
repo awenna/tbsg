@@ -1,7 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace TBSG.Data.Hexmap
 {
+    [Serializable]
     public class TerrainType
     {
         public Color DrawColor { get; set; }

@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
 using TBSG.Data.Control;
+using TBSG.Model;
+using TBSG.Model.Hexmap;
 
 namespace TBSG.Control
 {
     public class TurnEngine : ITurnEngine
     {
+        private ICommandResolver mCommandResolver;
         protected List<PlayerAction> Actions;
 
-        public TurnEngine()
+        public TurnEngine(ICommandResolver commandResolver)
         {
+            mCommandResolver = commandResolver;
             Actions = new List<PlayerAction>();
         }
 
@@ -19,9 +23,22 @@ namespace TBSG.Control
 
         public GameState CompileTurn(GameState oldState)
         {
-            Actions = new List<PlayerAction>();
-            var newState = new GameState(oldState.TurnNumber + 1, oldState.Map);
+            var map = oldState.Map;
+            Actions.ForEach(_ => ApplyAction(_, map));
+
+            ResetActionList();
+            var newState = new GameState(oldState.TurnNumber + 1, map);
             return newState;
+        }
+
+        private void ApplyAction(PlayerAction action, IMap map)
+        {
+            mCommandResolver.Resolve(action.Command, map);
+        }
+
+        private void ResetActionList()
+        {
+            Actions = new List<PlayerAction>();
         }
     }
 }

@@ -23,6 +23,5 @@ namespace TBSG.Model.Hexmap
             }
             throw new NotImplementedException();
         }
-
     }
 }

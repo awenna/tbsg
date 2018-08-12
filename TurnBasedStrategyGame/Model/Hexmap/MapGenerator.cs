@@ -4,9 +4,10 @@ using TBSG.Data.Hexmap;
 
 namespace TBSG.Model.Hexmap
 {
+    [Serializable]
     public class MapGenerator : IMapGenerator
     {
-        public Tile[][] GenerateMap(Coordinate dimensions)
+        public TileArray GenerateMap(Coordinate dimensions)
         {
             var random = new Random();
             
@@ -26,7 +27,7 @@ namespace TBSG.Model.Hexmap
                 }
             }
 
-            return tileArray;
+            return new TileArray(tileArray);
         }
 
         #region Private

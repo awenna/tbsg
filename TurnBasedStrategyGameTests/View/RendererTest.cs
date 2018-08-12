@@ -48,7 +48,7 @@ namespace TBSG.View
         #endregion
 
         #region DrawGrid
-
+        /*
         [Fact]
         public void DrawGrid_TileNotOnMap_NoDrawing()
         {
@@ -57,14 +57,14 @@ namespace TBSG.View
 
             mCameraController.Stub(_ => _.GetCamera())
                 .Return(new Camera { Scale = 0 });
-            /*
+            
             mMap.Stub(_ => _.TileAt(XY.Hex(0, 0)))
-                .Return(null);*/
+                .Return(null);
 
             Target.DrawGrid(mGraphics, mCameraController, mMap);
 
             throw new NotImplementedException();
-        }
+        }*/
 
         #endregion
 

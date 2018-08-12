@@ -19,8 +19,8 @@ namespace TBSG.Model
         {
             var result = Target.GenerateMap(new Coordinate(3, 7));
 
-            Assert.Equal(3, result.Count());
-            Assert.Equal(7, result.First().Count());
+            Assert.Equal(3, result.GetTiles().Count());
+            Assert.Equal(7, result.GetTiles().First().Count());
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace TBSG.Model
         {
             var result = Target.GenerateMap(new Coordinate(2, 3));
 
-            Assert.True(result.All(_ => _.All(u => u != null)));
+            Assert.True(result.GetTiles().All(_ => _.All(u => u != null)));
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace TBSG.Model
         {
             var result = Target.GenerateMap(new Coordinate(1, 1));
 
-            Assert.True(result.All(_ => _.All(tile => tile.TerrainType != null)));
+            Assert.True(result.GetTiles().All(_ => _.All(tile => tile.TerrainType != null)));
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace TBSG.Model
         {
             var result = Target.GenerateMap(new Coordinate(2, 3));
 
-            var tile = result[1][2];
+            var tile = result.GetTiles()[1][2];
 
             Assert.Equal(new Coordinate(1, 2), tile.Location);
         }

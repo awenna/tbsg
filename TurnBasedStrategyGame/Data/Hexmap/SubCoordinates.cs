@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace TBSG.Data.Hexmap
 {
+    [Serializable]
     public class HexCoord : Coordinate
     {
         public HexCoord(int pX, int pY) : base(pX, pY) { }
@@ -74,6 +76,7 @@ namespace TBSG.Data.Hexmap
         #endregion
     }
 
+    [Serializable]
     public class WorldCoord : Coordinate
     {
         public WorldCoord(int pX, int pY) : base(pX, pY) { }

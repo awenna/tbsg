@@ -4,6 +4,6 @@ namespace TBSG.Model.Hexmap
 {
     public interface IMapGenerator
     {
-        Tile[][] GenerateMap(Coordinate dimensions);
+        TileArray GenerateMap(Coordinate dimensions);
     }
 }
