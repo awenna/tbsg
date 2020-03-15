@@ -11,6 +11,8 @@ It's mainly a playground to learn new things and see how they turn out.
 The project is relatively old and very, very much work in progress. For example many classes may seem pointless, but are important abstractions for future when functionality is added.
 
 The use of Dependency Injection and funtional-oriented style has in some places lead to heavy boilerplate.
+
+The project is in the middle of a major refactoring, it seems.
 ## Functional goals
 
 
