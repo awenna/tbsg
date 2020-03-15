@@ -25,3 +25,5 @@ The project is in the middle of a major refactoring, it seems.
 * Functional-oriented C#
 * Code-generated 2D graphics
 
+## Out of scope
+* Organized commits. I'm lazy with git in personal projects.
