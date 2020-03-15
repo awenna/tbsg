@@ -44,6 +44,7 @@ namespace TBSG.View.Panels
                         .UseDefaultAction(state.Selection.GetEntity(), clickHex);
                     break;
             }
+            mPanel.Invalidate();
         }
 
         #endregion

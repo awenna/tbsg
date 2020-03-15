@@ -29,8 +29,7 @@ namespace TBSG.Data.Hexmap
                 return false;
             }
 
-            Coordinate p = obj as Coordinate;
-            if (p == null)
+            if (!(obj is Coordinate p))
             {
                 return false;
             }

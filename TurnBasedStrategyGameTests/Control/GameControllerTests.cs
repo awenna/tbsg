@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NSubstitute;
-using Rhino.Mocks;
 using Shouldly;
 using Xunit;
 using TBSG.Model;
@@ -86,6 +86,24 @@ namespace TBSG.Control
             Target.AddAction(action);
 
             mTurnEngine.DidNotReceive().AddAction(action);
+        }
+
+        [Fact]
+        public void AddAction_InvalidCommand_DisplayMessageToUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public void AddAction_ValidAction_AddToPlanningMap()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact(Skip="Not confirmed if this will be needed")]
+        public void AddAction_ValidAction_AddToLookup()
+        {
+            
         }
 
         #endregion

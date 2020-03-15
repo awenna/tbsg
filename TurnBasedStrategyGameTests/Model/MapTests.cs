@@ -34,7 +34,7 @@ namespace TBSG.Model
 
         #region TileArray
 
-        [Fact] // Not 100% sure on the order
+        [Fact]
         public void TileArray_GivesCorrectSize()
         {
             var array = new[] {
@@ -43,7 +43,7 @@ namespace TBSG.Model
                 new[] {new Tile()}
             };
             var tileArray = new TileArray(array);
-            tileArray.Size().ShouldBe(new Coordinate(1, 3));
+            tileArray.Size().ShouldBe(new Coordinate(3, 1));
         }
 
         #endregion

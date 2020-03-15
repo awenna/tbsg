@@ -7,19 +7,23 @@ namespace TBSG.Data.Hexmap
     public class Tile
     {
         public TerrainType TerrainType { get; set; }
-        public Entity Entity { get; set; }
+        public TileOccupant Occupant { get; set; }
         public HexCoord Location { get; set; }
 
-        public Tile() { }
+        public Tile()
+        {
+            Occupant = new TileOccupant(null);
+        }
 
         public Tile(TerrainType terrainType)
         {
             TerrainType = terrainType;
+            Occupant = new TileOccupant(null);
         }
 
         public bool IsFree()
         {
-            if (Entity == null)
+            if (Occupant == null || Occupant.IsEmpty())
             {
                 return true;
             }

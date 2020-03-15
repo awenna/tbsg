@@ -26,9 +26,10 @@ namespace TBSG.Data.View
                 Entity = null;
                 return;
             }
-            if (tile.Entity != null)
+            if (tile.Occupant.HasNoMelee())
             {
-                Entity = tile.Entity;
+                if (!tile.Occupant.IsEmpty())
+                Entity = tile.Occupant.GetSingleEntity();
                 Tile = null;
                 return;
             }

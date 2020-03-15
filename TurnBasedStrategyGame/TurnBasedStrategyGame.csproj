@@ -72,6 +72,7 @@
     <Compile Include="Control\GameState.cs" />
     <Compile Include="Control\ITurnEngine.cs" />
     <Compile Include="Data\Hexmap\TileArray.cs" />
+    <Compile Include="Data\Hexmap\TileOccupant.cs" />
     <Compile Include="Data\Target.cs" />
     <Compile Include="Control\TurnEngine.cs" />
     <Compile Include="Data\Control\PlayerAction.cs" />
@@ -175,6 +176,12 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{4743f7e1-862b-47ba-b22a-220f758118f7}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

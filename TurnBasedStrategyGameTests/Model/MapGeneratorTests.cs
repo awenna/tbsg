@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Shouldly;
 using TBSG.Data.Hexmap;
 using Xunit;
 using TBSG.Model.Hexmap;
@@ -46,7 +47,7 @@ namespace TBSG.Model
 
             var tile = result.GetTiles()[1][2];
 
-            Assert.Equal(new Coordinate(1, 2), tile.Location);
+            tile.Location.ShouldBe(XY.Hex(1, 2));
         }
     }
 }

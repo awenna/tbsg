@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
 using NSubstitute;
 using Shouldly;
 using TBSG.Data;

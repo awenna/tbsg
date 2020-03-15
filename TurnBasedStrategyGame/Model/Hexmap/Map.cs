@@ -33,10 +33,10 @@ namespace TBSG.Model.Hexmap
             {
                 if (mTileOccupants.Get(entity) != null)
                 {
-                    mTileOccupants.Get(entity).Entity = null;
+                    mTileOccupants.Get(entity).Occupant.IsEmpty();
                 }
                 mTileOccupants.Set(entity, tile);
-                tile.Entity = entity;
+                tile.Occupant = new TileOccupant(entity);
             }
         }
 
@@ -62,7 +62,10 @@ namespace TBSG.Model.Hexmap
         {
             if (LocationIsWithinBounds(location))
             {
-                return mTileArray.GetTile(location.X, location.Y).Entity;
+                var tile = mTileArray.GetTile(location.X, location.Y);
+                if (tile.Occupant.HasNoMelee())
+                    return tile.Occupant.GetSingleEntity();
+                throw new NotImplementedException();
             }
             return null;
         }
@@ -103,12 +106,6 @@ namespace TBSG.Model.Hexmap
             return false;
         }
 
-        private void CheckWithinBounds(HexCoord coordinate)
-        {
-            if (!LocationIsWithinBounds(coordinate))
-                throw new ArgumentException("Location outside map bounds.");
-        }
-
         public bool InRange
             (Entity entity, HexCoord targetLocation, int range, Tag.Range rangeType)
         {
@@ -122,6 +119,12 @@ namespace TBSG.Model.Hexmap
                     return distance <= range;
             }
             throw new NotImplementedException();
+        }
+
+        private void CheckWithinBounds(HexCoord coordinate)
+        {
+            if (!LocationIsWithinBounds(coordinate))
+                throw new ArgumentException("Location outside map bounds.");
         }
     }
 }

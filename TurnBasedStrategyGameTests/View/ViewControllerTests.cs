@@ -6,7 +6,7 @@ namespace TBSG.View
 {
     public class ViewControllerTests
     {
-        private ViewController target;
+        private readonly ViewController target;
 
         private readonly IAlgorithms mAlgorithms;
         private readonly ICameraController mCameraController;

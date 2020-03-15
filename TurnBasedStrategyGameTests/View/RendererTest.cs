@@ -121,7 +121,7 @@ namespace TBSG.View
         {
             var tile = new Tile(new TerrainType(Color.White));
             var unit = new Entity();
-            tile.Entity = unit;
+            tile.Occupant = new TileOccupant(unit);
             return tile;
         }
 

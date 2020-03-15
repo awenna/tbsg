@@ -4,7 +4,7 @@ using System.Linq;
 namespace TBSG.Data.Hexmap
 {
     [Serializable]
-    public class TileArray
+    public struct TileArray
     {
         private static Tile[][] Tiles;
 
@@ -25,7 +25,7 @@ namespace TBSG.Data.Hexmap
 
         public Coordinate Size()
         {
-            return new Coordinate(Tiles.First().Length, Tiles.Length);
+            return new Coordinate(Tiles.Length, Tiles.First().Length);
         }
     }
 }

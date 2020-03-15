@@ -1,16 +1,30 @@
 Current:
+	Next:
+		- Shadow for planned move
+		- Clone of map that has shadows
+		- Data support for melee mode
+	
+	MAP IS NOW MUTABLE :D
+	
+	
+	Json loading units:
+		- Explore folders
+		- Load all units
+		Future:
+			- Load map
+			- Check integrity
+	
 	Turns:
 		- Data structures for turns
-		- Show current turn in UI
 		- Main controller
 
 		- Turn:
 			[] Action
 		- GameState + Turn = GameState
 			- Turn processing
-		- GameState stack
-		- GUI has a mutable GameState that is discarded
-		- Compile turn -> actual game state stack
+		-? GameState stack
+		-? GUI has a mutable GameState that is discarded
+		-? Compile turn -> actual game state stack
 		
 		- Every command goes through GameController
 			- GameController creates Commands and passes on 
@@ -53,7 +67,6 @@ Future features:
 -Buildings
 -Gathering
 -Replays
--Json loading units
 -Builder app for units
 -Code generate images to use as graphics
 -Transformation matrix support

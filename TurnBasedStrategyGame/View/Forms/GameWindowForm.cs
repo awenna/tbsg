@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TBSG.Control;
-using TBSG.Data;
 using TBSG.Data.Hexmap;
 
 namespace TBSG.View.Forms
@@ -44,17 +42,18 @@ namespace TBSG.View.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            TurnCounter.Text = "Turn is: " + mViewController.GetGameState().TurnNumber;
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            /*
             FieldPanel.Invalidate();
             InfoPanel.Invalidate();
             SidePanel.Invalidate();
 
             TurnCounter.Text = "Turn is: " + mViewController.GetGameState().TurnNumber;
-            TurnCounter.Invalidate();
+            TurnCounter.Invalidate();*/
         }
 
         public void minimap_paint(object sender, PaintEventArgs e)
@@ -91,10 +90,12 @@ namespace TBSG.View.Forms
                     mViewController.PassTurn();
                     break;
             }
+            FieldPanel.Invalidate();
+            Minimap.Invalidate();
         }
 
         #region Private
-
+        // TODO: "Graphics" Might represent a surface rather than a drawing engine
         private GraphicsWrapper GetGraphics(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -108,10 +109,10 @@ namespace TBSG.View.Forms
         {
             KeyDown += new KeyEventHandler(GameWindowForm_KeyPress);
 
-            var timer = new Timer();
-            timer.Interval = 10;
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
+            //var timer = new Timer();
+            //timer.Interval = 10;
+            //timer.Tick += new EventHandler(timer_Tick);
+            //timer.Start();
 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;

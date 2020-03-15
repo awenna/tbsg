@@ -15,6 +15,7 @@ namespace TBSG.Control
         private Replay Replay { get; set; }
 
         private readonly IMap mMap;
+        private readonly IMap mPlanningMap;
         private readonly ICommandResolver mCommandResolver;
         private readonly ITurnEngine mTurnEngine;
 
@@ -69,6 +70,11 @@ namespace TBSG.Control
         public IMap GetMap()
         {
             return mMap;
+        }
+
+        public IMap GetPlanMap()
+        {
+            return mPlanningMap;
         }
 
         public Replay GetReplay()
