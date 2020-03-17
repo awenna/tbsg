@@ -8,7 +8,7 @@ TBSG is a game project spanning over a couple of years with infrequent work on i
 It's mainly a playground to learn new things and see how they turn out.
 
 ### Notable mentions
-The project is relatively old and very, very much work in progress. For example many classes may seem pointless, but are important abstractions for future when functionality is added.
+The project is relatively old and a work in progress. For example many classes may seem pointless, but are important abstractions for future when functionality is added.
 
 The use of Dependency Injection and funtional-oriented style has in some places lead to heavy boilerplate.
 
